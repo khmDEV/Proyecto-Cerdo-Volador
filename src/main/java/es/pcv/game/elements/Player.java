@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,9 +26,46 @@ public class Player implements Element {
 
 	public Player(JFrame jp) {
 		KeyListener kl = new KeyListener() {
+			private final Set<Integer> pressed = new HashSet<Integer>();
 
-			public void keyTyped(KeyEvent e) {
+		    public synchronized void keyPressed(KeyEvent e) {
+		        pressed.add(e.getKeyCode());
+		        if (pressed.size() > 0) {
+		        	if (pressed.contains(KeyEvent.VK_W)) {
+						y+=vy;
+					}
+					if (pressed.contains(KeyEvent.VK_A)) {
+						x-=vx;
+					}
+					if (pressed.contains( KeyEvent.VK_S)) {
+						y-=vy;
+					}
+					if (pressed.contains(KeyEvent.VK_D)) {
+						x+=vx;
+					}
+					if (x>1) {
+						x=1;
+					}
+					if (y>1) {
+						y=1;
+					}
+					if (x<0) {
+						x=0;
+					}
+					if (y<0) {
+						y=0;
+					}
+		        }
+		    }
 
+		    
+		    public synchronized void keyReleased(KeyEvent e) {
+		        pressed.remove(e.getKeyCode());
+		    }
+
+		    public void keyTyped(KeyEvent e) {/* Not used */ }
+			/*public void keyTyped(KeyEvent e) {
+				
 			}
 
 			public void keyReleased(KeyEvent e) {
@@ -58,7 +97,7 @@ public class Player implements Element {
 				if (y<0) {
 					y=0;
 				}
-			}
+			}*/
 		};
 		jp.addKeyListener(kl);
 	}
