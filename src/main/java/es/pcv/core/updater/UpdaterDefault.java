@@ -10,20 +10,21 @@ public class UpdaterDefault extends Updater {
 	List<Element> elements=new LinkedList<Element>();
 
 	@Override
-	public void add(Element e) {
+	public synchronized void add(Element e) {
 		elements.add(e);
 	}
 
 	@Override
-	public void remove(Element e) {
+	public synchronized void remove(Element e) {
 		elements.remove(e);
 	}
 
 	@Override
-	public void update() {
+	public synchronized void update() {
+		List<Element> use=Arrays.asList(elements.toArray(new Element[elements.size()]));
 		List<Element> tests=Arrays.asList(elements.toArray(new Element[elements.size()]));
 		List<Element> toRemove=new LinkedList<Element>();
-		for (Element e : elements) {
+		for (Element e : use) {
 			e.update();
 			for (Element element : tests) {
 				if (element!=e&&e.isCollision(element)) {
@@ -36,7 +37,7 @@ public class UpdaterDefault extends Updater {
 			}
 		}
 		for (Element element : toRemove) {
-			elements.remove(element);
+			remove(element);
 		}
 	}
 

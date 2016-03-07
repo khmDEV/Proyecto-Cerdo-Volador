@@ -10,11 +10,13 @@ import es.pcv.game.elements.Player;
 import es.pcv.game.elements.TestElement;
 
 public class Game {
-	Updater updater;
-	Render render;
+	private static Game game;
+	public Updater updater;
+	public Render render;
 	private JFrame frame;
 	
 	public Game(){
+		game=this;
 		updater=new UpdaterDefault();
 		render=new RenderDefault();
 	    frame = new JFrame("DrawPanel");
@@ -39,7 +41,10 @@ public class Game {
 			}
 		}).start();
 		
-		
+	}
+	
+	public static Game getGame(){
+		return game;
 	}
 
 }

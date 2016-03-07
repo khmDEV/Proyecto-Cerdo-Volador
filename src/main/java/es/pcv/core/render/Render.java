@@ -1,13 +1,11 @@
 package es.pcv.core.render;
 
-import java.awt.Graphics;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.game.configuration.Config;
 
+@SuppressWarnings("serial")
 public abstract class Render extends JPanel {
 
 	public abstract void add(Drawable d);
