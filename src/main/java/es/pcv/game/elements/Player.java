@@ -204,9 +204,6 @@ public class Player implements Element {
 	}
 
 	public boolean isCollision(Collisionable c) {
-		if(c.getCollisionBox().intersects(ply.getBounds2D())){
-			System.out.println("col");
-		}
 		return c.getCollisionBox().intersects(ply.getBounds2D());
 	}
 
