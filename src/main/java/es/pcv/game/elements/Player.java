@@ -19,10 +19,11 @@ import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
+import es.pcv.core.updater.elements.Obstacle;
 import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
 
-public class Player implements Element {
+public class Player implements Obstacle {
 	Semaphore fireS = new Semaphore(1);
 	Point2D position = new Point2D(0.5f, 0);
 	Point2D velocity = new Point2D(0.005f, -0.005f);
@@ -168,7 +169,7 @@ public class Player implements Element {
 			float oy = size.getY() * fy;
 			System.out.println(fx + "_" + fy);
 
-			Bull b = new Bull(position.getX() + ox, position.getY() + oy, vbull * fx, vbull * fy);
+			Bull b = new Bull(position.getX() + ox, position.getY() + oy, vbull * fx, vbull * fy,this);
 			Game.getGame().render.add(b);
 			Game.getGame().updater.add(b);
 			reload = System.currentTimeMillis();
@@ -274,6 +275,12 @@ public class Player implements Element {
 	}
 
 	public void collision(Collisionable col) {
+		if(col instanceof Bull){
+			Bull b = (Bull) col;
+			if(!b.playerShoot()){
+				//perder vida
+			}
+		}
 		c = new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255),
 				(int) Math.round(Math.random() * 255));
 	}

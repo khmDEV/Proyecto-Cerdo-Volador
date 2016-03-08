@@ -8,9 +8,10 @@ import java.awt.geom.Rectangle2D;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
+import es.pcv.core.updater.elements.Obstacle;
 import es.pcv.game.configuration.Config;
 
-public class TestElement implements Element {
+public class TestElement implements Obstacle {
 	Point2D position = new Point2D(0.5f,0);
 	Point2D velocity = new Point2D(0.005f,0.005f);
 	Point2D size = new Point2D(0.05f,0.05f);

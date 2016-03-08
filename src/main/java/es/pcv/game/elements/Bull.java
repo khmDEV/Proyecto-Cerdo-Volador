@@ -9,6 +9,7 @@ import java.util.concurrent.Semaphore;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
+import es.pcv.core.updater.elements.Obstacle;
 import es.pcv.game.configuration.Config;
 
 public class Bull implements Element {
@@ -17,8 +18,9 @@ public class Bull implements Element {
 	Point2D size = new Point2D(0.05f, 0.05f);
 	Color c = new Color(255, 255, 0);
 	Semaphore deadS = new Semaphore(1);
-
-	public Bull(float x, float y, float vx, float vy) {
+	Element whoShoot; 
+	public Bull(float x, float y, float vx, float vy,Element whoShoot) {
+		this.whoShoot=whoShoot;
 		ply = new Polygon(
 				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
 						Math.round((position.getX() - size.getX()) * Config.size.getX()),
@@ -93,11 +95,19 @@ public class Bull implements Element {
 	}
 
 	public void collision(Collisionable col) {
+		if((col instanceof Obstacle) && (!col.equals(whoShoot))){
+			this.kill();
+		}
 		c = new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255),
 				(int) Math.round(Math.random() * 255));
 	}
 
 	public Rectangle2D getCollisionBox() {
 		return ply.getBounds2D();
+	}
+
+	public boolean playerShoot() {
+		// TODO Auto-generated method stub
+		return whoShoot instanceof Player;
 	}
 }
