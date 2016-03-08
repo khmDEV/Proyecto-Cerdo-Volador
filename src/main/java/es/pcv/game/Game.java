@@ -6,6 +6,7 @@ import es.pcv.core.render.Render;
 import es.pcv.core.render.RenderDefault;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.UpdaterDefault;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.Player;
 import es.pcv.game.elements.TestElement;
 
@@ -21,7 +22,7 @@ public class Game {
 		render=new RenderDefault();
 	    frame = new JFrame("DrawPanel");
 
-	    frame.setSize(300, 300);
+	    frame.setSize(Math.round(Config.size.getX()), Math.round(Config.size.getY()));
 	    frame.setVisible(true);
 	    frame.add(render);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

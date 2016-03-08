@@ -6,45 +6,41 @@ import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 import java.util.concurrent.Semaphore;
 
-import javax.swing.JPanel;
-
+import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 
 public class Bull implements Element {
-	float x = 0.5f;
-	float y = 0;
-	float vx = 0.005f;
-	float vy = -0.005f;
-	float w = 0.01f;
-	float h = 0.01f;
+	Point2D position = new Point2D(0.5f, 0);
+	Point2D velocity = new Point2D(0.005f, -0.005f);
+	Point2D size = new Point2D(0.05f, 0.05f);
 	Color c = new Color(255, 255, 0);
 	Semaphore deadS = new Semaphore(1);
 
-
-	public Bull(float x,float y,float vx,float vy) {
+	public Bull(float x, float y, float vx, float vy) {
 		ply = new Polygon(
-				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
-						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
-				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
-						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
-		this.x=x;
-		this.y=y;
-		this.vx=vx;
-		this.vy=vy;
-		
-		
+		this.velocity = new Point2D(vx, vy);
+		this.position = new Point2D(x, y);
 	}
-	boolean dead=false;
+
+	boolean dead = false;
+
 	public void update() {
-		x += vx;
-		y += vy;
-		if (x > 1 || x < 0) {
+		position.add(velocity);
+		if (position.getX() > 1 || position.getX() < 0) {
 			kill();
 		}
-		if (y > 1 || y < 0) {
+		if (position.getY() > 1 || position.getY() < 0) {
 			kill();
 		}
 	}
@@ -53,15 +49,19 @@ public class Bull implements Element {
 
 	public void draw(Graphics g) {
 		ply = new Polygon(
-				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
-						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
-				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
-						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
 		g.setColor(c);
-		//g.setColor(c);
-		g.drawOval(Math.round(x*Config.WEITH), Math.round(y*Config.HEIGTH), Math.round(w*Config.WEITH), Math.round(h*Config.HEIGTH));
-		//g.drawPolygon(ply);
+		g.drawOval(Math.round(position.getX() * Config.size.getX()), Math.round(position.getY() * Config.size.getY()),
+				Math.round(size.getX() * Config.size.getX()), Math.round(size.getY() * Config.size.getY()));
+		// g.drawPolygon(ply);
 	}
 
 	public boolean isDead() {
@@ -75,7 +75,7 @@ public class Bull implements Element {
 		deadS.release();
 		return r;
 	}
-	
+
 	public boolean kill() {
 		try {
 			deadS.acquire();
@@ -83,7 +83,7 @@ public class Bull implements Element {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		boolean r = (dead=true);
+		boolean r = (dead = true);
 		deadS.release();
 		return r;
 	}

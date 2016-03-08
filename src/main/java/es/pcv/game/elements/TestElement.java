@@ -5,30 +5,25 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 
-import javax.swing.JPanel;
-
+import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 
 public class TestElement implements Element {
-
-	float x = 0.5f;
-	float y = 0;
-	float vx = 0.005f;
-	float vy = 0.005f;
-	float w = 0.05f;
-	float h = 0.05f;
+	Point2D position = new Point2D(0.5f,0);
+	Point2D velocity = new Point2D(0.005f,0.005f);
+	Point2D size = new Point2D(0.05f,0.05f);
 
 	Polygon ply;
 	Color c=new Color(0, 255, 0);
 
 	public TestElement() {
 		ply = new Polygon(
-				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
-						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
-				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
-						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()), Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()), Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()), Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()), Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
 	}
 
@@ -37,22 +32,25 @@ public class TestElement implements Element {
 	}
 
 	public void update() {
-		x += vx;
-		y += vy;
+		position.add(velocity);
+		float x=position.getX();
+		float y=position.getY();
 		if (x > 1 || x < 0) {
-			vx = -vx;
+			velocity.setX(-velocity.getX());
+			position.setX(x<0?0:1);
 		}
 		if (y > 1 || y < 0) {
-			vy = -vy;
+			velocity.setY(-velocity.getY());
+			position.setY(y<0?0:1);
 		}
 	}
 
 	public void draw(Graphics g) {
 		ply = new Polygon(
-				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
-						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
-				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
-						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()), Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()), Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()), Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()), Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
 		g.setColor(c);
 		g.drawPolygon(ply);

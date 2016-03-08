@@ -2,6 +2,7 @@ package es.pcv.game.elements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,6 +16,7 @@ import java.util.concurrent.Semaphore;
 import javax.swing.JFrame;
 
 import es.pcv.core.render.ObjectIcon;
+import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.Game;
@@ -22,28 +24,32 @@ import es.pcv.game.configuration.Config;
 
 public class Player implements Element {
 	Semaphore fireS = new Semaphore(1);
-	float x = 0.5f;
-	float y = 0;
-	float vx = 0.005f;
-	float vy = -0.005f;
-	float w = 0.05f;
-	float h = 0.05f;
+	Point2D position = new Point2D(0.5f, 0);
+	Point2D velocity = new Point2D(0.005f, -0.005f);
+	Point2D size = new Point2D(0.05f, 0.05f);
 	float vbull = 0.05f;
 	Color c = new Color(255, 255, 0);
+	Point last_mouse_position;
+	ObjectIcon icon = new ObjectIcon("bad1.png");
+	int movYImg = 0;
+	int movXImg = 0;
+
 	boolean fire = false;
 	JFrame jp;
 	final long RELOAD_CD = 50;
 	long reload = 0;
-	ObjectIcon icon=new ObjectIcon("bad1.png");
-	int movYImg=0;
-	int movXImg=0;
+
 	public Player(JFrame jp) {
 		this.jp = jp;
 		ply = new Polygon(
-				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
-						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
-				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
-						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
 
 		KeyListener kl = new KeyListener() {
@@ -62,46 +68,46 @@ public class Player implements Element {
 				pressed.add(e.getKeyCode());
 				if (pressed.size() > 0) {
 					if (pressed.contains(KeyEvent.VK_W)) {
-						y += vy;
+						position.addY(velocity.getY());
 					}
 					if (pressed.contains(KeyEvent.VK_A)) {
-						x -= vx;
+						position.addX(-velocity.getX());
 					}
 					if (pressed.contains(KeyEvent.VK_S)) {
-						y -= vy;
+						position.addY(-velocity.getY());
 					}
 					if (pressed.contains(KeyEvent.VK_D)) {
-						x += vx;
+						position.addX(velocity.getX());
 					}
-					if (x > 1) {
-						x = 1;
+					if (position.getX() > 1) {
+						position.setX(1);
 					}
-					if (y > 1) {
-						y = 1;
+					if (position.getY() > 1) {
+						position.setY(1);
 					}
-					if (x < 0) {
-						x = 0;
+					if (position.getX() < 0) {
+						position.setX(0);
 					}
-					if (y < 0) {
-						y = 0;
+					if (position.getY() < 0) {
+						position.setY(0);
 					}
 				}
 			}
 		};
-		//1 boton inquierdo, 2 central y 3 derecho
+		// 1 boton inquierdo, 2 central y 3 derecho
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
-				if(e.getButton()==1){
+				if (e.getButton() == 1) {
 					finishFire();
 				}
 			}
 
 			public void mousePressed(MouseEvent e) {
-				if(e.getButton()==1){
+				if (e.getButton() == 1) {
 					startFire();
 				}
-				
+
 			}
 
 			public void mouseExited(MouseEvent e) {
@@ -126,12 +132,24 @@ public class Player implements Element {
 	public synchronized void update() {
 
 		if (isFire() && (System.currentTimeMillis() - reload) > RELOAD_CD) {
-			float fx = (float) jp.getMousePosition().getX() / Config.WEITH - x;
-			float fy = (float) jp.getMousePosition().getY() / Config.HEIGTH - y;
+			Point last = jp.getMousePosition();
+			if (last != null) {
+				last_mouse_position = last;
+			}
+
+			// Calculate fire direction
+			float fx = (float) last_mouse_position.getX() / Config.size.getX() - position.getX();
+			float fy = (float) last_mouse_position.getY() / Config.size.getY() - position.getY();
 			float aux = Math.abs(fy) + Math.abs(fx);
-			fx = vbull * (fx / aux);
-			fy = vbull * (fy / aux);
-			Bull b = new Bull(fx * w + x, fy * h + y, fx, fy);
+			fx = (fx / aux);
+			fy = (fy / aux);
+
+			// Calculate offset
+			float ox = size.getX() * fx;
+			float oy = size.getY() * fy;
+			System.out.println(fx + "_" + fy);
+
+			Bull b = new Bull(position.getX() + ox, position.getY() + oy, vbull * fx, vbull * fy);
 			Game.getGame().render.add(b);
 			Game.getGame().updater.add(b);
 			reload = System.currentTimeMillis();
@@ -168,7 +186,7 @@ public class Player implements Element {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		boolean r=fire;
+		boolean r = fire;
 		fireS.release();
 		return r;
 	}
@@ -176,23 +194,20 @@ public class Player implements Element {
 	Polygon ply;
 
 	public void draw(Graphics g) {
-	
 		ply = new Polygon(
-				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
-						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
-				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
-						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
-		if(vx!=0){
-			
-		}
-		else if(vy!=0){
-			
-		}
-		else{
-			
-		}
-		g.drawImage(icon.getImage(), Math.round((x-w)*Config.WEITH),  Math.round((y-h)*Config.HEIGTH),null);
+		// g.setColor(c);
+		// g.drawPolygon(ply);
+		g.drawImage(icon.getImage(), Math.round((position.getX() - size.getX()) * Config.size.getX()),
+				Math.round((position.getY() - size.getY()) * Config.size.getY()), null);
 	}
 
 	public boolean isDead() {
