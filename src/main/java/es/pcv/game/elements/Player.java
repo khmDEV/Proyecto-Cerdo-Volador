@@ -14,6 +14,7 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.JFrame;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.Game;
@@ -29,12 +30,13 @@ public class Player implements Element {
 	float h = 0.05f;
 	float vbull = 0.05f;
 	Color c = new Color(255, 255, 0);
-
 	boolean fire = false;
 	JFrame jp;
 	final long RELOAD_CD = 50;
 	long reload = 0;
-
+	ObjectIcon icon=new ObjectIcon("bad1.png");
+	int movYImg=0;
+	int movXImg=0;
 	public Player(JFrame jp) {
 		this.jp = jp;
 		ply = new Polygon(
@@ -174,14 +176,23 @@ public class Player implements Element {
 	Polygon ply;
 
 	public void draw(Graphics g) {
+	
 		ply = new Polygon(
 				new int[] { Math.round((x + w) * Config.WEITH), Math.round((x - w) * Config.WEITH),
 						Math.round((x - w) * Config.WEITH), Math.round((x + w) * Config.WEITH) },
 				new int[] { Math.round((y - h) * Config.WEITH), Math.round((y - h) * Config.WEITH),
 						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
 				4);
-		g.setColor(c);
-		g.drawPolygon(ply);
+		if(vx!=0){
+			
+		}
+		else if(vy!=0){
+			
+		}
+		else{
+			
+		}
+		g.drawImage(icon.getImage(), Math.round((x-w)*Config.WEITH),  Math.round((y-h)*Config.HEIGTH),null);
 	}
 
 	public boolean isDead() {
@@ -193,6 +204,9 @@ public class Player implements Element {
 	}
 
 	public boolean isCollision(Collisionable c) {
+		if(c.getCollisionBox().intersects(ply.getBounds2D())){
+			System.out.println("col");
+		}
 		return c.getCollisionBox().intersects(ply.getBounds2D());
 	}
 

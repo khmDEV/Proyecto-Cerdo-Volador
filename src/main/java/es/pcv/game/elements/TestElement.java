@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.JPanel;
+
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;

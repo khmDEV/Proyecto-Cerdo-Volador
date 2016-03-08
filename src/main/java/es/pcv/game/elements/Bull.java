@@ -6,6 +6,8 @@ import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.JPanel;
+
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
@@ -57,6 +59,7 @@ public class Bull implements Element {
 						Math.round((y + h) * Config.WEITH), Math.round((y + h) * Config.WEITH) },
 				4);
 		g.setColor(c);
+		//g.setColor(c);
 		g.drawOval(Math.round(x*Config.WEITH), Math.round(y*Config.HEIGTH), Math.round(w*Config.WEITH), Math.round(h*Config.HEIGTH));
 		//g.drawPolygon(ply);
 	}

@@ -31,6 +31,8 @@ public class RenderDefault extends Render {
 			if (drawable.isDead()) {
 				toRemove.add(drawable);
 			} else {
+				/*ObjectIcon icon=new ObjectIcon("bad1.png");
+				g.drawImage(icon.getImage(), 0, 0,this);*/
 				drawable.draw(g);
 			}
 		}
