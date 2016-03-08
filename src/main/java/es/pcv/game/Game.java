@@ -24,6 +24,7 @@ public class Game {
 	    frame.setSize(300, 300);
 	    frame.setVisible(true);
 	    frame.add(render);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void startGame(){
