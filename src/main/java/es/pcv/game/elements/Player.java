@@ -34,6 +34,7 @@ public class Player implements Element {
 	int movYImg = 0;
 	int movXImg = 0;
 	int mov=0;
+	int imgFija=1;
 	boolean fire = false;
 	JFrame jp;
 	final long RELOAD_CD = 50;
@@ -59,15 +60,19 @@ public class Player implements Element {
 			public synchronized void keyReleased(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_W){
 					movYImg=0;
+					imgFija=10;
 				}
 				if(e.getKeyCode()==KeyEvent.VK_A){
 					movXImg=0;
+					imgFija=4;
 				}
 				if(e.getKeyCode()==KeyEvent.VK_S){
 					movYImg=0;
+					imgFija=1;
 				}
 				if(e.getKeyCode()==KeyEvent.VK_D){
 					movXImg=0;
+					imgFija=7;
 				}
 				pressed.remove(e.getKeyCode());
 			}
@@ -221,7 +226,7 @@ public class Player implements Element {
 		g.setColor(c);
 		int img=0;
 		if(movXImg==0&&movYImg==0){
-			img=1;			
+			img=imgFija;			
 		}
 		else if(movXImg==-1){
 			img=3+mov;
