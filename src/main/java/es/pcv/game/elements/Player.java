@@ -86,15 +86,20 @@ public class Player implements Element {
 				}
 			}
 		};
+		//1 boton inquierdo, 2 central y 3 derecho
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
-				finishFire();
+				if(e.getButton()==1){
+					finishFire();
+				}
 			}
 
 			public void mousePressed(MouseEvent e) {
-				startFire();
-
+				if(e.getButton()==1){
+					startFire();
+				}
+				
 			}
 
 			public void mouseExited(MouseEvent e) {
