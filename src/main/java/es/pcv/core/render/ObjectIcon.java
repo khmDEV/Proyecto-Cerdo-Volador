@@ -1,25 +1,31 @@
 package es.pcv.core.render;
 
 import javax.imageio.ImageIO;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ObjectIcon {
-	private BufferedImage image;
-	public ObjectIcon(String path){
+	private ArrayList<BufferedImage>imagenes;
+	public ObjectIcon(String path,int height,int width){
 		File f = new File(path);
+		imagenes=new ArrayList<BufferedImage>();
         try {
-			image = ImageIO.read(f);
-			image =((BufferedImage) image).getSubimage(0,0,image.getWidth()/3, image.getHeight()/4);        
-        
+        	BufferedImage image = ImageIO.read(f);
+			for(int h=0;h<height;h++){
+				for(int w=0;w<width;w++){
+					BufferedImage image2 = ((BufferedImage) image).getSubimage((image.getWidth()/width)*w, (image.getHeight()/height)*h,image.getWidth()/width, image.getHeight()/height); 
+					imagenes.add(image2);
+				}
+			}
+			System.out.println(imagenes.size());        
         } catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
-	public Image getImage(){
-		return image;
+	public BufferedImage getImage(int i){
+		return imagenes.get(i);
 	}
 }

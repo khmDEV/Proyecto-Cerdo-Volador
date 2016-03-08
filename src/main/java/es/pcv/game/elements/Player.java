@@ -30,10 +30,10 @@ public class Player implements Element {
 	float vbull = 0.05f;
 	Color c = new Color(255, 255, 0);
 	Point last_mouse_position;
-	ObjectIcon icon = new ObjectIcon("bad1.png");
+	ObjectIcon icon = new ObjectIcon("bad1.png",4,3);
 	int movYImg = 0;
 	int movXImg = 0;
-
+	int mov=0;
 	boolean fire = false;
 	JFrame jp;
 	final long RELOAD_CD = 50;
@@ -53,30 +53,44 @@ public class Player implements Element {
 				4);
 
 		KeyListener kl = new KeyListener() {
-
-			public void keyTyped(KeyEvent e) {
-
-			}
+			private final Set<Integer> pressed = new HashSet<Integer>();
+			public void keyTyped(KeyEvent e) {}
 
 			public synchronized void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_W){
+					movYImg=0;
+				}
+				if(e.getKeyCode()==KeyEvent.VK_A){
+					movXImg=0;
+				}
+				if(e.getKeyCode()==KeyEvent.VK_S){
+					movYImg=0;
+				}
+				if(e.getKeyCode()==KeyEvent.VK_D){
+					movXImg=0;
+				}
 				pressed.remove(e.getKeyCode());
 			}
 
-			private final Set<Integer> pressed = new HashSet<Integer>();
+			
 
 			public synchronized void keyPressed(KeyEvent e) {
 				pressed.add(e.getKeyCode());
 				if (pressed.size() > 0) {
 					if (pressed.contains(KeyEvent.VK_W)) {
+						movYImg=1;
 						position.addY(velocity.getY());
 					}
 					if (pressed.contains(KeyEvent.VK_A)) {
+						movXImg=-1;
 						position.addX(-velocity.getX());
 					}
 					if (pressed.contains(KeyEvent.VK_S)) {
+						movYImg=-1;
 						position.addY(-velocity.getY());
 					}
 					if (pressed.contains(KeyEvent.VK_D)) {
+						movXImg=1;
 						position.addX(velocity.getX());
 					}
 					if (position.getX() > 1) {
@@ -204,10 +218,42 @@ public class Player implements Element {
 						Math.round((position.getY() + size.getY()) * Config.size.getY()),
 						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
-		// g.setColor(c);
-		// g.drawPolygon(ply);
-		g.drawImage(icon.getImage(), Math.round((position.getX() - size.getX()) * Config.size.getX()),
-				Math.round((position.getY() - size.getY()) * Config.size.getY()), null);
+		g.setColor(c);
+		int img=0;
+		if(movXImg==0&&movYImg==0){
+			img=1;			
+		}
+		else if(movXImg==-1){
+			img=3+mov;
+			mov++;
+			if(mov==3){
+				mov=0;
+			}
+		}
+		else if(movXImg==1){
+			img=6+mov;
+			mov++;
+			if(mov==3){
+				mov=0;
+			}
+		}
+		else if(movYImg==-1){
+			img=0+mov;
+			mov++;
+			if(mov==3){
+				mov=0;
+			}
+		}
+		else if(movYImg==1){
+			img=9+mov;
+			mov++;
+			if(mov==3){
+				mov=0;
+			}
+		}
+		g.drawImage(icon.getImage(img), Math.round((position.getX() - size.getX()) * Config.size.getX()),
+				Math.round((position.getY() - size.getY()) * Config.size.getY()),Math.round(size.getX()*Config.size.getX())*2,
+				Math.round(size.getY()*Config.size.getY())*2, null);
 	}
 
 	public boolean isDead() {
