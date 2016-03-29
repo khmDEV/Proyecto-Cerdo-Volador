@@ -23,5 +23,7 @@ public abstract class Updater extends Thread{
 			
 		}
 	}
+
+	public abstract void clear();
 	
 }

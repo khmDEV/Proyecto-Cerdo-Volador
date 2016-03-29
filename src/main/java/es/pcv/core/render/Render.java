@@ -48,5 +48,7 @@ public abstract class Render extends JPanel {
 		}
 	}
 	
+	public abstract void clear();
+	
 
 }

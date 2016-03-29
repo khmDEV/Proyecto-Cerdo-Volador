@@ -39,5 +39,10 @@ public class RenderDefault extends Render {
 			remove(d);
 		}
 	}
+	
+	public synchronized void clear(){
+		figures.clear();
+	}
+
 
 }

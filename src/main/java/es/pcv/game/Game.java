@@ -7,8 +7,10 @@ import es.pcv.core.render.RenderDefault;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.UpdaterDefault;
 import es.pcv.game.configuration.Config;
-import es.pcv.game.elements.Player;
-import es.pcv.game.elements.TestElement;
+import es.pcv.game.elements.enemies.EnemyMelee;
+import es.pcv.game.elements.player.Player;
+import es.pcv.game.gui.EndTitle;
+import es.pcv.game.gui.Stats;
 
 public class Game {
 	private static Game game;
@@ -21,7 +23,7 @@ public class Game {
 		updater=new UpdaterDefault();
 		render=new RenderDefault();
 	    frame = new JFrame("DrawPanel");
-
+	    
 	    frame.setSize(Math.round(Config.size.getX()), Math.round(Config.size.getY()));
 	    frame.setVisible(true);
 	    frame.add(render);
@@ -29,7 +31,7 @@ public class Game {
 	}
 	
 	public void startGame(){
-		TestElement tel=new TestElement();
+		EnemyMelee tel=new EnemyMelee();
 		Player pl=new Player(frame);
 		updater.add(tel);
 		render.add(tel);
@@ -37,6 +39,8 @@ public class Game {
 		updater.add(pl);
 		render.add(pl);
 		updater.start();
+		Stats st=new Stats(pl);
+		render.add(st);
 		new Thread(new Runnable() {
 			public void run() {
 				render.render();
@@ -47,6 +51,13 @@ public class Game {
 	
 	public static Game getGame(){
 		return game;
+	}
+
+	public void end() {
+		updater.clear();
+		render.clear();
+		
+		render.add(new EndTitle());
 	}
 
 }

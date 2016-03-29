@@ -8,4 +8,5 @@ public interface Collisionable {
 	Rectangle2D getCollisionBox();
 
 	void collision(Collisionable c);
+	
 }

@@ -40,5 +40,9 @@ public class UpdaterDefault extends Updater {
 			remove(element);
 		}
 	}
+	
+	public synchronized void clear(){
+		elements.clear();
+	}
 
 }
