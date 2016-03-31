@@ -1,5 +1,7 @@
 package es.pcv.game;
 
+import java.awt.geom.Rectangle2D;
+
 import javax.swing.JFrame;
 
 import es.pcv.core.render.Render;
@@ -33,11 +35,10 @@ public class Game {
 	public void startGame(){
 		EnemyMelee tel=new EnemyMelee();
 		Player pl=new Player(frame);
-		updater.add(tel);
-		render.add(tel);
-		
 		updater.add(pl);
 		render.add(pl);
+		updater.add(tel);
+		render.add(tel);
 		updater.start();
 		Stats st=new Stats(pl);
 		render.add(st);

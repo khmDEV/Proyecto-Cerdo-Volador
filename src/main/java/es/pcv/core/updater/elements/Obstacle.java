@@ -17,6 +17,7 @@ public abstract class Obstacle implements Collisionable {
 	public boolean isCollision(Collisionable c) {
 		return c.getCollisionBox().intersects(ply);
 	}
+	
 
 	public Rectangle2D getCollisionBox() {
 		return ply;
@@ -25,5 +26,12 @@ public abstract class Obstacle implements Collisionable {
 	public void setCollisionBox(Rectangle2D ply) {
 		this.ply = ply;
 	}
+	
+	public void collision(Collisionable c){
+		if(c instanceof LiveEntity){
+			((LiveEntity) c).returnLastPosition();
+		}
+	}
+	
 
 }

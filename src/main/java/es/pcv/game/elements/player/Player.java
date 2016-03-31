@@ -24,9 +24,6 @@ import es.pcv.game.elements.weapons.bulls.BullDefault;
 
 public class Player extends LiveEntity {
 	private Semaphore fireS = new Semaphore(1);
-	private Point2D position = new Point2D(0.5f, 0.5f);
-	private Point2D velocity = new Point2D(0.005f, -0.005f);
-	private Point2D size = new Point2D(0.05f, 0.05f);
 	private float vbull = 0.05f;
 	private Color c = new Color(255, 255, 0);
 	private Point last_mouse_position;
@@ -44,7 +41,7 @@ public class Player extends LiveEntity {
 	private Polygon ply;
 
 	public Player(JFrame jp) {
-		super(10, 10);
+		super(new Point2D(0.5f, 0.5f),new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
 		ply = new Polygon(
 				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
@@ -123,8 +120,11 @@ public class Player extends LiveEntity {
 	}
 
 	public synchronized void update() {
-
+		System.out.println("moviendo player");
 		if (pressed.size() > 0) {
+			
+			lastPosition.setX(position.getX());
+			lastPosition.setY(position.getY());
 			if (pressed.contains(KeyEvent.VK_W)) {
 				movYImg = 1;
 				position.addY(velocity.getY());
@@ -171,13 +171,25 @@ public class Player extends LiveEntity {
 			// Calculate offset
 			float ox = size.getX() * fx;
 			float oy = size.getY() * fy;
-			System.out.println(fx + "_" + fy);
+			//System.out.println(fx + "_" + fy);
 
 			BullDefault b = new BullDefault(position.getX() + ox, position.getY() + oy, vbull * fx, vbull * fy, this);
 			Game.getGame().render.add(b);
 			Game.getGame().updater.add(b);
 			reload = System.currentTimeMillis();
 		}
+		
+		ply = new Polygon(
+				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() - size.getX()) * Config.size.getX()),
+						Math.round((position.getX() + size.getX()) * Config.size.getX()) },
+				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() - size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()),
+						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
+				4);
+		setCollisionBox(ply.getBounds2D());
 
 	}
 
@@ -224,17 +236,6 @@ public class Player extends LiveEntity {
 			return;
 		}
 
-		ply = new Polygon(
-				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
-						Math.round((position.getX() - size.getX()) * Config.size.getX()),
-						Math.round((position.getX() - size.getX()) * Config.size.getX()),
-						Math.round((position.getX() + size.getX()) * Config.size.getX()) },
-				new int[] { Math.round((position.getY() - size.getY()) * Config.size.getY()),
-						Math.round((position.getY() - size.getY()) * Config.size.getY()),
-						Math.round((position.getY() + size.getY()) * Config.size.getY()),
-						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
-				4);
-		setCollisionBox(ply.getBounds2D());
 		g.setColor(c);
 
 		int img = 0;
@@ -281,7 +282,7 @@ public class Player extends LiveEntity {
 	}
 
 	public void collision(Collisionable c) {
-
+		super.collision(c);
 	}
 
 }

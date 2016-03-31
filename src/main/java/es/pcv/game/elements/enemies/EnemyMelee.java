@@ -11,15 +11,15 @@ import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 
 public class EnemyMelee extends Enemy {
-	Point2D position = new Point2D(0.5f, 0);
-	Point2D velocity = new Point2D(0.005f, 0.005f);
-	Point2D size = new Point2D(0.05f, 0.05f);
+	//Point2D position = new Point2D(0.5f, 0);
+	//Point2D velocity = new Point2D(0.005f, 0.005f);
+	//Point2D size = new Point2D(0.05f, 0.05f);
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
 
 	public EnemyMelee() {
-		super(10, 1);
+		super(new Point2D(0.5f, 0),new Point2D(0.005f, 0.005f),new Point2D(0.05f, 0.05f),10, 1);
 		ply = new Polygon(
 				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
 						Math.round((position.getX() - size.getX()) * Config.size.getX()),
@@ -34,6 +34,10 @@ public class EnemyMelee extends Enemy {
 	}
 
 	public void update() {
+		System.out.println("moviendo enemigo");
+		lastPosition.setX(position.getX());
+		lastPosition.setY(position.getY());
+		
 		position.add(velocity);
 		float x = position.getX();
 		float y = position.getY();
@@ -64,6 +68,7 @@ public class EnemyMelee extends Enemy {
 	}
 
 	public void collision(Collisionable col) {
+		super.collision(col);
 		if (col instanceof Player) {
 			Player pl = (Player) col;
 			pl.doDamage(getDamage());

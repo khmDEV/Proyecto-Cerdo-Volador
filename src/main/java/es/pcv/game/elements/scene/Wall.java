@@ -10,7 +10,7 @@ import es.pcv.core.updater.elements.Obstacle;
 public class Wall extends Obstacle implements Element{
 	
 	public Wall(Rectangle2D r){
-		
+		super(r);
 	}
 
 
@@ -32,9 +32,11 @@ public class Wall extends Obstacle implements Element{
 	}
 
 
+	/**
 	public void collision(Collisionable c) {
 		
 	}
+	*/
 
 
 }

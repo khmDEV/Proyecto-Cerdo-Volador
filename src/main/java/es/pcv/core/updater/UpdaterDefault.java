@@ -28,8 +28,9 @@ public class UpdaterDefault extends Updater {
 			e.update();
 			for (Element element : tests) {
 				if (element!=e&&e.isCollision(element)) {
+					System.out.println("collision");
 					e.collision(element);
-					element.collision(e);
+					//element.collision(e);
 				}
 			}
 			if (e.isDead()) {
