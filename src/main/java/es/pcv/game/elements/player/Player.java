@@ -40,8 +40,8 @@ public class Player extends LiveEntity {
 	protected long CD_HIT = 1000;
 	private Polygon ply;
 
-	public Player(JFrame jp) {
-		super(new Point2D(0.5f, 0.5f),new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
+	public Player(Point2D position,JFrame jp) {
+		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
 		ply = new Polygon(
 				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
@@ -120,27 +120,35 @@ public class Player extends LiveEntity {
 	}
 
 	public synchronized void update() {
-		System.out.println("moviendo player");
+		super.update();
+		//System.out.println(obstacle_collision_ux+" "+obstacle_collision_dx+obstacle_collision_uy+obstacle_collision_dy);
+
+		//System.out.println("moviendo player");
 		if (pressed.size() > 0) {
-			
-			lastPosition.setX(position.getX());
-			lastPosition.setY(position.getY());
-			if (pressed.contains(KeyEvent.VK_W)) {
+			if (pressed.contains(KeyEvent.VK_W)
+					&& !obstacle_collision_uy) {
 				movYImg = 1;
 				position.addY(velocity.getY());
 			}
-			if (pressed.contains(KeyEvent.VK_A)) {
+			if (pressed.contains(KeyEvent.VK_A)
+					&& !obstacle_collision_ux) {
 				movXImg = -1;
 				position.addX(-velocity.getX());
 			}
-			if (pressed.contains(KeyEvent.VK_S)) {
+			if (pressed.contains(KeyEvent.VK_S)
+					&& !obstacle_collision_dy) {
 				movYImg = -1;
 				position.addY(-velocity.getY());
 			}
-			if (pressed.contains(KeyEvent.VK_D)) {
+			if (pressed.contains(KeyEvent.VK_D)
+					&& !obstacle_collision_dx) {
 				movXImg = 1;
 				position.addX(velocity.getX());
 			}
+			obstacle_collision_uy=false;
+			obstacle_collision_dy=false;
+			obstacle_collision_ux=false;
+			obstacle_collision_dx=false;
 			if (position.getX() > 1) {
 				position.setX(1);
 			}
@@ -282,7 +290,6 @@ public class Player extends LiveEntity {
 	}
 
 	public void collision(Collisionable c) {
-		super.collision(c);
 	}
 
 }

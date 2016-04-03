@@ -9,7 +9,13 @@ public class Point2D {
 		this.x=x;
 		this.y=y;
 	}
-	
+	public Point2D(double x2, double y2) {
+		update((float)x2,(float)y2);
+	}
+	public synchronized void update(Point2D p){
+		update(p.getX(),p.getY());
+	}
+
 	public synchronized void update(float x, float y){
 		this.x=x;
 		this.y=y;
@@ -39,9 +45,12 @@ public class Point2D {
 		this.y+=y;
 	}
 
-	public void add(Point2D velocity) {
-		this.x+=velocity.getX();
-		this.y+=velocity.getY();
+	public void add(Point2D v) {
+		this.x+=v.getX();
+		this.y+=v.getY();
+	}
+	public String toString(){
+		return x+","+y;
 	}
 
 }

@@ -116,4 +116,8 @@ public class BullDefault implements Element {
 		// TODO Auto-generated method stub
 		return whoShoot instanceof Player;
 	}
+
+	public void collisionObstacle(Collisionable c) {
+		kill();
+	}
 }

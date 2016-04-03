@@ -1,42 +1,25 @@
 package es.pcv.game.elements.scene;
 
-import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 import es.pcv.core.updater.elements.Collisionable;
-import es.pcv.core.updater.elements.Element;
-import es.pcv.core.updater.elements.Obstacle;
+import es.pcv.core.updater.elements.LiveEntity;
+import es.pcv.core.updater.elements.PolygonCollision;
 
-public class Wall extends Obstacle implements Element{
+public class Wall extends PolygonCollision {
 	
 	public Wall(Rectangle2D r){
 		super(r);
 	}
 
+	public void collision(Collisionable c){
+		if(c instanceof LiveEntity){
+			c.collisionObstacle(this);
+		}
+	}
 
-	public void update() {
-		// TODO Auto-generated method stub
+	public void collisionObstacle(Collisionable c) {
 		
 	}
-
-	public void draw(Graphics g) {
-		
-	}
-
-	public boolean isDead() {
-		return false;
-	}
-
-	public boolean kill() {
-		return false;
-	}
-
-
-	/**
-	public void collision(Collisionable c) {
-		
-	}
-	*/
-
 
 }

@@ -1,16 +1,20 @@
 package es.pcv.game;
 
-import java.awt.geom.Rectangle2D;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 
+import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.render.RenderDefault;
+import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.UpdaterDefault;
+import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.player.Player;
+import es.pcv.game.elements.scene.StandarWall;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Stats;
 
@@ -33,21 +37,30 @@ public class Game {
 	}
 	
 	public void startGame(){
-		EnemyMelee tel=new EnemyMelee();
-		Player pl=new Player(frame);
-		updater.add(pl);
-		render.add(pl);
-		updater.add(tel);
-		render.add(tel);
-		updater.start();
+		EnemyMelee tel=new EnemyMelee(new Point2D(0.7f, 0.5f));
+		Player pl=new Player(new Point2D(0.5f, 0.5f),frame);
+		addElement(pl);
+		addElement(tel);
+		
 		Stats st=new Stats(pl);
 		render.add(st);
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0, 0), new Point2D(0.10f, 1f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0, 0), new Point2D(1f, 0.1f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(1, 0.9f), new Point2D(1f, 0.1f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.9f, 1), new Point2D(0.1f, 1f)), new Color(255, 0, 0)));
+		
+		updater.start();
 		new Thread(new Runnable() {
 			public void run() {
 				render.render();
 			}
 		}).start();
 		
+	}
+	
+	public void addElement(Element e){
+		updater.add(e);
+		render.add(e);
 	}
 	
 	public static Game getGame(){

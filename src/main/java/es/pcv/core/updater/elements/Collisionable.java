@@ -9,4 +9,7 @@ public interface Collisionable {
 
 	void collision(Collisionable c);
 	
+	void collisionObstacle(Collisionable c);
+
+	
 }
