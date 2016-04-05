@@ -118,6 +118,8 @@ public class BullDefault implements Element {
 	}
 
 	public void collisionObstacle(Collisionable c) {
-		kill();
+		if (c!=whoShoot) {
+			kill();
+		}
 	}
 }
