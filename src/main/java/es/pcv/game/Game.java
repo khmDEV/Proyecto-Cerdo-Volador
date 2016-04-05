@@ -44,10 +44,10 @@ public class Game {
 		
 		Stats st=new Stats(pl);
 		render.add(st);
-		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0, 0), new Point2D(0.10f, 1f)), new Color(255, 0, 0)));
-		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0, 0), new Point2D(1f, 0.1f)), new Color(255, 0, 0)));
-		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(1, 0.9f), new Point2D(1f, 0.1f)), new Color(255, 0, 0)));
-		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.9f, 1), new Point2D(0.1f, 1f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.05f, 0.5f), new Point2D(0.05f, 0.5f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.5f, 0.05f), new Point2D(0.5f, 0.05f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.5f, 0.95f), new Point2D(0.5f, 0.05f)), new Color(255, 0, 0)));
+		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.95f, 0.5f), new Point2D(0.05f, 0.5f)), new Color(255, 0, 0)));
 		
 		updater.start();
 		new Thread(new Runnable() {

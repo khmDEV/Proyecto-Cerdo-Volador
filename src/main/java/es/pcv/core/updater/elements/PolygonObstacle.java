@@ -10,6 +10,10 @@ public abstract class PolygonObstacle extends PolygonCollision {
 		super(ply);
 	}
 	
+	public PolygonObstacle() {
+		
+	}
+
 	public void collision(Collisionable c){
 		c.collisionObstacle(this);
 	}

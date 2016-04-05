@@ -26,5 +26,8 @@ public abstract class PolygonCollision implements Collisionable{
 		this.rect = ply;
 	}
 	
+	public void collision(Collisionable c){
+	}
+	
 
 }

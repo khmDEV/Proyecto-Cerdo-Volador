@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
 
-public abstract class LiveEntity extends PolygonCollision implements hasLive, Element {
+public abstract class LiveEntity extends PolygonObstacle implements hasLive, Element {
 
 	protected Semaphore liveS = new Semaphore(1);
 	protected int live, max_live, damage;

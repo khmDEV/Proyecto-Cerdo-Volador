@@ -17,10 +17,11 @@ public class EnemyMelee extends Enemy {
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
-
+	Point2D maxVelocity;
 	public EnemyMelee() {
 		super(new Point2D(0.5f, 0), new Point2D(0.005f, 0.005f), new Point2D(0.05f, 0.05f), 10, 1);
 		setCollisionBox(position, size);
+		maxVelocity=new Point2D(0.005f, 0.005f);
 	}
 
 	public EnemyMelee(Point2D position) {
@@ -39,6 +40,8 @@ public class EnemyMelee extends Enemy {
 						Math.round((position.getY() + size.getY()) * Config.size.getY()),
 						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
+		
+		maxVelocity=new Point2D(0.005f, 0.005f);
 		setCollisionBox(ply.getBounds2D());
 	}
 
@@ -47,20 +50,26 @@ public class EnemyMelee extends Enemy {
 		// System.out.println("moviendo enemigo");
 		//System.out.println(obstacle_collision_x + "---" + obstacle_collision_y);
 
-		if (obstacle_collision_dx) {
-			velocity.setX(-Math.abs(velocity.getX()));
+		if (obstacle_collision_dx && obstacle_collision_ux) {
+			velocity.setX(0);
 			obstacle_collision_dx = false;
-		}
-		if (obstacle_collision_dy) {
-			velocity.setY(-Math.abs(velocity.getY()));
-			obstacle_collision_dy = false;
-		}
-		if (obstacle_collision_ux) {
-			velocity.setX(Math.abs(velocity.getX()));
+			obstacle_collision_ux = false;
+		}else if (obstacle_collision_dx) {
+			velocity.setX(-Math.abs(maxVelocity.getX()));
+			obstacle_collision_dx = false;
+		}else if (obstacle_collision_ux) {
+			velocity.setX(Math.abs(maxVelocity.getX()));
 			obstacle_collision_ux = false;
 		}
-		if (obstacle_collision_uy) {
-			velocity.setY(Math.abs(velocity.getY()));
+		if (obstacle_collision_dy && obstacle_collision_uy) {
+			velocity.setY(0);
+			obstacle_collision_dy = false;
+			obstacle_collision_uy = false;
+		}else if (obstacle_collision_dy) {
+			velocity.setY(-Math.abs(maxVelocity.getY()));
+			obstacle_collision_dy = false;
+		}else if (obstacle_collision_uy) {
+			velocity.setY(Math.abs(maxVelocity.getY()));
 			obstacle_collision_uy = false;
 		}
 		//System.out.println(position);
@@ -90,6 +99,7 @@ public class EnemyMelee extends Enemy {
 	}
 
 	public void collision(Collisionable col) {
+		super.collision(col);
 		if (col instanceof Player) {
 			Player pl = (Player) col;
 			pl.doDamage(getDamage());

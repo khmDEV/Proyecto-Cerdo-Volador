@@ -289,7 +289,4 @@ public class Player extends LiveEntity {
 		return false;
 	}
 
-	public void collision(Collisionable c) {
-	}
-
 }
