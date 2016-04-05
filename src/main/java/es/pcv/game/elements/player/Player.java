@@ -16,15 +16,14 @@ import javax.swing.JFrame;
 
 import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
-import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
-import es.pcv.game.elements.weapons.bulls.BullDefault;
+import es.pcv.game.elements.weapons.Gun;
+import es.pcv.game.elements.weapons.Shotgun;
 
 public class Player extends LiveEntity {
 	private Semaphore fireS = new Semaphore(1);
-	private float vbull = 0.05f;
 	private Color c = new Color(255, 255, 0);
 	private Point last_mouse_position;
 	private ObjectIcon icon = new ObjectIcon("bad1.png", 4, 3);
@@ -34,11 +33,11 @@ public class Player extends LiveEntity {
 	private int imgFija = 1;
 	private boolean fire = false;
 	private JFrame jp;
-	private final long RELOAD_CD = 50;
-	private long reload = 0;
+
 	private final Set<Integer> pressed = new HashSet<Integer>();
 	protected long CD_HIT = 1000;
 	private Polygon ply;
+	private Gun gun=new Shotgun();
 
 	public Player(Point2D position,JFrame jp) {
 		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
@@ -120,10 +119,7 @@ public class Player extends LiveEntity {
 	}
 
 	public synchronized void update() {
-		super.update();
-		//System.out.println(obstacle_collision_ux+" "+obstacle_collision_dx+obstacle_collision_uy+obstacle_collision_dy);
 
-		//System.out.println("moviendo player");
 		if (pressed.size() > 0) {
 			if (pressed.contains(KeyEvent.VK_W)
 					&& !obstacle_collision_uy) {
@@ -163,7 +159,7 @@ public class Player extends LiveEntity {
 			}
 		}
 
-		if (isFire() && (System.currentTimeMillis() - reload) > RELOAD_CD) {
+		if (isFire() && gun.canShoot()) {
 			Point last = jp.getMousePosition();
 			if (last != null) {
 				last_mouse_position = last;
@@ -179,12 +175,8 @@ public class Player extends LiveEntity {
 			// Calculate offset
 			float ox = size.getX() * fx;
 			float oy = size.getY() * fy;
-			//System.out.println(fx + "_" + fy);
 
-			BullDefault b = new BullDefault(position.getX() + ox, position.getY() + oy, vbull * fx, vbull * fy, this);
-			Game.getGame().render.add(b);
-			Game.getGame().updater.add(b);
-			reload = System.currentTimeMillis();
+			gun.shoot(this, new Point2D(ox, oy).add(position), new Point2D(fx, fy));
 		}
 		
 		ply = new Polygon(

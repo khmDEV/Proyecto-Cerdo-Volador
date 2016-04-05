@@ -1,6 +1,5 @@
 package es.pcv.core.updater.elements;
 
-import java.awt.geom.Rectangle2D;
 import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
@@ -12,7 +11,6 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	protected long lastHit = 0;
 
 	protected Point2D position;
-	protected Point2D lastPosition;
 
 	protected Point2D velocity;
 	protected Point2D size;
@@ -21,22 +19,16 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	protected boolean obstacle_collision_uy = false;
 	protected boolean obstacle_collision_dx = false;
 	protected boolean obstacle_collision_dy = false;
-
-	public LiveEntity(Rectangle2D r, int l, int d) {
-		super(r);
-		live = l;
-		max_live = l;
-		damage = d;
-		size = new Point2D((float) r.getWidth(), (float) r.getHeight());
-		position = new Point2D((float) r.getX(), (float) r.getY());
-	}
+	
+	protected boolean dead=false;
+	Semaphore deadS = new Semaphore(1);
 
 	public LiveEntity(Point2D p, Point2D v, Point2D s, int l, int d) {
+		super(p,s);
 		live = l;
 		max_live = l;
 		damage = d;
-		position = p;
-		lastPosition = new Point2D(p.getX(), p.getY());
+		position = p.clone();
 		velocity = v;
 		size = s;
 	}
@@ -98,10 +90,6 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 		return l;
 	}
 
-	public synchronized void update() {
-		lastPosition.update(position);
-	}
-
 	public boolean isVulnerable() {
 		return true;
 	}
@@ -137,11 +125,6 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	}
 
 	public void collisionObstacle(Collisionable c) {
-		// System.out.println("--------------------------------------");
-		// System.out.println(lastPosition.getX() + "_" + lastPosition.getY());
-		// System.out.println(position.getX() + "_" + position.getY());
-		// System.out.println(c.getCollisionBox().getMinY()+"<"+getCollisionBox().getMaxY());
-		// System.out.println(c.getCollisionBox().getMaxY()+">"+getCollisionBox().getMinY());
 		double uy = (c.getCollisionBox().getMinY() < getCollisionBox().getMaxY()
 				&& c.getCollisionBox().getMaxY() > getCollisionBox().getMaxY() ? 0
 						: Math.abs(c.getCollisionBox().getMinY() - getCollisionBox().getMaxY())),
@@ -154,7 +137,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 				dx = (c.getCollisionBox().getMaxX() > getCollisionBox().getMinX()
 						&& c.getCollisionBox().getMinX() < getCollisionBox().getMinX() ? 0
 								: Math.abs(c.getCollisionBox().getMaxX() - getCollisionBox().getMinX()));
-		//System.out.println(ux+" "+dx+" "+uy+" "+dy);
+
 		double max = Math.max(Math.max(uy, dy), Math.max(ux, dx));
 		if (max != 0) {
 			obstacle_collision_dy = obstacle_collision_dy || dy == max;
@@ -162,6 +145,30 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 			obstacle_collision_dx = obstacle_collision_dx || dx == max;
 			obstacle_collision_ux = obstacle_collision_ux || ux == max;
 		}
+	}
+	
+	public synchronized boolean isDead() {
+		try {
+			deadS.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean r=dead;
+		deadS.release();
+		return r;
+	}
+
+	public synchronized boolean kill() {
+		try {
+			deadS.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean r = (dead = true);
+		deadS.release();
+		return r;
 	}
 
 }

@@ -17,16 +17,18 @@ public class EnemyMelee extends Enemy {
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
-	Point2D maxVelocity;
+	private final static Point2D maxVelocity=new Point2D(0.005f, 0.005f);
+	protected Point2D velocity=maxVelocity.clone();
+
 	public EnemyMelee() {
-		super(new Point2D(0.5f, 0), new Point2D(0.005f, 0.005f), new Point2D(0.05f, 0.05f), 10, 1);
+		super(new Point2D(0.5f, 0), maxVelocity.clone(), new Point2D(0.05f, 0.05f), 10, 1);
 		setCollisionBox(position, size);
-		maxVelocity=new Point2D(0.005f, 0.005f);
 	}
 
 	public EnemyMelee(Point2D position) {
 		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1);
 		setCollisionBox(position, size);
+
 	}
 
 	public void setCollisionBox(Point2D position, Point2D size) {
@@ -41,15 +43,10 @@ public class EnemyMelee extends Enemy {
 						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
 		
-		maxVelocity=new Point2D(0.005f, 0.005f);
 		setCollisionBox(ply.getBounds2D());
 	}
 
 	public void update() {
-		super.update();
-		// System.out.println("moviendo enemigo");
-		//System.out.println(obstacle_collision_x + "---" + obstacle_collision_y);
-
 		if (obstacle_collision_dx && obstacle_collision_ux) {
 			velocity.setX(0);
 			obstacle_collision_dx = false;
@@ -72,23 +69,7 @@ public class EnemyMelee extends Enemy {
 			velocity.setY(Math.abs(maxVelocity.getY()));
 			obstacle_collision_uy = false;
 		}
-		//System.out.println(position);
-		//System.out.println(velocity);
 		position.add(velocity);
-		//System.out.println(position);
-		
-
-		//float x = position.getX();
-		//float y = position.getY();
-		/*if (x > 1 || x < 0 ) {
-			velocity.setX(-velocity.getX());
-			position.setX(x < 0 ? 0 : 1);
-		}
-		if (y > 1 || y < 0 ) {
-			velocity.setY(-velocity.getY());
-			position.setY(y < 0 ? 0 : 1);
-		}*/
-
 	}
 
 	public void draw(Graphics g) {
@@ -108,12 +89,5 @@ public class EnemyMelee extends Enemy {
 				(int) Math.round(Math.random() * 255));
 	}
 
-	public synchronized boolean isDead() {
-		return false;
-	}
-
-	public synchronized boolean kill() {
-		return false;
-	}
 
 }

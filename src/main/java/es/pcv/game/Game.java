@@ -33,6 +33,7 @@ public class Game {
 	    frame.setSize(Math.round(Config.size.getX()), Math.round(Config.size.getY()));
 	    frame.setVisible(true);
 	    frame.add(render);
+
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
