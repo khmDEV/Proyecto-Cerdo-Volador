@@ -84,7 +84,6 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 		if (live <= 0) {
 			kill();
 		}
-
 		// lastHit = System.currentTimeMillis();
 		liveS.release();
 		return l;
@@ -170,5 +169,13 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 		deadS.release();
 		return r;
 	}
+	
+	public Point2D getPos(){
+		return position;
+	}
+	public Point2D getSize(){
+		return size;
+	}
+	
 
 }

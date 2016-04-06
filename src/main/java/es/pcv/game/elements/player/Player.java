@@ -17,32 +17,31 @@ import javax.swing.JFrame;
 import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.LiveEntity;
+import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.weapons.DefaultGun;
 import es.pcv.game.elements.weapons.Gun;
 import es.pcv.game.elements.weapons.Shotgun;
+import es.pcv.game.elements.weapons.Sword;
 
-public class Player extends LiveEntity {
+public class Player extends Walker {
 	private Semaphore fireS = new Semaphore(1);
 	private Color c = new Color(255, 255, 0);
 	private Point last_mouse_position;
-	private ObjectIcon icon = new ObjectIcon("bad1.png", 4, 3);
-	private int movYImg = 0;
-	private int movXImg = 0;
-	private int mov = 0;
-	private int imgFija = 1;
 	private boolean fire = false;
 	private JFrame jp;
 
 	private final Set<Integer> pressed = new HashSet<Integer>();
 	protected long CD_HIT = 1000;
 	private Polygon ply;
-	private Gun gun=new Shotgun();
+	private Gun gun=new DefaultGun();
+	//private Sword sword=new Sword(this,position,new Point2D(0,0), new Point2D(0.002f,-0.004), 1, 70, 5);
 
 	public Player(Point2D position,JFrame jp) {
 		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
-		ply = new Polygon(
+		/**ply = new Polygon(
 				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
 						Math.round((position.getX() - size.getX()) * Config.size.getX()),
 						Math.round((position.getX() - size.getX()) * Config.size.getX()),
@@ -52,7 +51,8 @@ public class Player extends LiveEntity {
 						Math.round((position.getY() + size.getY()) * Config.size.getY()),
 						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
-		setCollisionBox(ply.getBounds2D());
+				*/
+		//setCollisionBox(ply.getBounds2D());
 
 		KeyListener kl = new KeyListener() {
 			public void keyTyped(KeyEvent e) {
@@ -178,7 +178,7 @@ public class Player extends LiveEntity {
 
 			gun.shoot(this, new Point2D(ox, oy).add(position), new Point2D(fx, fy));
 		}
-		
+		/**
 		ply = new Polygon(
 				new int[] { Math.round((position.getX() + size.getX()) * Config.size.getX()),
 						Math.round((position.getX() - size.getX()) * Config.size.getX()),
@@ -189,7 +189,8 @@ public class Player extends LiveEntity {
 						Math.round((position.getY() + size.getY()) * Config.size.getY()),
 						Math.round((position.getY() + size.getY()) * Config.size.getY()) },
 				4);
-		setCollisionBox(ply.getBounds2D());
+				*/
+		setCollisionBox(position,size);
 
 	}
 
@@ -231,46 +232,6 @@ public class Player extends LiveEntity {
 		return (System.currentTimeMillis() - lastHit) > CD_HIT;
 	}
 
-	public void draw(Graphics g) {
-		if (!isVulnerable() && System.currentTimeMillis() % 8 < 5) {
-			return;
-		}
-
-		g.setColor(c);
-
-		int img = 0;
-		if (movXImg == 0 && movYImg == 0) {
-			img = imgFija;
-		} else if (movXImg == -1) {
-			img = 3 + mov;
-			mov++;
-			if (mov == 3) {
-				mov = 0;
-			}
-		} else if (movXImg == 1) {
-			img = 6 + mov;
-			mov++;
-			if (mov == 3) {
-				mov = 0;
-			}
-		} else if (movYImg == -1) {
-			img = 0 + mov;
-			mov++;
-			if (mov == 3) {
-				mov = 0;
-			}
-		} else if (movYImg == 1) {
-			img = 9 + mov;
-			mov++;
-			if (mov == 3) {
-				mov = 0;
-			}
-		}
-		g.drawImage(icon.getImage(img), Math.round((position.getX() - size.getX()) * Config.size.getX()),
-				Math.round((position.getY() - size.getY()) * Config.size.getY()),
-				Math.round(size.getX() * Config.size.getX()) * 2, Math.round(size.getY() * Config.size.getY()) * 2,
-				null);
-	}
 
 	public boolean isDead() {
 		return false;

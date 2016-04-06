@@ -15,6 +15,7 @@ import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.StandarWall;
+import es.pcv.game.elements.weapons.Sword;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Stats;
 
@@ -40,11 +41,14 @@ public class Game {
 	public void startGame(){
 		EnemyMelee tel=new EnemyMelee(new Point2D(0.7f, 0.5f));
 		Player pl=new Player(new Point2D(0.5f, 0.5f),frame);
+		Sword sword=new Sword(pl,pl.getPos().clone(), 1, 70, 5);
 		addElement(pl);
 		addElement(tel);
-		
+		addElement(sword);
 		Stats st=new Stats(pl);
 		render.add(st);
+		
+		
 		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.05f, 0.5f), new Point2D(0.05f, 0.5f)), new Color(255, 0, 0)));
 		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.5f, 0.05f), new Point2D(0.5f, 0.05f)), new Color(255, 0, 0)));
 		addElement(new StandarWall(PolygonHelper.createRectangle(new Point2D(0.5f, 0.95f), new Point2D(0.5f, 0.05f)), new Color(255, 0, 0)));

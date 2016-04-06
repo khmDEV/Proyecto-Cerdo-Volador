@@ -11,9 +11,6 @@ import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 
 public class EnemyMelee extends Enemy {
-	// Point2D position = new Point2D(0.5f, 0);
-	// Point2D velocity = new Point2D(0.005f, 0.005f);
-	// Point2D size = new Point2D(0.05f, 0.05f);
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
@@ -21,7 +18,7 @@ public class EnemyMelee extends Enemy {
 	protected Point2D velocity=maxVelocity.clone();
 
 	public EnemyMelee() {
-		super(new Point2D(0.5f, 0), maxVelocity.clone(), new Point2D(0.05f, 0.05f), 10, 1);
+		super(new Point2D(0.5f, 0), maxVelocity.clone(), new Point2D(0.05f, 0.05f), 1000, 1);
 		setCollisionBox(position, size);
 	}
 

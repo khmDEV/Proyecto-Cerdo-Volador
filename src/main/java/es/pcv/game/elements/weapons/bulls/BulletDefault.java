@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.LiveEntity;
+import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.configuration.Config;
 
 public class BulletDefault extends Bullet {
@@ -13,12 +14,12 @@ public class BulletDefault extends Bullet {
 	public final static Point2D size = new Point2D(0.05f, 0.05f);
 	Color c = new Color(255, 0, 255);
 	
-	public BulletDefault(LiveEntity whoShoot, Point2D position, Point2D vel) {
-		super(whoShoot, position, vel,size,1,50);
+	public BulletDefault(Walker whoAttack, Point2D position, Point2D vel) {
+		super(whoAttack, position, vel,size,1,50);
 	}
 	
-	public BulletDefault(LiveEntity whoShoot, Point2D position, Point2D vel,int hits,int damage) {
-		super(whoShoot, position, vel,size,hits,damage);
+	public BulletDefault(Walker whoAttack, Point2D position, Point2D vel,int hits,int damage) {
+		super(whoAttack, position, vel,size,hits,damage);
 	}
 
 	public void update() {
