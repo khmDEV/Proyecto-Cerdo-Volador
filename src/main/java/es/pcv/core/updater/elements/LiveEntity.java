@@ -3,6 +3,7 @@ package es.pcv.core.updater.elements;
 import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
+import es.pcv.game.configuration.Config;
 
 public abstract class LiveEntity extends PolygonObstacle implements hasLive, Element {
 
@@ -10,27 +11,36 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	protected int live, max_live, damage;
 	protected long lastHit = 0;
 
-	protected Point2D position;
-
+	
 	protected Point2D velocity;
-	protected Point2D size;
 
+	
 	protected boolean obstacle_collision_ux = false;
 	protected boolean obstacle_collision_uy = false;
 	protected boolean obstacle_collision_dx = false;
 	protected boolean obstacle_collision_dy = false;
 	
+	
+	
 	protected boolean dead=false;
+	
 	Semaphore deadS = new Semaphore(1);
 
+	
+	/**
+	 * 
+	 * @param p posicion de la esquina superior izquierda
+	 * @param v velocidad
+	 * @param s tamaño
+	 * @param l vidas
+	 * @param d daño
+	 */
 	public LiveEntity(Point2D p, Point2D v, Point2D s, int l, int d) {
 		super(p,s);
 		live = l;
 		max_live = l;
 		damage = d;
-		position = p.clone();
-		velocity = v;
-		size = s;
+		velocity = v.multiply(Config.scale);
 	}
 
 	public int getLive() {
@@ -124,16 +134,21 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	}
 
 	public void collisionObstacle(Collisionable c) {
+
+		System.out.println("Collisionnn");
 		double uy = (c.getCollisionBox().getMinY() < getCollisionBox().getMaxY()
 				&& c.getCollisionBox().getMaxY() > getCollisionBox().getMaxY() ? 0
-						: Math.abs(c.getCollisionBox().getMinY() - getCollisionBox().getMaxY())),
-				dy = (c.getCollisionBox().getMaxY() > getCollisionBox().getMinY()
+						: Math.abs(c.getCollisionBox().getMinY() - getCollisionBox().getMaxY()));
+		
+		double dy = (c.getCollisionBox().getMaxY() > getCollisionBox().getMinY()
 						&& c.getCollisionBox().getMinY() < getCollisionBox().getMinY() ? 0
-								: Math.abs(c.getCollisionBox().getMaxY() - getCollisionBox().getMinY())),
-				ux = (c.getCollisionBox().getMinX() < getCollisionBox().getMaxX()
+								: Math.abs(c.getCollisionBox().getMaxY() - getCollisionBox().getMinY()));
+		
+		double ux = (c.getCollisionBox().getMinX() < getCollisionBox().getMaxX()
 						&& c.getCollisionBox().getMaxX() > getCollisionBox().getMaxX() ? 0
-								: Math.abs(c.getCollisionBox().getMinX() - getCollisionBox().getMaxX())),
-				dx = (c.getCollisionBox().getMaxX() > getCollisionBox().getMinX()
+								: Math.abs(c.getCollisionBox().getMinX() - getCollisionBox().getMaxX()));
+		
+		double dx = (c.getCollisionBox().getMaxX() > getCollisionBox().getMinX()
 						&& c.getCollisionBox().getMinX() < getCollisionBox().getMinX() ? 0
 								: Math.abs(c.getCollisionBox().getMaxX() - getCollisionBox().getMinX()));
 
@@ -169,13 +184,5 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 		deadS.release();
 		return r;
 	}
-	
-	public Point2D getPos(){
-		return position;
-	}
-	public Point2D getSize(){
-		return size;
-	}
-	
 
 }

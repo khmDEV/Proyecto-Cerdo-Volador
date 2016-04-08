@@ -13,52 +13,48 @@ public class Sword extends Weapon{
 	boolean vertical = true;
 	
 	public Sword(Walker w,Point2D p, int l, int d,int dur) {
-		super(w,p, new Point2D(0,0), new Point2D(0.01f,-0.1), l, d);
+		super(w,p, new Point2D(0,0), new Point2D(0.01f,0.05), l, d);
 		durability = dur;
 	}
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		//Point2D vel
-		position = whoAttack.getPos().clone();
-		float distance = whoAttack.getSize().getX();
+		
+		setPos(whoAttack.getPos().clone());
 		if(whoAttack.getDir() == 0){
 			if(!vertical){
 				moveSword();
 			}
-			position.setX(position.getX() - distance);
+			addY(whoAttack.getSizeY());
 		}else if(whoAttack.getDir() == 1){
 			if(vertical){
 				moveSword();
 			}
-			position.setY(position.getY() - distance);
+			addX(-getSizeX());
 		}else if(whoAttack.getDir() == 2){
 			if(vertical){
 				moveSword();
 			}
-			position.setY(position.getY() + distance);
+			addX(whoAttack.getSizeX());
+			addY(whoAttack.getSizeY());
 		}else{
 			if(!vertical){
 				moveSword();
 			}
-			position.setX(position.getX() + distance);
+			addY(-getSizeY());
+			addX(whoAttack.getSizeX());
 		}
-		whoAttack.setCollisionBox(position, size);
 		
 	}
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		//ply = PolygonHelper.createRectangle(position, size);
-		setCollisionBox(position,size);
-		//g.setColor(c);
-		g.drawPolygon(PolygonHelper.createRectangle(position,size));
+		g.drawPolygon(getRectangle());
 	}
 
 	private void moveSword(){
-		float aux = size.getX();
-		size.setX(size.getY());
-		size.setY(aux);
+		int aux = getSizeX();
+		setSizeX(getSizeY());
+		setSizeY(aux);
 		vertical=!vertical;
 	}
 

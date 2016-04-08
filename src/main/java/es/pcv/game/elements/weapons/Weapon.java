@@ -24,7 +24,7 @@ public abstract class Weapon extends LiveEntity{
 	}
 	
 	public void collision(Collisionable col) {
-		if(whoAttack!=col&&!(col instanceof Bullet)&&
+		if(whoAttack!=col&&!(col instanceof Weapon)&&
 				(col instanceof Player && whoAttack instanceof Enemy) 
 				|| (col instanceof Enemy && whoAttack instanceof Player)){
 			LiveEntity r=(LiveEntity) col;

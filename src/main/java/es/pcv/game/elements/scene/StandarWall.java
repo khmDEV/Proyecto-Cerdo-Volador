@@ -4,14 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+import es.pcv.core.render.Point2D;
+import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Element;
 
 public class StandarWall extends Wall implements Element {
 	Color c;
-	Polygon ply;
-	public StandarWall(Polygon ply,Color c) {
-		super(ply.getBounds2D());
-		this.ply=ply;
+	public StandarWall(Point2D p,Point2D s,Color c) {
+		super(p,s);
 		this.c=c;
 	}
 
@@ -21,7 +21,8 @@ public class StandarWall extends Wall implements Element {
 
 	public void draw(Graphics g) {
 		g.setColor(c);
-		g.drawPolygon(ply);
+		g.drawPolygon(getRectangle());
+		//g.drawPolygon(PolygonHelper.createRectangle(new Point2D(0.05f,0.05f), new Point2D(0.05f,0.05f)));
 	}
 
 	public boolean isDead() {

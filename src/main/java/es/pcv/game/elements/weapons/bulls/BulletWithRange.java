@@ -21,7 +21,7 @@ public class BulletWithRange extends BulletDefault {
 	}
 	
 	public void update(){
-		Point2D d=init.clone().multiply(-1).add(position);
+		Point2D d=init.clone().multiply(-1).add(getPos());
 		double dist=Math.sqrt(Math.pow(d.getX(), 2)+Math.pow(d.getY(), 2));
 		System.out.println(dist);
 		if (dist<limit) {

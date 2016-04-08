@@ -11,7 +11,7 @@ import es.pcv.game.configuration.Config;
 
 public class BulletDefault extends Bullet {
 	
-	public final static Point2D size = new Point2D(0.05f, 0.05f);
+	public final static Point2D size = new Point2D(0.01f, 0.01f);
 	Color c = new Color(255, 0, 255);
 	
 	public BulletDefault(Walker whoAttack, Point2D position, Point2D vel) {
@@ -23,11 +23,11 @@ public class BulletDefault extends Bullet {
 	}
 
 	public void update() {
-		position.add(velocity);
-		if (position.getX() > 1 || position.getX() < 0) {
+		posAdd(velocity);
+		if (getX() > Config.scale.getX() || getX() < 0) {
 			kill();
 		}
-		if (position.getY() > 1 || position.getY() < 0) {
+		if (getY() > Config.scale.getY() || getY() < 0) {
 			kill();
 		}
 	}
@@ -35,10 +35,11 @@ public class BulletDefault extends Bullet {
 
 
 	public void draw(Graphics g) {
-		setCollisionBox(PolygonHelper.createRectangle(position,size).getBounds2D());
 		g.setColor(c);
-		g.drawOval(Math.round(position.getX() * Config.size.getX()), Math.round(position.getY() * Config.size.getY()),
-				Math.round(size.getX() * Config.size.getX()), Math.round(size.getY() * Config.size.getY()));
+		g.drawOval(getX(),getY(),getSizeX(),getSizeY());
+		/**g.drawOval((int)Math.round(getX() * Config.scale.getX()), (int)Math.round(getY() * Config.scale.getY()),
+				(int)Math.round(getSizeX() * Config.scale.getX()), (int)Math.round(getSizeY() * Config.scale.getY()));
+				*/
 	}
 
 

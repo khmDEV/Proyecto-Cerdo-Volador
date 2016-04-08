@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.game.configuration.Config;
 
 public abstract class Walker extends LiveEntity{
@@ -55,11 +56,10 @@ public abstract class Walker extends LiveEntity{
 			if (mov == 3) {
 				mov = 0;
 			}
-		}
-		g.drawImage(icon.getImage(img), Math.round((position.getX() - size.getX()) * Config.size.getX()),
-				Math.round((position.getY() - size.getY()) * Config.size.getY()),
-				Math.round(size.getX() * Config.size.getX()) * 2, Math.round(size.getY() * Config.size.getY()) * 2,
-				null);
+		}		
+
+		g.drawImage(icon.getImage(img), getX(),getY(),getSizeX(),getSizeY(),null);
+
 	}
 	
 	

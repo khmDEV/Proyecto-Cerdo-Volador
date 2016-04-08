@@ -12,6 +12,11 @@ public abstract class PolygonObstacle extends PolygonCollision {
 		super(ply);
 	}
 	
+	/**
+	 * 
+	 * @param p posicion de la esquina superior izquierda
+	 * @param s tamaño
+	 */
 	public PolygonObstacle(Point2D p, Point2D s) {
 		super(PolygonHelper.createRectangle(p,s).getBounds2D());
 	}

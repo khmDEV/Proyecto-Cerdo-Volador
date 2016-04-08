@@ -2,11 +2,7 @@ package es.pcv.game.elements.weapons.bulls;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
-import es.pcv.core.updater.elements.Element;
-import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.core.updater.elements.Walker;
-import es.pcv.game.elements.enemies.Enemy;
-import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.Weapon;
 
 public abstract class Bullet extends Weapon{
@@ -24,6 +20,6 @@ public abstract class Bullet extends Weapon{
 	
 	
 	public boolean isCollision(Collisionable col){
-		return whoAttack!=col&&!(col instanceof Bullet)&&super.isCollision(col);
+		return whoAttack!=col&&!(col instanceof Weapon)&&super.isCollision(col);
 	}
 }

@@ -23,8 +23,8 @@ public class EndTitle implements Drawable {
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.setFont(font);
-		g.drawString("You're death", (int)Math.round(0.2 * Config.size.getX()),
-				(int)Math.round(0.5 * Config.size.getY()));
+		g.drawString("You're death", (int)Math.round(0.2 * Config.scale.getX()),
+				(int)Math.round(0.5 * Config.scale.getY()));
 		
 	}
 
