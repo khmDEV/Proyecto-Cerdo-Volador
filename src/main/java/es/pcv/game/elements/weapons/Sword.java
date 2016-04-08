@@ -5,7 +5,11 @@ import java.awt.Polygon;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
+import es.pcv.core.updater.elements.Collisionable;
+import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.core.updater.elements.Walker;
+import es.pcv.game.elements.enemies.Enemy;
+import es.pcv.game.elements.player.Player;
 
 public class Sword extends Weapon{
 
@@ -56,6 +60,19 @@ public class Sword extends Weapon{
 		setSizeX(getSizeY());
 		setSizeY(aux);
 		vertical=!vertical;
+	}
+	
+	public void collision(Collisionable col) {
+		if(whoAttack!=col&&!(col instanceof Weapon)&&
+				(col instanceof Player && whoAttack instanceof Enemy) 
+				|| (col instanceof Enemy && whoAttack instanceof Player)){
+			LiveEntity r=(LiveEntity) col;
+			r.doDamage(getDamage());
+			durability--;
+			if(durability==0){
+				this.kill();
+			}
+		}
 	}
 
 	

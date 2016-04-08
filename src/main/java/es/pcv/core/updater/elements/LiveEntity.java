@@ -135,7 +135,6 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 
 	public void collisionObstacle(Collisionable c) {
 
-		System.out.println("Collisionnn");
 		double uy = (c.getCollisionBox().getMinY() < getCollisionBox().getMaxY()
 				&& c.getCollisionBox().getMaxY() > getCollisionBox().getMaxY() ? 0
 						: Math.abs(c.getCollisionBox().getMinY() - getCollisionBox().getMaxY()));

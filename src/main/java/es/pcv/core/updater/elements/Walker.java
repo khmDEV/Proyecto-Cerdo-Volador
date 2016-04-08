@@ -28,8 +28,6 @@ public abstract class Walker extends LiveEntity{
 			return;
 		}
 
-		//g.setColor(c);
-
 		if (movXImg == 0 && movYImg == 0) {
 			img = imgFija;
 		} else if (movXImg == -1) {

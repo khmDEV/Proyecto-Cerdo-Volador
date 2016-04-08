@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -24,6 +25,7 @@ import es.pcv.game.elements.weapons.DefaultGun;
 import es.pcv.game.elements.weapons.Gun;
 import es.pcv.game.elements.weapons.Shotgun;
 import es.pcv.game.elements.weapons.Sword;
+import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
 	
@@ -32,8 +34,9 @@ public class Player extends Walker {
 	//for shooting
 	private Semaphore fireS = new Semaphore(1);
 	private Point last_mouse_position;
-	private boolean fire = false;
-
+	
+	
+	private boolean click = false;
 
 	private final Set<Integer> pressed = new HashSet<Integer>();
 	
@@ -41,14 +44,23 @@ public class Player extends Walker {
 	protected long CD_HIT = 1000;
 	
 	//Weapons
-	private Gun gun=new DefaultGun();
-	//private Sword sword=new Sword(this,position,new Point2D(0,0), new Point2D(0.002f,-0.004), 1, 70, 5);
-
+	
+	//private List weapons;
+	private Weapon[] weapons=new Weapon[3];
+	
+	
+	private int currentWeapon= 1;
+	
+	
 	public Player(Point2D position,JFrame jp) {
 		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
-		
 
+		weapons[0]=new DefaultGun(this,getPos().clone(), 1, 0);
+		weapons[1]=new Sword(this,getPos().clone(), 1, 70, 2);
+		weapons[2]=new Shotgun(this,getPos().clone(), 1, 0);
+		
+		
 		KeyListener kl = new KeyListener() {
 			public void keyTyped(KeyEvent e) {
 			}
@@ -136,6 +148,18 @@ public class Player extends Walker {
 				movXImg = 1;
 				addX((int)velocity.getX());
 			}
+			if (pressed.contains(KeyEvent.VK_1) |
+				pressed.contains(KeyEvent.VK_2) |
+				pressed.contains(KeyEvent.VK_3)){
+				changeWeapon(0);
+			}
+			for(int i=KeyEvent.VK_1;i<=KeyEvent.VK_3;i++){
+				if (pressed.contains(i)){
+					System.out.println(i);
+					changeWeapon(i-KeyEvent.VK_1);
+				}
+			}
+			
 			
 			
 			obstacle_collision_uy=false;
@@ -145,9 +169,7 @@ public class Player extends Walker {
 			
 		}
 
-		if (isFire() && gun.canShoot()) {
-			shoot();
-		}
+		checkWeapon();
 		
 	}
 
@@ -169,7 +191,7 @@ public class Player extends Walker {
 		float ox = (float) (getSizeX() * fx);
 		float oy = (float) (getSizeY() * fy);
 
-		gun.shoot(this, new Point2D(ox, oy).add(getPos()), new Point2D(fx, fy));
+		((Gun) weapons[currentWeapon]).shoot(this, new Point2D(ox, oy).add(getPos()), new Point2D(fx, fy));
 	}
 	
 	
@@ -180,7 +202,7 @@ public class Player extends Walker {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		fire = true;
+		click = true;
 		fireS.release();
 	}
 
@@ -191,7 +213,7 @@ public class Player extends Walker {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		fire = false;
+		click = false;
 		fireS.release();
 	}
 
@@ -202,7 +224,7 @@ public class Player extends Walker {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		boolean r = fire;
+		boolean r = click;
 		fireS.release();
 		return r;
 	}
@@ -219,6 +241,35 @@ public class Player extends Walker {
 	public boolean kill() {
 		Game.getGame().end();
 		return false;
+	}
+	
+	public void checkWeapon(){
+		if(currentWeapon == 0 | currentWeapon == 2){
+			if (isFire() && ((Gun) weapons[currentWeapon]).canShoot()) {
+				shoot();
+			}
+		}else if(currentWeapon == 1){
+			
+		}
+	}
+	public void changeWeapon(int n){
+		if(weapons[n]!=null){
+			if(currentWeapon == 0 |currentWeapon == 2){
+				Game.getGame().render.remove(weapons[currentWeapon]);
+			}else{
+				Game.getGame().render.remove(weapons[currentWeapon]);
+				Game.getGame().updater.remove(weapons[currentWeapon]);
+			}
+			currentWeapon=n;
+			
+			if(currentWeapon == 0 |currentWeapon == 2){
+				Game.getGame().render.add(weapons[currentWeapon]);
+			}else{
+				Game.getGame().render.add(weapons[currentWeapon]);
+				Game.getGame().updater.add(weapons[currentWeapon]);
+			}
+			//addElement();
+		}
 	}
 	
 

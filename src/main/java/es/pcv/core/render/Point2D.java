@@ -1,5 +1,7 @@
 package es.pcv.core.render;
 
+import es.pcv.game.configuration.Config;
+
 public class Point2D {
 	
 	private float x;
@@ -81,6 +83,10 @@ public class Point2D {
 	@Override
 	public Point2D clone(){
 		return new Point2D(x, y);
+	}
+	public Point2D getAbsolutePosition(){
+		return new Point2D(((x - Config.startX)/Config.scale.getX())
+				,(y/ Config.scale.getY()));
 	}
 	
 

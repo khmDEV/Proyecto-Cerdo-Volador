@@ -22,7 +22,6 @@ public class StandarWall extends Wall implements Element {
 	public void draw(Graphics g) {
 		g.setColor(c);
 		g.drawPolygon(getRectangle());
-		//g.drawPolygon(PolygonHelper.createRectangle(new Point2D(0.05f,0.05f), new Point2D(0.05f,0.05f)));
 	}
 
 	public boolean isDead() {

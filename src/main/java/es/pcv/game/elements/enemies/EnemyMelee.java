@@ -57,7 +57,6 @@ public class EnemyMelee extends Enemy {
 	}
 
 	public void collision(Collisionable col) {
-		System.out.println("Collision");
 		super.collision(col);
 		if (col instanceof Player) {
 			Player pl = (Player) col;

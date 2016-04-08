@@ -5,6 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
+import es.pcv.game.configuration.Config;
 
 public abstract class PolygonCollision implements Collisionable{
 	protected Rectangle2D rect;

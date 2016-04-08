@@ -9,4 +9,5 @@ public class Config {
 	
 	public static Point2D scale = new Point2D(500,500);
 
+	public static int startX = 0;
 }
