@@ -45,8 +45,9 @@ public class Game {
 	}
 	
 	public void startGame(){
-		EnemyMelee tel=new EnemyMelee(new Point2D(0.7f, 0.5f));
 		Player pl=new Player(new Point2D(0.8f, 0.5f),frame);
+		EnemyMelee tel=new EnemyMelee(new Point2D(0.7f, 0.5f),pl);
+		
 		//Sword sword=new Sword(pl,pl.getPos().clone(), 1, 70, 2);
 		(new Maps(updater,render)).map1();
 		addElement(pl);

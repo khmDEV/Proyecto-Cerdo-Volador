@@ -15,17 +15,27 @@ public class EnemyMelee extends Enemy {
 	Color c = new Color(0, 255, 0);
 	private final static Point2D maxVelocity=(new Point2D(0.005f, 0.005f)).multiply(Config.scale);
 	protected Point2D velocity=maxVelocity.clone();
-
-	public EnemyMelee() {
-		super(new Point2D(0.5f, 0), maxVelocity.clone(), new Point2D(0.05f, 0.05f), 1000, 1);
-	}
-
-	public EnemyMelee(Point2D position) {
-		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1);
-
+	private float maxModVelocity;
+	private boolean colPlayer;
+	public EnemyMelee(Point2D position,Player pl) {
+		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		float x = velocity.getX();
+		float y = velocity.getY();
+		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
+		colPlayer=false;
 	}
 
 	public void update() {
+		
+		Point2D point=pl.getPos();
+		float x = getPos().getX();
+		float y = getPos().getY();
+		x=point.getX()-x;
+		y=point.getY()-y;
+		float mod=(float) Math.sqrt((x*x)+(y*y));
+		x=(x/mod)*maxModVelocity;
+		y=(y/mod)*maxModVelocity;
+		Point2D vel=new Point2D(x,y);
 		if (obstacle_collision_dx && obstacle_collision_ux) {
 			velocity.setX(0);
 			obstacle_collision_dx = false;
@@ -48,7 +58,12 @@ public class EnemyMelee extends Enemy {
 			velocity.setY(Math.abs(maxVelocity.getY()));
 			obstacle_collision_uy = false;
 		}
-		posAdd(velocity);
+		if(colPlayer){
+			vel.setX(-vel.getX());
+			vel.setY(-vel.getY());
+			colPlayer=false;
+		}
+		posAdd(vel);
 	}
 
 	public void draw(Graphics g) {
@@ -61,6 +76,7 @@ public class EnemyMelee extends Enemy {
 		if (col instanceof Player) {
 			Player pl = (Player) col;
 			pl.doDamage(getDamage());
+			colPlayer=true;
 		}
 		c = new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255),
 				(int) Math.round(Math.random() * 255));
