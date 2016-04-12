@@ -22,9 +22,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	
 	
 	
-	protected boolean dead=false;
-	
-	Semaphore deadS = new Semaphore(1);
+
 
 	
 	/**
@@ -158,30 +156,6 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 			obstacle_collision_dx = obstacle_collision_dx || dx == max;
 			obstacle_collision_ux = obstacle_collision_ux || ux == max;
 		}
-	}
-	
-	public synchronized boolean isDead() {
-		try {
-			deadS.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		boolean r=dead;
-		deadS.release();
-		return r;
-	}
-
-	public synchronized boolean kill() {
-		try {
-			deadS.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		boolean r = (dead = true);
-		deadS.release();
-		return r;
 	}
 
 }

@@ -2,6 +2,7 @@ package es.pcv.core.updater.elements;
 
 import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
+import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
@@ -9,7 +10,10 @@ import es.pcv.game.configuration.Config;
 
 public abstract class PolygonCollision implements Collisionable{
 	protected Rectangle2D rect;
-
+	
+	protected boolean dead=false;
+	Semaphore deadS = new Semaphore(1);
+	
 	public PolygonCollision(Rectangle2D ply) {
 		this.rect = ply;
 	}
@@ -77,6 +81,7 @@ public abstract class PolygonCollision implements Collisionable{
 		setX((int)pos.getX());
 		setY((int)pos.getY());
 	}
+	
 	public void posAdd(Point2D pos){
 		addX((int)pos.getX());
 		addY((int)pos.getY());
@@ -93,6 +98,30 @@ public abstract class PolygonCollision implements Collisionable{
 	
 	public Polygon getRectangle(){
 		return PolygonHelper.getRectangle(getPos(), getSize());
+	}
+	
+	public synchronized boolean isDead() {
+		try {
+			deadS.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean r=dead;
+		deadS.release();
+		return r;
+	}
+
+	public synchronized boolean kill() {
+		try {
+			deadS.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean r = (dead = true);
+		deadS.release();
+		return r;
 	}
 
 }

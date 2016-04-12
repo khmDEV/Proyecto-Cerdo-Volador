@@ -14,6 +14,8 @@ public class Point2D {
 	public Point2D(double x2, double y2) {
 		update((float)x2,(float)y2);
 	}
+
+	
 	public synchronized Point2D update(Point2D p){
 		update(p.getX(),p.getY());
 		return this;
@@ -88,6 +90,12 @@ public class Point2D {
 		return new Point2D(((x - Config.startX)/Config.scale.getX())
 				,(y/ Config.scale.getY()));
 	}
-	
 
+	public Point2D setAbsolutePosition(){
+		x = Math.round(x * Config.scale.getX()) + Config.startX;
+		y = Math.round(y * Config.scale.getX());
+		System.out.println(x);
+		System.out.println(y);
+		return this;
+	}
 }

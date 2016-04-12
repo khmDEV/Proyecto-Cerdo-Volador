@@ -68,7 +68,7 @@ public class EnemyMelee extends Enemy {
 
 	public void draw(Graphics g) {
 		g.setColor(c);
-		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
+		g.drawPolygon(getRectangle());
 	}
 
 	public void collision(Collisionable col) {

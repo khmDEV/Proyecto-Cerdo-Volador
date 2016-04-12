@@ -40,7 +40,7 @@ public class Maps {
 		maps[0].addElement(new StandarWall(new Point2D(0, 0.98f),new Point2D(1, 0.02f)));
 		maps[0].addElement(new StandarWall(new Point2D(0.98f, 0),new Point2D(0.02f, 1)));
 		
-		maps[0].addElement(new EnemyMelee(new Point2D(0.7f, 0.5f),player));
+		maps[0].addElement(new EnemyMelee(new Point2D(0.7f, 0.5f)));
 		
 		
 		maps[0].addElement(new MapLoader(new Point2D(0.4f, 0),new Point2D(0.2f, 0.02f),this,1));
@@ -62,9 +62,9 @@ public class Maps {
 		maps[1].addElement(new StandarWall(new Point2D(0.98f, 0),new Point2D(0.02f, 1)));
 		
 		
-		maps[1].addElement(new EnemyMelee(new Point2D(0.2f, 0.5f),player));
-		maps[1].addElement(new EnemyMelee(new Point2D(0.5f, 0.5f),player));
-		maps[1].addElement(new EnemyMelee(new Point2D(0.8f, 0.5f),player));
+		maps[1].addElement(new EnemyMelee(new Point2D(0.2f, 0.5f)));
+		maps[1].addElement(new EnemyMelee(new Point2D(0.5f, 0.5f)));
+		maps[1].addElement(new EnemyMelee(new Point2D(0.8f, 0.5f)));
 		
 		maps[1].addElement(new MapLoader(new Point2D(0.4f, 0),new Point2D(0.2f, 0.02f),this,1));
 		maps[1].addElement(new MapLoader(new Point2D(0.4f, 0.98f),new Point2D(0.2f, 0.02f),this,0));

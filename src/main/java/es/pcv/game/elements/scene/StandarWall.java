@@ -8,20 +8,17 @@ import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Element;
 
-public class StandarWall extends Wall implements Element {
+public class StandarWall extends Wall {
 	Color c;
-	public StandarWall(Point2D p,Point2D s,Color c) {
+	public StandarWall(Point2D p,Point2D s) {
 		super(p,s);
-		this.c=c;
-	}
-
-	public void update() {
-		
+		this.c=new Color(0, 0, 0);
 	}
 
 	public void draw(Graphics g) {
 		g.setColor(c);
-		g.drawPolygon(getRectangle());
+		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
+		//g.drawPolygon(getRectangle());
 	}
 
 	public boolean isDead() {
