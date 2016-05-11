@@ -19,7 +19,6 @@ public class ObjectIcon {
 					imagenes.add(image2);
 				}
 			}
-			//System.out.println(imagenes.size());        
         } catch (IOException e) {
 			e.printStackTrace();
 		}

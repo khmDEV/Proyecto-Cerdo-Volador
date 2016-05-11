@@ -1,6 +1,5 @@
 package es.pcv.game;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -9,17 +8,12 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.render.RenderDefault;
-import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.UpdaterDefault;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
-import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.Maps;
-import es.pcv.game.elements.scene.StandarWall;
-import es.pcv.game.elements.scene.Wall;
-import es.pcv.game.elements.weapons.Sword;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Stats;
 
@@ -47,7 +41,7 @@ public class Game {
 	public void startGame(){
 		
 		Player pl=new Player(new Point2D(0.8f, 0.5f),frame);
-		Maps m = new Maps(updater,render,pl);
+		new Maps(updater,render,pl);
 		//Sword sword=new Sword(pl,pl.getPos().clone(), 1, 70, 2);
 		addElement(pl);
 		

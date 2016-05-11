@@ -32,9 +32,6 @@ public class MapLoader extends PolygonObstacle implements Element{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//if(!activate){
-			System.out.println("activado");
-		//}
 		activate = true;
 		s.release();
 	}
@@ -44,9 +41,6 @@ public class MapLoader extends PolygonObstacle implements Element{
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		if(activate){
-			System.out.println("desactivado");
 		}
 		activate = false;
 		s.release();

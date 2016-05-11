@@ -1,7 +1,6 @@
 package es.pcv.game.elements.enemies;
 
 import es.pcv.core.render.Point2D;
-import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.elements.player.Player;
 

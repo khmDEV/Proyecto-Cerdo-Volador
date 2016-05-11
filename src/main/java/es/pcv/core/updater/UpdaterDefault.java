@@ -4,12 +4,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.elements.enemies.Enemy;
-import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.MapLoader;
-import es.pcv.game.elements.scene.Maps;
 
 public class UpdaterDefault extends Updater {
 	List<Element> elements=new LinkedList<Element>();

@@ -1,15 +1,14 @@
 package es.pcv.game.elements.scene;
 
-import java.awt.Color;
-
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
-import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.Updater;
-import es.pcv.core.updater.elements.Element;
 import es.pcv.game.elements.enemies.EnemyMelee;
-import es.pcv.game.elements.objects.Something;
+import es.pcv.game.elements.items.ItemWeapon;
 import es.pcv.game.elements.player.Player;
+import es.pcv.game.elements.weapons.DefaultGun;
+import es.pcv.game.elements.weapons.Scabbard;
+import es.pcv.game.elements.weapons.Shotgun;
 
 public class Maps {
 	public Updater updater;
@@ -48,9 +47,13 @@ public class Maps {
 		maps[0].addElement(new EnemyMelee(new Point2D(0.7f, 0.5f),player));
 		
 		
-		maps[0].addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),"mesa.png",false));
+		//maps[0].addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),"mesa.png",false));
 		
 		maps[0].addElement(new MapLoader(new Point2D(0.4f, 0),new Point2D(0.2f, 0.02f),this,1));
+
+		maps[0].addElement(new ItemWeapon(new Point2D(0.3f, 0.2f),new DefaultGun(null)));
+		maps[0].addElement(new ItemWeapon(new Point2D(0.5f, 0.2f),new Shotgun(null)));
+		maps[0].addElement(new ItemWeapon(new Point2D(0.7f, 0.2f),new Scabbard(null)));
 
 		
 		//player.setPos(new Point2D(0.5f,0.5f).setAbsolutePosition());

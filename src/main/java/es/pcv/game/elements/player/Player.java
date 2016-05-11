@@ -1,30 +1,23 @@
 package es.pcv.game.elements.player;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JFrame;
 
-import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
-import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
-import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.weapons.DefaultGun;
 import es.pcv.game.elements.weapons.Gun;
+import es.pcv.game.elements.weapons.Scabbard;
 import es.pcv.game.elements.weapons.Shotgun;
-import es.pcv.game.elements.weapons.Sword;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -56,9 +49,10 @@ public class Player extends Walker {
 		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
 
-		weapons[0]=new DefaultGun(this,getPos().clone(), 1, 0);
-		weapons[1]=new Sword(this,getPos().clone(), 1, 70, 2);
-		weapons[2]=new Shotgun(this,getPos().clone(), 1, 0);
+		weapons[0]=new DefaultGun(this);
+		weapons[1]=new Scabbard(this);
+		weapons[2]=new Shotgun(this);
+		changeWeapon(currentWeapon);
 		
 		
 		KeyListener kl = new KeyListener() {
@@ -148,14 +142,9 @@ public class Player extends Walker {
 				movXImg = 1;
 				addX((int)velocity.getX());
 			}
-			if (pressed.contains(KeyEvent.VK_1) |
-				pressed.contains(KeyEvent.VK_2) |
-				pressed.contains(KeyEvent.VK_3)){
-				changeWeapon(0);
-			}
+			
 			for(int i=KeyEvent.VK_1;i<=KeyEvent.VK_3;i++){
 				if (pressed.contains(i)){
-					System.out.println(i);
 					changeWeapon(i-KeyEvent.VK_1);
 				}
 			}
@@ -191,7 +180,7 @@ public class Player extends Walker {
 		float ox = (float) (getSizeX() * fx);
 		float oy = (float) (getSizeY() * fy);
 
-		((Gun) weapons[currentWeapon]).shoot(this, new Point2D(ox, oy).add(getPos()), new Point2D(fx, fy));
+		((Gun) weapons[currentWeapon]).attack(this, new Point2D(ox, oy).add(getPos()), new Point2D(fx, fy));
 	}
 	
 	
@@ -244,33 +233,35 @@ public class Player extends Walker {
 	}
 	
 	public void checkWeapon(){
-		if(currentWeapon == 0 | currentWeapon == 2){
-			if (isFire() && ((Gun) weapons[currentWeapon]).canShoot()) {
-				shoot();
-			}
-		}else if(currentWeapon == 1){
-			
+		if (isFire() && weapons[currentWeapon]!=null &&weapons[currentWeapon].canAttack()) {
+			shoot();
 		}
 	}
 	public void changeWeapon(int n){
 		if(weapons[n]!=null){
-			if(currentWeapon == 0 |currentWeapon == 2){
-				Game.getGame().render.remove(weapons[currentWeapon]);
-			}else{
-				Game.getGame().render.remove(weapons[currentWeapon]);
-				Game.getGame().updater.remove(weapons[currentWeapon]);
-			}
+			weapons[currentWeapon].unequip();
 			currentWeapon=n;
-			
-			if(currentWeapon == 0 |currentWeapon == 2){
-				Game.getGame().render.add(weapons[currentWeapon]);
-			}else{
-				Game.getGame().render.add(weapons[currentWeapon]);
-				Game.getGame().updater.add(weapons[currentWeapon]);
-			}
-			//addElement();
+			weapons[currentWeapon].equip(this);
 		}
 	}
+
+	public Weapon getWeapon(Weapon gun) {
+		for (int i = 0; i < weapons.length; i++) {
+			if (weapons[i]==null) {
+				weapons[i]=gun;
+				if (currentWeapon==i) {
+					weapons[i].equip(this);
+				}
+				return null;
+			}
+		}
+		Weapon aux=weapons[currentWeapon];
+		weapons[currentWeapon]=gun;
+		aux.unequip();
+		weapons[currentWeapon].equip(this);
+		return aux;
+	}
+
 	
 
 }

@@ -4,8 +4,6 @@ import java.awt.Graphics;
 
 import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
-import es.pcv.core.render.auxiliar.PolygonHelper;
-import es.pcv.game.configuration.Config;
 
 public abstract class Walker extends LiveEntity{
 	

@@ -6,7 +6,6 @@ import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
-import es.pcv.game.configuration.Config;
 
 public abstract class PolygonCollision implements Collisionable{
 	protected Rectangle2D rect;
@@ -119,7 +118,8 @@ public abstract class PolygonCollision implements Collisionable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		boolean r = (dead = true);
+		boolean r = dead;
+		dead = true;
 		deadS.release();
 		return r;
 	}

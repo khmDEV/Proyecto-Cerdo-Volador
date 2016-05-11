@@ -94,8 +94,6 @@ public class Point2D {
 	public Point2D setAbsolutePosition(){
 		x = Math.round(x * Config.scale.getX()) + Config.startX;
 		y = Math.round(y * Config.scale.getX());
-		System.out.println(x);
-		System.out.println(y);
 		return this;
 	}
 }
