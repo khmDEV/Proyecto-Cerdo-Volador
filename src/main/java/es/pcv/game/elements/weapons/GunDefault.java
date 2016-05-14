@@ -13,9 +13,6 @@ public class GunDefault extends Gun {
 	}
 
 	public void attack(Walker shooter, Point2D origin, Point2D direction) {
-
-		System.out.println(shooter.getX()+" "+shooter.getY());
-		System.out.println(origin.getAbsolutePosition());
 		BulletDefault b = new BulletDefault(shooter, origin.getAbsolutePosition(),
 						new Point2D(vbull, vbull).multiply(direction));
 		Game.getGame().addElement(b);
