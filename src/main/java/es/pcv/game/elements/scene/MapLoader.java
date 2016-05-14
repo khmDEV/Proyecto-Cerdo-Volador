@@ -50,7 +50,6 @@ public class MapLoader extends PolygonObstacle implements Element{
 		s.release();
 	}
 
-	@Override
 	public void collisionObstacle(Collisionable c) {
 		// TODO Auto-generated method stub
 		try {
@@ -73,13 +72,11 @@ public class MapLoader extends PolygonObstacle implements Element{
 		
 	}
 
-	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		if(activate){

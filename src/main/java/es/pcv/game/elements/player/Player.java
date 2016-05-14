@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
-import es.pcv.game.elements.weapons.DefaultGun;
+import es.pcv.game.elements.weapons.GunDefault;
 import es.pcv.game.elements.weapons.Gun;
 import es.pcv.game.elements.weapons.Scabbard;
 import es.pcv.game.elements.weapons.Shotgun;
@@ -49,7 +49,7 @@ public class Player extends Walker {
 		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
 
-		weapons[0]=new DefaultGun(this);
+		weapons[0]=new GunDefault(this);
 		weapons[1]=new Scabbard(this);
 		weapons[2]=new Shotgun(this);
 		changeWeapon(currentWeapon);

@@ -86,9 +86,10 @@ public class Point2D {
 	public Point2D clone(){
 		return new Point2D(x, y);
 	}
+	
 	public Point2D getAbsolutePosition(){
 		return new Point2D(((x - Config.startX)/Config.scale.getX())
-				,(y - Config.startY/ Config.scale.getY()));
+				,(y - Config.startY)/ Config.scale.getY());
 	}
 
 	public Point2D setAbsolutePosition(){

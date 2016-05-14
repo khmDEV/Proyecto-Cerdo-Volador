@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.game.elements.scene.Wall;
 
@@ -27,7 +26,6 @@ public class Something extends Wall{
 		this.inv=inv;
 	}
 
-	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		if(!inv){

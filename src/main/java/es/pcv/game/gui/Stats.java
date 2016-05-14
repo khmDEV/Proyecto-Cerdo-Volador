@@ -3,25 +3,19 @@ package es.pcv.game.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import es.pcv.core.render.ObjectIcon;
-import es.pcv.core.render.Point2D;
-import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.render.figure.Drawable;
-import es.pcv.game.Game;
-import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 
 public class Stats implements Drawable {
 
 	private Player pl;
-	private Font font=new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+	private Font font=new Font(Font.SANS_SERIF, Font.PLAIN, 18);
 	
 	private Color color=new Color(255,0,0);
 	private Color black=new Color(0,0,0);
@@ -68,6 +62,7 @@ public class Stats implements Drawable {
 	
 	public void draw(Graphics g) {
 		g.setColor(color);
+		g.setFont(font);
 		g.fillRect(5, 5, 50*pl.getLive() , 20);
 		g.setColor(black);
 		g.drawRect(5, 5, 500, 20);

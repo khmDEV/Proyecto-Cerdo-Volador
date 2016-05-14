@@ -5,14 +5,17 @@ import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
 import es.pcv.game.elements.weapons.bulls.BulletDefault;
 
-public class DefaultGun extends Gun {
+public class GunDefault extends Gun {
 	private float vbull = 0.05f;
 	
-	public DefaultGun(Walker w) {
+	public GunDefault(Walker w) {
 		super(w,500,4);
 	}
 
 	public void attack(Walker shooter, Point2D origin, Point2D direction) {
+
+		System.out.println(shooter.getX()+" "+shooter.getY());
+		System.out.println(origin.getAbsolutePosition());
 		BulletDefault b = new BulletDefault(shooter, origin.getAbsolutePosition(),
 						new Point2D(vbull, vbull).multiply(direction));
 		Game.getGame().addElement(b);
