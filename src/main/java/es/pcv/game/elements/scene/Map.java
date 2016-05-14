@@ -16,20 +16,28 @@ public class Map {
 	Updater updater;
 	Render render;
 	
-	Point2D playerPos;
-	public Map(List<Element> l,Updater u,Render r,Point2D pos){
+	Integer nextMaps[];
+	Point2D playerPos[];
+	
+
+	
+	
+	public Map(List<Element> l,Updater u,Render r,Point2D[] pos,Integer[] nextMaps){
 		elements = l;
 		updater = u;
 		render = r;
-		playerPos = pos.setAbsolutePosition();
+		playerPos = pos;
+		this.nextMaps=nextMaps;
 	}
 	
-	public Map(Updater u,Render r,Point2D pos){
+	public Map(Updater u,Render r,Point2D[] pos,Integer[] nextMaps){
 		elements = new ArrayList<Element>();
 		updater = u;
 		render = r;
-		playerPos = pos.setAbsolutePosition();
+		playerPos = pos;
+		this.nextMaps=nextMaps;
 	}
+	
 	
 	public void addElement(Element e){
 		elements.add(e);
@@ -57,8 +65,8 @@ public class Map {
 		}
 	}
 	
-	public Point2D getPlayerPos(){
-		return playerPos;
+	public Point2D getPlayerPos(int n){
+		return playerPos[n];
 	}
 	public void list(){
 		Iterator<Element> i = elements.iterator();

@@ -1,0 +1,8 @@
+Tipo de mapa
+3
+2
+Mapas conectados
+2 1
+4 0
+8 0
+Enemigos

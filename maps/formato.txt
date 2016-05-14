@@ -1,0 +1,7 @@
+Tipo de mapa
+//tipo
+//rotacion
+Mapas conectados
+//mapa posicion
+Enemigos
+

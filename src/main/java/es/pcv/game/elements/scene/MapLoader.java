@@ -17,10 +17,12 @@ public class MapLoader extends PolygonObstacle implements Element{
 	private static boolean activate = false;
 	Maps map;
 	int idMap;
-	public MapLoader(Point2D p, Point2D s, Maps m,int idMap) {
+	int pos;
+	public MapLoader(Point2D p, Point2D s, Maps m,int idMap,int pos) {
 		super(p, s);
 		map=m;
 		this.idMap=idMap;
+		this.pos=pos;
 		// TODO Auto-generated constructor stub
 		
 	}
@@ -32,6 +34,7 @@ public class MapLoader extends PolygonObstacle implements Element{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		activate = true;
 		s.release();
 	}
@@ -42,6 +45,7 @@ public class MapLoader extends PolygonObstacle implements Element{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		activate = false;
 		s.release();
 	}
@@ -59,7 +63,7 @@ public class MapLoader extends PolygonObstacle implements Element{
 		s.release();
 		if(res){
 			if((c instanceof Player)){
-				map.changeMap(idMap);
+				map.changeMap(idMap,pos);
 			}
 		}else{
 			if(c instanceof LiveEntity){

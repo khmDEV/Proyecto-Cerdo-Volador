@@ -29,8 +29,7 @@ public class Game {
 		render=new RenderDefault();
 	    frame = new JFrame("DrawPanel");
 	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    Config.scale=new Point2D(screenSize.getHeight()*0.95, screenSize.getHeight()*0.95);
-	    Config.startX=100;
+	    Config.scale=new Point2D(screenSize.getHeight()*0.8, screenSize.getHeight()*0.8);
 	    frame.setBounds(0,0,screenSize.width, screenSize.height);
 	    frame.setVisible(true);
 	    frame.add(render);

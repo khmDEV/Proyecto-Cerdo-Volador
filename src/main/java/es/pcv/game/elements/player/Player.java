@@ -252,7 +252,7 @@ public class Player extends Walker {
 				if (currentWeapon==i) {
 					weapons[i].equip(this);
 				}
-				return null;
+				return null;	
 			}
 		}
 		Weapon aux=weapons[currentWeapon];
@@ -262,6 +262,9 @@ public class Player extends Walker {
 		return aux;
 	}
 
+	public int getCurrentWeapon(){
+		return currentWeapon;
+	}
 	
 
 }

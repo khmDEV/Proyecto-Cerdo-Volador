@@ -2,8 +2,11 @@ package es.pcv.game.elements.scene;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.auxiliar.PolygonHelper;
+import es.pcv.core.updater.elements.Element;
 
 public class StandarWall extends Wall {
 	Color c;

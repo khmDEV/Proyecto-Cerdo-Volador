@@ -88,12 +88,12 @@ public class Point2D {
 	}
 	public Point2D getAbsolutePosition(){
 		return new Point2D(((x - Config.startX)/Config.scale.getX())
-				,(y/ Config.scale.getY()));
+				,(y - Config.startY/ Config.scale.getY()));
 	}
 
 	public Point2D setAbsolutePosition(){
 		x = Math.round(x * Config.scale.getX()) + Config.startX;
-		y = Math.round(y * Config.scale.getX());
+		y = Math.round(y * Config.scale.getX()) + Config.startY;
 		return this;
 	}
 }
