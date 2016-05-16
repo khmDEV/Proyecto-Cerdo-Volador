@@ -14,10 +14,9 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
-import es.pcv.game.elements.weapons.GunDefault;
+import es.pcv.game.elements.weapons.LaserGun;
 import es.pcv.game.elements.weapons.Gun;
-import es.pcv.game.elements.weapons.Scabbard;
-import es.pcv.game.elements.weapons.Shotgun;
+import es.pcv.game.elements.weapons.LaserBrimstone;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -39,19 +38,16 @@ public class Player extends Walker {
 	//Weapons
 	
 	//private List weapons;
-	private Weapon[] weapons=new Weapon[3];
+	private Weapon[] weapons=new Weapon[]{new LaserGun(this),new LaserBrimstone(this)};
 	
 	
-	private int currentWeapon= 1;
+	private int currentWeapon= 0;
 	
 	
 	public Player(Point2D position,JFrame jp) {
 		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
 
-		weapons[0]=new GunDefault(this);
-		weapons[1]=new Scabbard(this);
-		weapons[2]=new Shotgun(this);
 		changeWeapon(currentWeapon);
 		
 		
@@ -162,7 +158,7 @@ public class Player extends Walker {
 		
 	}
 
-	public void shoot(){
+	public void attack(){
 		Point last = jp.getMousePosition();
 		
 		if (last != null) {
@@ -234,11 +230,11 @@ public class Player extends Walker {
 	
 	public void checkWeapon(){
 		if (isFire() && weapons[currentWeapon]!=null &&weapons[currentWeapon].canAttack()) {
-			shoot();
+			attack();
 		}
 	}
 	public void changeWeapon(int n){
-		if(weapons[n]!=null){
+		if(weapons.length>n && weapons[n]!=null){
 			weapons[currentWeapon].unequip();
 			currentWeapon=n;
 			weapons[currentWeapon].equip(this);
@@ -264,6 +260,14 @@ public class Player extends Walker {
 
 	public int getCurrentWeapon(){
 		return currentWeapon;
+	}
+
+	public int getWeaponCapacity() {
+		return weapons.length;
+	}
+
+	public Weapon getWeapon(int i) {
+		return weapons[i];
 	}
 	
 

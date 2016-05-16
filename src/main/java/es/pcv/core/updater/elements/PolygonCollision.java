@@ -25,6 +25,10 @@ public abstract class PolygonCollision implements Collisionable{
 		return rect;
 	}
 	
+	public void setCollisionBox(Rectangle2D r){
+		rect=r;
+	}
+	
 	public void collision(Collisionable c){
 	}
 	

@@ -9,8 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.game.elements.player.Player;
+import es.pcv.game.elements.weapons.Weapon;
 
 public class Stats implements Drawable {
 
@@ -20,7 +22,8 @@ public class Stats implements Drawable {
 	private Color color=new Color(255,0,0);
 	private Color black=new Color(0,0,0);
 	
-	
+	private ObjectIcon iconGuns= new ObjectIcon("weapons.png", 2, 4);
+
 	private BufferedImage[] weapon;
 	
 	public Stats(Player pl) {
@@ -69,16 +72,24 @@ public class Stats implements Drawable {
 		g.drawRect(4, 4, 502, 22);
 		
 		g.drawImage(weapon[pl.getCurrentWeapon()], 10, 40 , 100 ,100,null);
-		for (int i=0;i<3;i++){
+		for (int i=0;i<pl.getWeaponCapacity();i++){
+			Weapon wp=pl.getWeapon(i);
 			g.setColor(black);
-			g.drawImage(weapon[i], 120 + (i*40), 40 , 30 ,30,null);
-			Integer num=i;
-			char[] number=num.toString().toCharArray();
-			g.drawChars(number, 0, 1, 130 + (i*40), 85);
+			if (wp!=null) {
+				g.drawImage(iconGuns.getImage(wp.getId()), 120 + (i*40), 40 , 30 ,30,null);
+				
+			}else{
+				g.drawRect(120 + (i*40), 40 , 30 ,30);
+			}
 			if(i==pl.getCurrentWeapon()){
 				g.setColor(color);
 				g.drawRect(120 + (i*40), 40 , 30 ,30);
 			}
+			
+			Integer num=i+1;
+			char[] number=num.toString().toCharArray();
+			g.drawChars(number, 0, 1, 130 + (i*40), 85);
+			
 		}
 		//String s="Live:" + pl.getLive() + "/" + pl.getMaxLive();
 		//g.drawString(s, 0,20);

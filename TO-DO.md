@@ -15,3 +15,6 @@
 * Ajustar stats -P
 * Objetos obstaculos distintos -P
 * SONIDO -?
+
+#BUGS
+* El punto desde el que se disparan las balas no es el correcto -C

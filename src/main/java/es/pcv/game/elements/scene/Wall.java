@@ -1,7 +1,6 @@
 package es.pcv.game.elements.scene;
 
 import java.awt.geom.Rectangle2D;
-import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
