@@ -19,6 +19,7 @@ public abstract class Wall extends PolygonCollision implements Element {
 	public Wall(Point2D p, Point2D s){
 		super(PolygonHelper.createRectangle(p,s).getBounds2D());
 	}	
+
 	
 	public void update() {
 	}
@@ -28,7 +29,7 @@ public abstract class Wall extends PolygonCollision implements Element {
 			c.collisionObstacle(this);
 		}
 	}
-
+	
 	public void collisionObstacle(Collisionable c) {
 		
 	}

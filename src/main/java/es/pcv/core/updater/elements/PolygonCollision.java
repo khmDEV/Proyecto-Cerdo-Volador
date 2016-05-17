@@ -103,6 +103,7 @@ public abstract class PolygonCollision implements Collisionable{
 		return PolygonHelper.getRectangle(getPos(), getSize());
 	}
 	
+	
 	public synchronized boolean isDead() {
 		try {
 			deadS.acquire();
@@ -127,5 +128,16 @@ public abstract class PolygonCollision implements Collisionable{
 		deadS.release();
 		return r;
 	}
+	
+	public void rotate(double rot, Point2D point2d) {
+		rect = PolygonHelper.rotatePolygon(getRectangle(), point2d, rot).getBounds2D();
+	};
 
+	public void invert(int x) {
+		if(x>getX()+getSizeX()){
+			setX(x+(x-(getX()+getSizeX())));
+		}else{
+			setX(x-(getX()+getSizeX()-x));
+		}
+	};
 }

@@ -2,6 +2,7 @@ package es.pcv.game.elements.scene;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 
 import es.pcv.core.render.Point2D;
 
@@ -11,6 +12,7 @@ public class StandarWall extends Wall {
 		super(p,s);
 		this.c=new Color(0, 0, 0);
 	}
+	
 
 	public void draw(Graphics g) {
 		g.setColor(c);

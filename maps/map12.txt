@@ -1,6 +1,7 @@
 Tipo de mapa
-2
+8
 0
+1
 Mapas conectados
 9 1
 13 0

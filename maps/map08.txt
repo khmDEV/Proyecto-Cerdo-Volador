@@ -1,7 +1,8 @@
 Tipo de mapa
-2
+8
+0
 0
 Mapas conectados
 3 2
-9 0
+9 2
 Enemigos

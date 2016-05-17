@@ -1,13 +1,17 @@
 package es.pcv.game.elements.scene;
 
+import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
+import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.elements.Element;
+import es.pcv.core.updater.elements.PolygonCollision;
+import es.pcv.game.configuration.Config;
 
 public class Map {
 
@@ -73,6 +77,41 @@ public class Map {
 		System.out.println("------------------------------------------");
 		while(i.hasNext()){
 			System.out.println(i.next());
+		}
+	}
+	public void rotate(double rot) {
+		
+		for (int i=0; i<playerPos.length;i++){
+			if(playerPos[i]!=null){
+				Polygon pl =PolygonHelper.getRectangle(playerPos[i],new Point2D(0,0));
+				Polygon pl2=PolygonHelper.rotatePolygon(pl,new Point2D(Config.startX + 
+						Config.scale.getX() / 2, Config.startY + Config.scale.getY() / 2),rot);
+				playerPos[i]= new Point2D (pl2.getBounds2D().getX(),pl2.getBounds2D().getY());
+			}
+		}
+		for (Element element : elements) {
+			if (element instanceof PolygonCollision) {
+				((PolygonCollision) element).rotate(rot,
+						new Point2D(Config.startX + Config.scale.getX() / 2, Config.startY + Config.scale.getY() / 2));
+			}
+		}
+	}
+	
+	public void invert() {
+		int x = (int) (Config.startX + Config.scale.getX() / 2);
+		for (int i=0; i<playerPos.length;i++){
+			if(playerPos[i]!=null){
+				if(x>playerPos[i].getX()){
+					playerPos[i].setX(x+(x-playerPos[i].getX()));
+				}else{
+					playerPos[i].setX(x-(playerPos[i].getX()-x));
+				}
+			}
+		}
+		for (Element element : elements) {
+			if (element instanceof PolygonCollision) {
+				((PolygonCollision) element).invert(x);
+			}
 		}
 	}
 }

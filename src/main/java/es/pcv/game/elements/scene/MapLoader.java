@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.core.updater.elements.LiveEntity;
@@ -20,6 +21,14 @@ public class MapLoader extends PolygonObstacle implements Element{
 	int pos;
 	public MapLoader(Point2D p, Point2D s, Maps m,int idMap,int pos) {
 		super(p, s);
+		map=m;
+		this.idMap=idMap;
+		this.pos=pos;
+		// TODO Auto-generated constructor stub
+		
+	}
+	public MapLoader(Point2D p, Point2D s, Point2D center, double ang, Maps m,int idMap,int pos) {
+		super(PolygonHelper.rotatePolygon(PolygonHelper.createRectangle(p,s),center,ang).getBounds2D());
 		map=m;
 		this.idMap=idMap;
 		this.pos=pos;
