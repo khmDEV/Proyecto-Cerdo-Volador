@@ -6,15 +6,22 @@ import es.pcv.game.Game;
 import es.pcv.game.elements.weapons.bulls.BulletLaser;
 
 public class LaserGun extends Gun {
-	private float vbull = 0.1f;
-	
+
+	private final static float V_DEFAULT = 0.1f;
+	private final static int DAMAGE_DEFAULT = 1;
+	private final static int AMMO_DEFAULT = 100;
+	private final static int CD_DEFAULT = 100;
+	private final static int ID = 11;
+
 	public LaserGun(Walker w) {
-		super(w,100,4);
+		super(w,CD_DEFAULT,AMMO_DEFAULT,ID);
 	}
 
-	public void attack(Walker shooter, Point2D origin, Point2D direction) {
-		BulletLaser b = new BulletLaser(shooter, origin.getAbsolutePosition(),
-						new Point2D(vbull, vbull).multiply(direction));
+	public void shoot(Walker shooter, Point2D origin, Point2D direction) {
+		Point2D o=origin.clone().getAbsolutePosition();
+		o.add(BulletLaser.size.clone().multiply(-0.5f)).add(direction.clone().multiply(BulletLaser.size.getX()/2));
+		BulletLaser b = new BulletLaser(shooter, o,
+						new Point2D(V_DEFAULT, V_DEFAULT).multiply(direction),1,DAMAGE_DEFAULT);
 		Game.getGame().addElement(b);
 		resetCD();
 	}

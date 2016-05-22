@@ -9,9 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.figure.Drawable;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
+import es.pcv.game.elements.weapons.Gun;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Stats implements Drawable {
@@ -21,8 +22,6 @@ public class Stats implements Drawable {
 	
 	private Color color=new Color(255,0,0);
 	private Color black=new Color(0,0,0);
-	
-	private ObjectIcon iconGuns= new ObjectIcon("weapons.png", 2, 4);
 
 	private BufferedImage[] weapon;
 	
@@ -30,21 +29,21 @@ public class Stats implements Drawable {
 		this.pl = pl;
 		
 		weapon=new BufferedImage[3];
-		File f = new File("pistola.jpg");
+		File f = new File(Config.RESOURCES_PATH+"/icons/pistola.jpg");
 		try {
 			weapon[0] = ImageIO.read(f);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		f = new File("espada.jpg");
+		f = new File(Config.RESOURCES_PATH+"/icons/espada.jpg");
 		try {
 			weapon[1] = ImageIO.read(f);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		f = new File("escopeta.png");
+		f = new File(Config.RESOURCES_PATH+"/icons/escopeta.png");
 		try {
 			weapon[2] = ImageIO.read(f);
 		} catch (IOException e) {
@@ -71,12 +70,27 @@ public class Stats implements Drawable {
 		g.drawRect(5, 5, 500, 20);
 		g.drawRect(4, 4, 502, 22);
 		
-		g.drawImage(weapon[pl.getCurrentWeapon()], 10, 40 , 100 ,100,null);
+		String s="";
+		Weapon wp=pl.getWeapon();
+		if (wp!=null){
+			if( wp instanceof Gun && ((Gun) wp).getMaxAmmo()!=0) {
+				Gun gun=(Gun)wp;
+				s=gun.getAmmo()+"/"+gun.getMaxAmmo();
+				g.drawChars(s.toCharArray(), 0, s.length(), 20, 65);
+			}else{
+				g.setFont(new Font(font.getFontName(), font.getStyle(), 44));
+				s='\u221e'+"";
+				g.drawChars(s.toCharArray(), 0, s.length(), 30, 70);
+				g.setFont(font);
+			}
+		}
+			
+		
 		for (int i=0;i<pl.getWeaponCapacity();i++){
-			Weapon wp=pl.getWeapon(i);
+			wp=pl.getWeapon(i);
 			g.setColor(black);
 			if (wp!=null) {
-				g.drawImage(iconGuns.getImage(wp.getId()), 120 + (i*40), 40 , 30 ,30,null);
+				g.drawImage(Weapon.ICONS.getImage(wp.getId()), 120 + (i*40), 40 , 30 ,30,null);
 				
 			}else{
 				g.drawRect(120 + (i*40), 40 , 30 ,30);

@@ -6,12 +6,13 @@ import es.pcv.game.Game;
 import es.pcv.game.elements.weapons.melee.Sword;
 
 public class Scabbard extends Weapon{
+	private final static int ID = 22;
 
 	boolean vertical = true;
 	private Sword sword;
 	
 	public Scabbard(Walker w) {
-		super(w,5);
+		super(w,ID);
 		if (w!=null) {
 			sword=new Sword(owner);
 		}

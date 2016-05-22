@@ -4,7 +4,6 @@ import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.core.updater.elements.Walker;
-import es.pcv.game.elements.weapons.Weapon;
 
 public abstract class Bullet extends LiveEntity{
 	
@@ -25,6 +24,6 @@ public abstract class Bullet extends LiveEntity{
 	
 	
 	public boolean isCollision(Collisionable col){
-		return whoAttack!=col&&!(col instanceof Weapon)&&super.isCollision(col);
+		return whoAttack!=col&&super.isCollision(col);
 	}
 }

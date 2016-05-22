@@ -76,6 +76,10 @@ public abstract class PolygonCollision implements Collisionable{
 		return new Point2D(getX(),getY());
 	}
 	
+	public Point2D getCenterPos(){
+		return new Point2D(rect.getCenterX(),rect.getCenterY());
+	}
+	
 	public void setPos(int x, int y){
 		setX(x);
 		setY(y);

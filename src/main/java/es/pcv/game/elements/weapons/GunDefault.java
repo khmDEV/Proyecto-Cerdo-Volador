@@ -3,18 +3,26 @@ package es.pcv.game.elements.weapons;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
+import es.pcv.game.elements.weapons.bulls.BulletBrimstone;
 import es.pcv.game.elements.weapons.bulls.BulletDefault;
 
 public class GunDefault extends Gun {
-	private float vbull = 0.05f;
 	
+	private final static float V_DEFAULT = 0.05f;
+	private final static int DAMAGE_DEFAULT = 2;
+	private final static int AMMO_DEFAULT = 100;
+	private final static int CD_DEFAULT = 500;
+	private final static int ID = 3;
+
 	public GunDefault(Walker w) {
-		super(w,500,4);
+		super(w,CD_DEFAULT,AMMO_DEFAULT,ID);
 	}
 
-	public void attack(Walker shooter, Point2D origin, Point2D direction) {
-		BulletDefault b = new BulletDefault(shooter, origin.getAbsolutePosition(),
-						new Point2D(vbull, vbull).multiply(direction));
+	public void shoot(Walker shooter, Point2D origin, Point2D direction) {
+		Point2D o=origin.clone().getAbsolutePosition();
+		o.add(BulletDefault.size.clone().multiply(-0.5f)).add(direction.clone().multiply(BulletDefault.size.getX()/2));
+		BulletDefault b = new BulletDefault(shooter, o,
+						new Point2D(V_DEFAULT, V_DEFAULT).multiply(direction),1,DAMAGE_DEFAULT);
 		Game.getGame().addElement(b);
 		resetCD();
 	}

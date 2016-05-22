@@ -14,9 +14,7 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
-import es.pcv.game.elements.weapons.LaserGun;
-import es.pcv.game.elements.weapons.Gun;
-import es.pcv.game.elements.weapons.LaserBrimstone;
+import es.pcv.game.elements.weapons.GunDefault;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -38,7 +36,7 @@ public class Player extends Walker {
 	//Weapons
 	
 	//private List weapons;
-	private Weapon[] weapons=new Weapon[]{new LaserGun(this),new LaserBrimstone(this)};
+	private Weapon[] weapons=new Weapon[]{new GunDefault(this),null};
 	
 	
 	private int currentWeapon= 0;
@@ -168,15 +166,11 @@ public class Player extends Walker {
 		float fx = (float) (last_mouse_position.getX() - getX());
 		float fy = (float) (last_mouse_position.getY() - getY());
 		
-		float aux = Math.abs(fy) + Math.abs(fx);
+		float aux = (float) Math.sqrt(fx*fx+fy*fy);
 		fx = (fx / aux);
 		fy = (fy / aux);
 
-		// Calculate offset
-		float ox = (float) (getSizeX() * fx);
-		float oy = (float) (getSizeY() * fy);
-
-		((Gun) weapons[currentWeapon]).attack(this, new Point2D(ox, oy).add(getPos()), new Point2D(fx, fy));
+		weapons[currentWeapon].attack(this, (getCenterPos()), new Point2D(fx, fy));
 	}
 	
 	
@@ -268,6 +262,10 @@ public class Player extends Walker {
 
 	public Weapon getWeapon(int i) {
 		return weapons[i];
+	}
+
+	public Weapon getWeapon() {
+		return weapons[currentWeapon];
 	}
 	
 

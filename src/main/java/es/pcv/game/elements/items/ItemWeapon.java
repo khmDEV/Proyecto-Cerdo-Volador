@@ -11,7 +11,6 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class ItemWeapon extends Item {
-	ObjectIcon iconGuns= new ObjectIcon("weapons.png", 2, 4);
 	int id;
 	Point2D position;
 	static Point2D size=new Point2D(0.05, 0.05);
@@ -38,7 +37,7 @@ public class ItemWeapon extends Item {
 	}
 	
 	public void draw(Graphics g) {
-		g.drawImage(iconGuns.getImage(id), getX(),getY(),getSizeX(),getSizeY(),null);
+		g.drawImage(Weapon.ICONS.getImage(id), getX(),getY(),getSizeX(),getSizeY(),null);
 	}
 
 	public void collisionObstacle(Collisionable c) {

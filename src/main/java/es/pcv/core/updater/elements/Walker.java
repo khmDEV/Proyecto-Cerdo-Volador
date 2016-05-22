@@ -4,10 +4,11 @@ import java.awt.Graphics;
 
 import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
+import es.pcv.game.configuration.Config;
 
 public abstract class Walker extends LiveEntity{
 	
-	protected ObjectIcon icon = new ObjectIcon("bad1.png", 4, 3);
+	protected ObjectIcon icon = new ObjectIcon(Config.RESOURCES_PATH+"/icons/bad1.png", 4, 3);
 	
 	protected int movYImg = 0;
 	protected int movXImg = 0;

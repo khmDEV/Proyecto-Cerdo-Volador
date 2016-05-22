@@ -11,4 +11,7 @@ public class Config {
 
 	public static int startX = 270;
 	public static int startY = 85;
+	
+	public static String RESOURCES_PATH="src/main/resources/";
+	
 }

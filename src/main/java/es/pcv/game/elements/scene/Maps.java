@@ -9,6 +9,7 @@ import java.util.Scanner;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.objects.Something;
 import es.pcv.game.elements.player.Player;
@@ -47,9 +48,9 @@ public class Maps {
 				nextPos = new Integer[3];
 				nextMap = new Integer[3];
 				if(i<10){
-					f=new File("maps/map0"+i+".txt");
+					f=new File(Config.RESOURCES_PATH+"/maps/map0"+i+".txt");
 				}else{
-					f=new File("maps/map"+i+".txt");
+					f=new File(Config.RESOURCES_PATH+"/maps/map"+i+".txt");
 				}
 				
 				s=new Scanner(f);
@@ -153,7 +154,7 @@ public class Maps {
 		//m.addElement(new EnemyMelee(new Point2D(0.7f, 0.5f),player));
 		
 		
-		m.addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),"mesa.png",false));
+		m.addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),Config.RESOURCES_PATH+"/icons/mesa.png",false));
 		
 		m.addElement(new MapLoader(new Point2D(0.4f, 0),new Point2D(0.2f, 0.02f),this,nextMaps[0],nextPos[0]));
 

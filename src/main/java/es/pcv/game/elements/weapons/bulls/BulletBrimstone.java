@@ -8,10 +8,11 @@ import java.awt.Polygon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;
+import es.pcv.game.configuration.Config;
 
 public class BulletBrimstone extends Bullet {
 
-	public final static Point2D size = new Point2D(0.1f, 0.01f);
+	public final static Point2D size = new Point2D(0.4f, 0.05f);
 	Color c = new Color(255, 0, 255);
 
 	public BulletBrimstone(Walker whoAttack, Point2D position, Point2D vel) {
