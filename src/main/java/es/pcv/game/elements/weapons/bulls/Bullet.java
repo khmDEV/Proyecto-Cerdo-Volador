@@ -14,10 +14,12 @@ public abstract class Bullet extends LiveEntity{
 		this.whoAttack=whoAttack;
 		
 	}
-	
 	public void collisionObstacle(Collisionable c) {
 		if (c!=whoAttack) {
 			kill();
+			if(c instanceof Walker){
+				((Walker) c).doDamage(getDamage());
+			}
 		}
 	}
 	

@@ -8,22 +8,20 @@ import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
-
-public class EnemyMelee extends Enemy {
-
+public class EnemyCrazy extends Enemy{
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
-	private final static Point2D maxVelocity=(new Point2D(0.005f, 0.005f)).multiply(Config.scale);
+	private final static Point2D maxVelocity=(new Point2D(0.01f, 0.01f)).multiply(Config.scale);
 	protected Point2D velocity=maxVelocity.clone();
 	private float maxModVelocity;
 	private boolean colPlayer;
-	public EnemyMelee(Point2D position,Player pl) {
+	public EnemyCrazy(Point2D position,Player pl) {
 		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		float x = velocity.getX();
 		float y = velocity.getY();
 		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
 		colPlayer=false;
-		this.addLive(500);
+		this.addLive(200);
 	}
 
 	public void update() {
@@ -82,5 +80,4 @@ public class EnemyMelee extends Enemy {
 		c = new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255),
 				(int) Math.round(Math.random() * 255));
 	}
-
 }
