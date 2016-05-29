@@ -9,6 +9,7 @@ import java.util.Scanner;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.objects.Something;
 import es.pcv.game.elements.player.Player;

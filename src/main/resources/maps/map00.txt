@@ -5,4 +5,5 @@ Tipo de mapa
 Mapas conectados
 1 0
 Enemigos
-
+0 0,3 0,3
+0 0,6 0,3
