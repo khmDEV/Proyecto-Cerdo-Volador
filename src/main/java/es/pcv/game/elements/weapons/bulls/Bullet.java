@@ -14,6 +14,7 @@ public abstract class Bullet extends LiveEntity{
 		
 	}
 	public void collisionObstacle(Collisionable c) {
+		super.collisionObstacle(c);
 		if (c!=whoAttack) {
 			kill();
 			if(c instanceof Walker){

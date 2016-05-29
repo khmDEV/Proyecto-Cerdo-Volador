@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
-import es.pcv.game.elements.weapons.Gun;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Stats implements Drawable {
@@ -73,9 +72,8 @@ public class Stats implements Drawable {
 		String s="";
 		Weapon wp=pl.getWeapon();
 		if (wp!=null){
-			if( wp instanceof Gun && ((Gun) wp).getMaxAmmo()!=0) {
-				Gun gun=(Gun)wp;
-				s=gun.getAmmo()+"/"+gun.getMaxAmmo();
+			if( wp.getMaxDurability()!=0) {
+				s=wp.getDurability()+"/"+wp.getMaxDurability();
 				g.drawChars(s.toCharArray(), 0, s.length(), 20, 65);
 			}else{
 				g.setFont(new Font(font.getFontName(), font.getStyle(), 44));

@@ -9,7 +9,6 @@ import java.util.Scanner;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
-import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.objects.Something;
 import es.pcv.game.elements.player.Player;
@@ -112,7 +111,26 @@ public class Maps {
 					default:
 						break;
 				}
-				if(i==0){
+				
+				int id;
+				double x;
+				double y;
+				while(s.hasNext()){
+					id=s.nextInt();
+					x=s.nextDouble();
+					y=s.nextDouble();
+					if(id == 1){
+						m.addElement(new EnemyMelee(new Point2D(x, y),player));
+					}
+					s.nextLine();
+				}
+				
+				
+				
+				
+				
+				
+				if(i==4){
 					m.show();
 					player.setPos(new Point2D(0.5f,0.9f).setAbsolutePosition());
 				}
@@ -139,7 +157,7 @@ public class Maps {
 		Point2D[] playerPos = new Point2D[3];
 		
 		//playerPos[0]=new Point2D(0.5f,0.9f).setAbsolutePosition();
-		playerPos[0]=new Point2D(0.5f,0.05f).setAbsolutePosition();
+		playerPos[0]=new Point2D(0.5f,0.1f).setAbsolutePosition();
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		//maps[0].addElement(new StandarWall(new Point2D(0.6f, 0.3f),new Point2D(0.02f, 0.6f) ));
@@ -150,8 +168,6 @@ public class Maps {
 		m.addElement(new StandarWall(new Point2D(0, 0.98f),new Point2D(1, 0.02f)));
 		m.addElement(new StandarWall(new Point2D(0.98f, 0),new Point2D(0.02f, 1)));
 		
-		
-		//m.addElement(new EnemyMelee(new Point2D(0.7f, 0.5f),player));
 		
 		
 		m.addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),Config.RESOURCES_PATH+"/icons/mesa.png",false));

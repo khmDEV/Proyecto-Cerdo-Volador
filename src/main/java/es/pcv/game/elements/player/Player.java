@@ -15,6 +15,8 @@ import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
 import es.pcv.game.elements.weapons.GunDefault;
+import es.pcv.game.elements.weapons.RepeatGun;
+import es.pcv.game.elements.weapons.ScabbardAreaSword;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -36,7 +38,7 @@ public class Player extends Walker {
 	//Weapons
 	
 	//private List weapons;
-	private Weapon[] weapons=new Weapon[]{new GunDefault(this),null};
+	private Weapon[] weapons=new Weapon[]{new ScabbardAreaSword(this),null};
 	
 	
 	private int currentWeapon= 0;

@@ -12,8 +12,8 @@ import es.pcv.game.elements.weapons.Weapon;
 
 public abstract class Melee extends LiveEntity {
 	protected int durability;
-	Walker whoAttack;
-	boolean vertical = true;
+	protected Walker whoAttack;
+	protected boolean vertical = true;
 
 	public Melee(Walker w, Point2D size, int dur, int damage) {
 		super(w!=null?w.getPos():new Point2D(0, 0), new Point2D(0, 0), size, 1, damage);
@@ -21,7 +21,7 @@ public abstract class Melee extends LiveEntity {
 		durability = dur;
 	}
 
-	private void moveMelee() {
+	protected void moveMelee() {
 		int aux = getSizeX();
 		setSizeX(getSizeY());
 		setSizeY(aux);
@@ -53,7 +53,7 @@ public abstract class Melee extends LiveEntity {
 			if (!vertical) {
 				moveMelee();
 			}
-			addY(-getSizeY());
+			addY(-whoAttack.getSizeY());
 			addX(whoAttack.getSizeX());
 		}
 

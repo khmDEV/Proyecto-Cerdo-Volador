@@ -17,4 +17,5 @@
 * SONIDO -?
 
 #BUGS
-* El punto desde el que se disparan las balas no es el correcto -C
+* ~El punto desde el que se disparan las balas no es el correcto~~ -C
+* La detección del lado de colisión falla -C

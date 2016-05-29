@@ -5,8 +5,8 @@ import es.pcv.core.updater.elements.Walker;
 
 public class Sword extends Melee {
 
-	public Sword(Walker w) {
-		super(w,new Point2D(0.01f,0.05), 100, 3);
+	public Sword(Walker w, int dur, int damage) {
+		super(w,new Point2D(0.01f,0.05), dur, damage);
 	}
 
 }
