@@ -6,7 +6,6 @@ import java.awt.Polygon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;
-import es.pcv.game.configuration.Config;
 
 public class AreaSword extends Melee {
 	private long time;

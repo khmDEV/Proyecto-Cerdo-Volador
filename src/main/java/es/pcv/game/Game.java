@@ -36,11 +36,11 @@ public class Game {
 
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+	private Maps maps;
 	public void startGame(){
 		
 		Player pl=new Player(new Point2D(0.8f, 0.5f),frame);
-		new Maps(updater,render,pl);
+		maps=new Maps(updater,render,pl);
 		//Sword sword=new Sword(pl,pl.getPos().clone(), 1, 70, 2);
 		addElement(pl);
 		
@@ -59,6 +59,9 @@ public class Game {
 	}
 	
 	public void addElement(Element e){
+		if (!(e instanceof Player)) {
+			maps.add(e);
+		}
 		updater.add(e);
 		render.add(e);
 	}
@@ -73,6 +76,10 @@ public class Game {
 		render.clear();
 		
 		render.add(new EndTitle());
+	}
+	
+	public void clearRoom(){
+		maps.clearRoom();
 	}
 
 }

@@ -2,7 +2,6 @@ package es.pcv.game.elements.scene;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
 
 import es.pcv.core.render.Point2D;
 

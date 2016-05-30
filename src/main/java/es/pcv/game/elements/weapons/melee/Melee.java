@@ -9,8 +9,9 @@ import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.elements.enemies.Enemy;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.Weapon;
+import es.pcv.game.elements.weapons.WeaponEntity;
 
-public abstract class Melee extends LiveEntity {
+public abstract class Melee extends WeaponEntity {
 	protected int durability;
 	protected Walker whoAttack;
 	protected boolean vertical = true;

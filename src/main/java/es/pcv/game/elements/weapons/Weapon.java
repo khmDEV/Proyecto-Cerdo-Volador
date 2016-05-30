@@ -64,4 +64,8 @@ public abstract class Weapon {
 		return id;
 	}
 
+	public void addDurability(int dur) {
+		durability=durability+dur>max_durability?max_durability:durability+dur;
+	}
+
 }

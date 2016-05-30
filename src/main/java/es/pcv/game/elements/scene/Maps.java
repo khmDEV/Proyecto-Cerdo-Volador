@@ -9,6 +9,7 @@ import java.util.Scanner;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
+import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.objects.Something;
@@ -77,7 +78,7 @@ public class Maps {
 				
 				Map m = null;
 				double ang =(Math.PI/2)*rot;
-				System.out.println(i);
+
 				switch(map){
 					case 0:
 						m = map0(nextMap,nextPos,ang,inv);
@@ -200,7 +201,7 @@ public class Maps {
 		Point2D[] playerPos = new Point2D[3];
 		
 		playerPos[0]=new Point2D(0.5f,0.9f).setAbsolutePosition();
-		playerPos[1]=new Point2D(0.5f,0.05f).setAbsolutePosition();
+		playerPos[1]=new Point2D(0.5f,0.1f).setAbsolutePosition();
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
@@ -630,6 +631,18 @@ public class Maps {
 		m.show();
 		player.setPos(m.getPlayerPos(n));
 		currentMap = id;
+	}
+
+	public void add(Element e) {
+		if (maps.get(currentMap)!=null) {
+			maps.get(currentMap).addElement(e);
+		}
+	}
+
+	public void clearRoom() {
+		if (maps.get(currentMap)!=null) {
+			maps.get(currentMap).clearRoom();
+		}
 	}
 	
 	

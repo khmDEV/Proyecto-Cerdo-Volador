@@ -2,7 +2,6 @@ package es.pcv.game.elements.items;
 
 import java.awt.Graphics;
 
-import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
@@ -28,7 +27,6 @@ public class ItemWeapon extends Item {
 		if (!kill()) {
 			
 			Weapon ng=pl.getWeapon(gun);
-			System.out.println(ng);
 			if (ng!=null) {
 				Game.getGame().addElement(new ItemWeapon(position, ng));
 			}
@@ -42,6 +40,10 @@ public class ItemWeapon extends Item {
 
 	public void collisionObstacle(Collisionable c) {
 
+	}
+	
+	public ItemWeapon cloneItem(){
+		return new ItemWeapon(position.clone(), gun);
 	}
 
 }

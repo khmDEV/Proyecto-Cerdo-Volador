@@ -29,5 +29,7 @@ public abstract class Item extends PolygonCollision implements Element {
 	};
 
 	public abstract void takeIt(Player pl);
+
+	public abstract Item cloneItem();
 	
 }

@@ -72,7 +72,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int l = (live += nl);
+		int l = live+nl>max_live?max_live:(live += nl);
 		liveS.release();
 		return l;
 	}

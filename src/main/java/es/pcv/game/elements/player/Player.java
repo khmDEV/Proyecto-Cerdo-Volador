@@ -266,6 +266,12 @@ public class Player extends Walker {
 	public Weapon getWeapon() {
 		return weapons[currentWeapon];
 	}
+
+	public void addAmmo(int ammo) {
+		if (weapons[currentWeapon]!=null) {
+			weapons[currentWeapon].addDurability(ammo);
+		}
+	}
 	
 
 }

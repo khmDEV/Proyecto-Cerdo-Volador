@@ -3,6 +3,7 @@ package es.pcv.game.elements.scene;
 import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import es.pcv.core.render.Point2D;
@@ -12,6 +13,8 @@ import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.core.updater.elements.PolygonCollision;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.items.drops.DropMap;
+import es.pcv.game.elements.weapons.WeaponEntity;
 
 public class Map {
 
@@ -23,8 +26,7 @@ public class Map {
 	Integer nextMaps[];
 	Point2D playerPos[];
 	
-
-	
+	protected DropMap drop=new DropMap();
 	
 	public Map(List<Element> l,Updater u,Render r,Point2D[] pos,Integer[] nextMaps){
 		elements = l;
@@ -64,8 +66,19 @@ public class Map {
 	}
 	public void hide(){
 		Iterator<Element> i = elements.iterator();
+		List<Element> to_remove = new LinkedList<Element>();
 		while(i.hasNext()){
-			removeElement(i.next());
+			Element e=i.next();
+			removeElement(e);
+			if (e instanceof WeaponEntity) { // ANOTHER SOLUTION?
+				e.kill();
+			}
+			if (e.isDead()) {
+				to_remove.add(e);
+			}
+		}
+		for (Element element : to_remove) {
+			elements.remove(element);
 		}
 	}
 	
@@ -113,5 +126,9 @@ public class Map {
 				((PolygonCollision) element).invert(x);
 			}
 		}
+	}
+
+	public void clearRoom() {
+		drop.spawnDrops(new Point2D(Config.startX + Config.scale.getX() / 2, Config.startY + Config.scale.getY() / 2));
 	}
 }
