@@ -14,9 +14,7 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
-import es.pcv.game.elements.weapons.GunDefault;
 import es.pcv.game.elements.weapons.RepeatGun;
-import es.pcv.game.elements.weapons.ScabbardAreaSword;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -38,7 +36,7 @@ public class Player extends Walker {
 	//Weapons
 	
 	//private List weapons;
-	private Weapon[] weapons=new Weapon[]{new ScabbardAreaSword(this),null};
+	private Weapon[] weapons=new Weapon[]{new RepeatGun(this),null};
 	
 	
 	private int currentWeapon= 0;
@@ -116,7 +114,6 @@ public class Player extends Walker {
 	}
 
 	public synchronized void update() {
-
 		if (pressed.size() > 0) {
 			if (pressed.contains(KeyEvent.VK_W)
 					&& !obstacle_collision_uy) {
@@ -124,7 +121,7 @@ public class Player extends Walker {
 				addY((int)velocity.getY());
 			}
 			if (pressed.contains(KeyEvent.VK_A)
-					&& !obstacle_collision_ux) {
+					&& !obstacle_collision_dx) {
 				movXImg = -1;
 				addX((int)-velocity.getX());
 			}
@@ -134,7 +131,7 @@ public class Player extends Walker {
 				addY((int)-velocity.getY());
 			}
 			if (pressed.contains(KeyEvent.VK_D)
-					&& !obstacle_collision_dx) {
+					&& !obstacle_collision_ux) {
 				movXImg = 1;
 				addX((int)velocity.getX());
 			}
