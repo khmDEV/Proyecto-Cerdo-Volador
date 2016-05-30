@@ -2,7 +2,7 @@
 * Tipos de enemigos -M
 * ~~Cambio de armas~~ -C
 * Items -C
-* Mas armas -C
+* ~~Mas armas~~ -C
 * Mapas en ficheros -J
 * Mas mapas -J
 * Menus -M
@@ -17,5 +17,5 @@
 * SONIDO -?
 
 #BUGS
-* ~El punto desde el que se disparan las balas no es el correcto~~ -C
-* La detección del lado de colisión falla -C
+* ~~El punto desde el que se disparan las balas no es el correcto~~ -C
+* ~~La detección del lado de colisión falla~~ -C
