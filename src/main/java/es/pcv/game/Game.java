@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.render.RenderDefault;
+import es.pcv.core.sound.SoundPlayer;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.UpdaterDefault;
 import es.pcv.core.updater.elements.Element;
@@ -23,6 +24,7 @@ public class Game {
 	public Updater updater;
 	public Render render;
 	private JFrame frame;
+	private SoundPlayer player;
 	
 	public Game(){
 		game=this;
@@ -42,6 +44,8 @@ public class Game {
 			}
 		}).start();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    player=new SoundPlayer();
+	    player.start();
 	}
 	private Maps maps;
 	
