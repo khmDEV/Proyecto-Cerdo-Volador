@@ -83,6 +83,7 @@ public class ButtonRestart implements Drawable{
 		g.render.clear();
 		g.updater.clear();
 		g.startGame();
+		j.removeMouseListener(ml);
 	}
 
 }
