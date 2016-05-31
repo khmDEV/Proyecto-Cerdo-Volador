@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
-import es.pcv.game.Game;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.Weapon;
 
@@ -18,17 +17,33 @@ public class ItemWeapon extends Item {
 	public ItemWeapon(Point2D p, Weapon g) {
 		super(PolygonHelper.createRectangle(p, size).getBounds2D());
 		id=g.getId();
-		position=p;
+		position=p.clone();
 		gun=g;
 	}
+	private int hit=0;
+	public void update(long ms){
+		hit=hit<=1?hit+1:hit;
+	}
+	
+	public void collision(Collisionable c){
+		System.out.println(hit);
+		if (c instanceof Player) {
+			if (hit>1) {
+				takeIt((Player) c);
+			}
+			hit=0;
+		}
+	};
 
 	@Override
-	public void takeIt(Player pl) {
-		if (!kill()) {
-			
+	public synchronized void takeIt(Player pl) {
+		if (!isDead()) {
 			Weapon ng=pl.getWeapon(gun);
-			if (ng!=null) {
-				Game.getGame().addElement(new ItemWeapon(position, ng));
+			if (ng==null) {
+				kill();
+			}else{
+				gun=ng;
+				id=gun.getId();
 			}
 		}
 		

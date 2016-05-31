@@ -7,10 +7,10 @@ import es.pcv.game.elements.weapons.bulls.BulletDefault;
 
 public class GunDefault extends Weapon {
 	
-	private final static float V_DEFAULT = 0.05f;
+	private final static float V_DEFAULT = 0.001f;
 	private final static int DAMAGE_DEFAULT = 2;
 	private final static int AMMO_DEFAULT = 100;
-	private final static int CD_DEFAULT = 500;
+	private final static int CD_DEFAULT = 300;
 	private final static int ID = 3;
 
 	public GunDefault(Walker w) {

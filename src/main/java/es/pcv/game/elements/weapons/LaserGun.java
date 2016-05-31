@@ -7,8 +7,8 @@ import es.pcv.game.elements.weapons.bulls.BulletLaser;
 
 public class LaserGun extends Weapon {
 
-	private final static float V_DEFAULT = 0.1f;
-	private final static int DAMAGE_DEFAULT = 1;
+	private final static float V_DEFAULT = 0.001f;
+	private final static int DAMAGE_DEFAULT = 100;
 	private final static int AMMO_DEFAULT = 100;
 	private final static int CD_DEFAULT = 100;
 	private final static int ID = 11;

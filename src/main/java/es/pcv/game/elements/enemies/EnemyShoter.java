@@ -1,10 +1,5 @@
 package es.pcv.game.elements.enemies;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Polygon;
-import java.util.concurrent.Semaphore;
-
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
@@ -16,11 +11,22 @@ public class EnemyShoter extends Enemy{
 
 	//Polygon ply;
 	//Color c = new Color(0, 255, 0);
-	private final static Point2D maxVelocity=(new Point2D(0.005f, 0.005f)).multiply(Config.scale);
-	protected Point2D velocity=maxVelocity.clone();
+	private Point2D maxVelocity=(new Point2D(0.005f, 0.005f)).multiply(Config.scale);
 	private float maxModVelocity;
 	int atack=0;
 	private Weapon weapon = new LaserGun(this);
+	
+	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity, Weapon wp) {		
+		super(position, maxVelocity.multiply(Config.scale), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		this.maxVelocity=maxVelocity.clone();
+		weapon=wp;
+		weapon.equip(this);
+		float x = velocity.getX();
+		float y = velocity.getY();
+		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
+		this.addLive(500);
+	}
+	
 	public EnemyShoter(Point2D position,Player pl) {		
 		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		weapon.equip(this);
@@ -48,7 +54,7 @@ public class EnemyShoter extends Enemy{
 		Point2D vel=new Point2D(x/10,y/10);
 		return vel;
 	}
-	public void update() {		
+	public void update(long ms) {		
 		if(atack==10){
 			attack(calcularVel());
 			atack=0;
@@ -78,15 +84,9 @@ public class EnemyShoter extends Enemy{
 			velocity.setY(Math.abs(maxVelocity.getY()));
 			obstacle_collision_uy = false;
 		}
-		
-		//posAdd(vel);
+		super.update(ms);
 	}
 	
-	/*public void draw(Graphics g) {
-		//g.setColor(c);
-		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
-	}*/
-
 	public void collision(Collisionable col) {
 		super.collision(col);
 		if (col instanceof Player) {

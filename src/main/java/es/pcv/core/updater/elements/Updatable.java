@@ -1,5 +1,5 @@
 package es.pcv.core.updater.elements;
 
 public interface Updatable {
-	void update();
+	void update(long diff);
 }

@@ -106,4 +106,14 @@ public class Point2D {
 		y = Math.round(y * Config.scale.getX()) + Config.startY;
 		return this;
 	}
+	public Point2D divide(Point2D v) {
+		this.x/=v.getX();
+		this.y/=v.getY();
+		return this;
+	}
+	public Point2D divide(float v) {
+		this.x/=v;
+		this.y/=v;
+		return this;
+	}
 }

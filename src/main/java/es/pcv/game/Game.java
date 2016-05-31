@@ -49,13 +49,13 @@ public class Game {
 		render.add(st);
 		
 		
-		updater.start();
 		new Thread(new Runnable() {
 			public void run() {
 				render.render();
 			}
 		}).start();
-		
+		updater.start();
+
 	}
 	
 	public void addElement(Element e){

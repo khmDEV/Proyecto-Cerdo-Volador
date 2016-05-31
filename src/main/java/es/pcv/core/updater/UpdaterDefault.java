@@ -23,15 +23,16 @@ public class UpdaterDefault extends Updater {
 	}
 
 	public int last_enemies = 0;
-
+	private long last_update=System.currentTimeMillis();
 	@Override
 	public synchronized void update() {
 		List<Element> use = Arrays.asList(elements.toArray(new Element[elements.size()]));
 		List<Element> tests = Arrays.asList(elements.toArray(new Element[elements.size()]));
 		List<Element> toRemove = new LinkedList<Element>();
 		int enemies = 0;
+		long diff=System.currentTimeMillis()-last_update;
 		for (Element e : use) {
-			e.update();
+			e.update(diff);
 			for (Element element : tests) {
 				if (element != e && !element.isDead() && !e.isDead() && e.isCollision(element)) {
 					e.collision(element);
@@ -57,6 +58,7 @@ public class UpdaterDefault extends Updater {
 			MapLoader.desactivate();
 		}
 		last_enemies = enemies;
+		last_update=System.currentTimeMillis();
 	}
 
 	public synchronized void clear() {

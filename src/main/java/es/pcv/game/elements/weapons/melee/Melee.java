@@ -29,10 +29,7 @@ public abstract class Melee extends WeaponEntity {
 		vertical = !vertical;
 	}
 	
-	public void update() {
-		/*	if (System.currentTimeMillis() - init > time) {
-			kill();
-		}*/
+	public void update(long ms) {
 		setPos(whoAttack.getPos());
 		if (whoAttack.getDir() == 0) {
 			if (!vertical) {

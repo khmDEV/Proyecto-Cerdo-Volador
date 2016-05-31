@@ -72,7 +72,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int l = live+nl>max_live?max_live:(live += nl);
+		int l = live + nl > max_live ? max_live : (live += nl);
 		liveS.release();
 		return l;
 	}
@@ -144,7 +144,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 				new java.awt.geom.Point2D.Double(r1.getMaxX(), r1.getMaxY()));
 		Line2D uY = new Line2D.Double(new java.awt.geom.Point2D.Double(r1.getMinX(), r1.getMinY()),
 				new java.awt.geom.Point2D.Double(r1.getMaxX(), r1.getMinY()));
-		if (r2.intersectsLine(uY)&&r2.intersectsLine(dY)) {
+		if (r2.intersectsLine(uY) && r2.intersectsLine(dY)) {
 			Rectangle2D ruY = r2.createIntersection(new Rectangle2D.Double((uY.getX1() + uY.getX2()) / 2, uY.getY1(),
 					Math.abs(uY.getX1() - uY.getX2()), 1));
 			Rectangle2D rdY = r2.createIntersection(new Rectangle2D.Double((dY.getX1() + dY.getX2()) / 2, dY.getY1(),
@@ -153,15 +153,15 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 			Rectangle2D cdY = r2.createIntersection(rdY);
 			if (cuY.getWidth() > cdY.getWidth()) {
 				obstacle_collision_uy = true;
-			}else if(cuY.getWidth() > cdY.getWidth()){
+			} else if (cuY.getWidth() > cdY.getWidth()) {
 				obstacle_collision_dy = true;
 			}
-		}else{
+		} else {
 			obstacle_collision_uy = obstacle_collision_uy || r2.intersectsLine(uY);
 			obstacle_collision_dy = obstacle_collision_dy || r2.intersectsLine(dY);
 		}
-		
-		if (r2.intersectsLine(uX)&&r2.intersectsLine(dX)) {
+
+		if (r2.intersectsLine(uX) && r2.intersectsLine(dX)) {
 			Rectangle2D ruX = r2
 					.createIntersection(new Rectangle2D.Double(uX.getX1(), (uX.getY1() + uX.getY2()) / 2, 1, 500));
 			Rectangle2D rdX = r2
@@ -170,14 +170,18 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 			Rectangle2D cdX = r2.createIntersection(rdX);
 			if (cuX.getHeight() > cdX.getHeight()) {
 				obstacle_collision_ux = true;
-			}else if(cuX.getHeight() > cdX.getHeight()){
+			} else if (cuX.getHeight() > cdX.getHeight()) {
 				obstacle_collision_dx = true;
 			}
-		}else{
+		} else {
 			obstacle_collision_dx = obstacle_collision_dx || r2.intersectsLine(dX);
 			obstacle_collision_ux = obstacle_collision_ux || r2.intersectsLine(uX);
 		}
 
+	}
+
+	public void update(long ms) {
+		posAdd(velocity.clone().multiply(ms));
 	}
 
 }

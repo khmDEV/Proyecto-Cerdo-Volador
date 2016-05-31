@@ -22,7 +22,7 @@ public class BulletBrimstone extends Bullet {
 		super(whoAttack, position, vel, size, hits, damage);
 	}
 
-	public void update() {
+	public void update(long ms) {
 		
 	}
 

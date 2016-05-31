@@ -8,6 +8,7 @@ import java.awt.Polygon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;
+import es.pcv.game.configuration.Config;
 
 public class BulletLaser extends Bullet {
 
@@ -15,25 +16,30 @@ public class BulletLaser extends Bullet {
 	Color c = new Color(255, 0, 255);
 
 	public BulletLaser(Walker whoAttack, Point2D position, Point2D vel) {
-		super(whoAttack, position, vel, size, 1, 50);
+		super(whoAttack, position.addX(0.01f), vel, size, 1, 50);
 	}
 
 	public BulletLaser(Walker whoAttack, Point2D position, Point2D vel, int hits, int damage) {
-		super(whoAttack, position, vel, size, hits, damage);
-	}
-
-	public void update() {
-		posAdd(velocity);
+		super(whoAttack, position.addX(0.01f), vel, size, hits, damage);
 	}
 
 	public void draw(Graphics g) {
 		g.setColor(c);
-		Polygon rec = PolygonHelper.getRectangle(getPos(), getSize());
 		double an = Math.atan2(velocity.getY(), velocity.getX());
-		Point center=new Point((int) Math.round(rec.getBounds2D().getCenterX()-0.5), (int) Math.round(rec.getBounds2D().getCenterY()-0.5));
+		
+		// TO-FIX
+		int val=velocity.getY()>0?-1:1;
+		addX((int) Math.round(val*Math.sin(an)*(0.01)*Config.scale.getX()));
+		//////////
+		
+		Polygon rec = PolygonHelper.getRectangle(getPos().clone(), size.clone().multiply(Config.scale));
+
+		Point center=new Point((int) Math.round(rec.getBounds2D().getCenterX()), (int) Math.round(rec.getBounds2D().getCenterY()));
 		rec = PolygonHelper.rotatePolygon(rec,center, an);
-		setCollisionBox(rect);
+		setCollisionBox(rec.getBounds2D());
+		
 		g.drawPolygon(rec);
 	}
-
+	
+	
 }

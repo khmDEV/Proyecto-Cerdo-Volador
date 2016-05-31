@@ -81,7 +81,7 @@ public class MapLoader extends PolygonObstacle implements Element{
 		
 	}
 
-	public void update() {
+	public void update(long ms) {
 		// TODO Auto-generated method stub
 		
 	}

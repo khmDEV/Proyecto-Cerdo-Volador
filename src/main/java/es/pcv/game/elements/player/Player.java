@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
-import es.pcv.game.elements.weapons.RepeatGun;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -36,14 +36,14 @@ public class Player extends Walker {
 	//Weapons
 	
 	//private List weapons;
-	private Weapon[] weapons=new Weapon[]{new RepeatGun(this),null};
+	private Weapon[] weapons=Weapon.ALL_WEAPONS;//new Weapon[]{new LaserGun(this),null};
 	
 	
 	private int currentWeapon= 0;
-	
+	private static final Point2D MAX_VELOCITY=new Point2D(0.0005f,0.0005f).multiply(Config.scale);
 	
 	public Player(Point2D position,JFrame jp) {
-		super(position,new Point2D(0.005f, -0.005f),new Point2D(0.05f, 0.05f),10, 10);
+		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),10, 10);
 		this.jp = jp;
 
 		changeWeapon(currentWeapon);
@@ -113,36 +113,36 @@ public class Player extends Walker {
 		jp.addKeyListener(kl);
 	}
 
-	public synchronized void update() {
+	public synchronized void update(long ms) {
+		velocity.multiply(0);
 		if (pressed.size() > 0) {
 			if (pressed.contains(KeyEvent.VK_W)
 					&& !obstacle_collision_uy) {
 				movYImg = 1;
-				addY((int)velocity.getY());
+				
+				velocity.addY(-MAX_VELOCITY.getY());
 			}
 			if (pressed.contains(KeyEvent.VK_A)
 					&& !obstacle_collision_dx) {
 				movXImg = -1;
-				addX((int)-velocity.getX());
+				velocity.addX(-MAX_VELOCITY.getX());
 			}
 			if (pressed.contains(KeyEvent.VK_S)
 					&& !obstacle_collision_dy) {
 				movYImg = -1;
-				addY((int)-velocity.getY());
+				velocity.addY(MAX_VELOCITY.getY());
 			}
 			if (pressed.contains(KeyEvent.VK_D)
 					&& !obstacle_collision_ux) {
 				movXImg = 1;
-				addX((int)velocity.getX());
+				velocity.addX(MAX_VELOCITY.getX());
 			}
 			
-			for(int i=KeyEvent.VK_1;i<=KeyEvent.VK_3;i++){
+			for(int i=KeyEvent.VK_1;i<=KeyEvent.VK_9;i++){
 				if (pressed.contains(i)){
 					changeWeapon(i-KeyEvent.VK_1);
 				}
 			}
-			
-			
 			
 			obstacle_collision_uy=false;
 			obstacle_collision_dy=false;
@@ -150,9 +150,9 @@ public class Player extends Walker {
 			obstacle_collision_dx=false;
 			
 		}
-
 		checkWeapon();
-		
+		super.update(ms);
+
 	}
 
 	public void attack(){
@@ -162,8 +162,8 @@ public class Player extends Walker {
 			last_mouse_position = last;
 		}
 		
-		float fx = (float) (last_mouse_position.getX() - getX());
-		float fy = (float) (last_mouse_position.getY() - getY());
+		float fx = (float) (last_mouse_position.getX() - getCenterPos().getX());
+		float fy = (float) (last_mouse_position.getY() - getCenterPos().getY());
 		
 		float aux = (float) Math.sqrt(fx*fx+fy*fy);
 		fx = (fx / aux);

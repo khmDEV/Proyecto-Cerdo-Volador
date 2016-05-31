@@ -12,19 +12,13 @@ public abstract class Item extends PolygonCollision implements Element {
 	public Item(Rectangle2D ply) {
 		super(ply);
 	}
-	int hit=-1;
 	
-	public void update(){
-		hit++;
+	public void update(long ms){
 	}
 	
 	public void collision(Collisionable c){
 		if (c instanceof Player) {
-			if (hit>1) {
 				takeIt((Player) c);
-			}else{
-				hit=0;
-			}
 		}
 	};
 

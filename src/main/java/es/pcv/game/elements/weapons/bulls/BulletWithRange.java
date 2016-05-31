@@ -20,12 +20,12 @@ public class BulletWithRange extends BulletDefault {
 		this.limit=limit * Config.scale.getX();
 	}
 	
-	public void update(){
+	public void update(long ms){
 		Point2D d=init.clone().multiply(-1).add(getPos());
 		double dist=Math.sqrt(Math.pow(d.getX(), 2)+Math.pow(d.getY(), 2));
 
 		if (dist<limit) {
-			super.update();
+			super.update(ms);
 		}else{
 			kill();
 		}

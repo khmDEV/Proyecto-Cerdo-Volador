@@ -21,7 +21,7 @@ public abstract class Wall extends PolygonCollision implements Element {
 	}	
 
 	
-	public void update() {
+	public void update(long ms) {
 	}
 
 	public void collision(Collisionable c){

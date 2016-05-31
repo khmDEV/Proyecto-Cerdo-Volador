@@ -7,7 +7,7 @@ import es.pcv.game.elements.weapons.WeaponEntity;
 
 public abstract class Bullet extends WeaponEntity{
 	
-	private Walker whoAttack;
+	protected Walker whoAttack;
 	public Bullet(Walker whoAttack,Point2D position, Point2D vel,Point2D size,int hits,int damage) {
 		super(position,vel,size, hits, damage);
 		this.whoAttack=whoAttack;
@@ -25,6 +25,6 @@ public abstract class Bullet extends WeaponEntity{
 	
 	
 	public boolean isCollision(Collisionable col){
-		return whoAttack!=col&&super.isCollision(col);
+		return whoAttack!=col&&!(col instanceof Bullet)&&super.isCollision(col);
 	}
 }

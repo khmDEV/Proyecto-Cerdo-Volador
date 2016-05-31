@@ -13,21 +13,31 @@ public class EnemyMelee extends Enemy {
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
-	private final static Point2D maxVelocity=(new Point2D(0.005f, 0.005f)).multiply(Config.scale);
-	protected Point2D velocity=maxVelocity.clone();
+	private Point2D maxVelocity=(new Point2D(0.0003f, 0.0003f)).multiply(Config.scale);
 	private float maxModVelocity;
 	private boolean colPlayer;
 	public EnemyMelee(Point2D position,Player pl) {
-		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1,pl);
-		float x = velocity.getX();
-		float y = velocity.getY();
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		velocity=maxVelocity;
+		float x = maxVelocity.getX();
+		float y = maxVelocity.getY();
 		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
 		colPlayer=false;
 		this.addLive(500);
 	}
+	
+	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity,int live) {
+		super(position, maxVelocity.multiply(Config.scale), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		this.maxVelocity=maxVelocity.clone();
+		float x = maxVelocity.getX();
+		float y = maxVelocity.getY();
+		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
+		colPlayer=false;
+		this.setMaxLive(live);
+		addLive(live);
+	}
 
-	public void update() {
-		
+	public void update(long ms) {
 		Point2D point=pl.getPos();
 		float x = getPos().getX();
 		float y = getPos().getY();
@@ -64,7 +74,8 @@ public class EnemyMelee extends Enemy {
 			velocity.setY(-velocity.getY());
 			colPlayer=false;
 		}
-		posAdd(velocity);
+
+		super.update(ms);
 	}
 
 	public void draw(Graphics g) {

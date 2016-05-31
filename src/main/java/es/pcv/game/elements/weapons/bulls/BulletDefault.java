@@ -19,10 +19,6 @@ public class BulletDefault extends Bullet {
 		super(whoAttack, position, vel, size, hits, damage);
 	}
 
-	public void update() {
-		posAdd(velocity);
-	}
-
 	public void draw(Graphics g) {
 		g.setColor(c);
 		g.drawOval(getX(), getY(), getSizeX(), getSizeY());

@@ -7,6 +7,8 @@ import es.pcv.game.configuration.Config;
 
 public abstract class Weapon {
 
+	public static final Weapon[] ALL_WEAPONS={new GunDefault(null),new LaserBrimstone(null),new LaserGun(null),new RepeatGun(null),new ScabbardSword(null),new ScabbardAreaSword(null),new Shotgun(null)};
+	
 	public static final ObjectIcon ICONS= new ObjectIcon(Config.RESOURCES_PATH+"/icons/ms.png", 4, 8);
 
 	protected Walker owner; 
@@ -35,9 +37,11 @@ public abstract class Weapon {
 	public abstract void doAttack(Walker shooter,Point2D origin,Point2D direction);;
 	
 	public void attack(Walker shooter,Point2D origin,Point2D direction){
-		doAttack(shooter, origin, direction);
-		resetCD();
-		durability--;
+		if (canAttack()) {
+			doAttack(shooter, origin, direction);
+			resetCD();
+			durability--;
+		}
 	};
 	
 	public boolean canAttack() {
