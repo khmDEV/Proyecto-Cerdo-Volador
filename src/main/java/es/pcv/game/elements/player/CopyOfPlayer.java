@@ -2,10 +2,14 @@ package es.pcv.game.elements.player;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.JFrame;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
@@ -13,7 +17,9 @@ import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.weapons.Weapon;
 
-public class Player extends Walker {
+public class CopyOfPlayer extends Walker {
+	
+	private JFrame jp;
 	
 	//for shooting
 	private Semaphore fireS = new Semaphore(1);
@@ -22,8 +28,8 @@ public class Player extends Walker {
 	
 	private boolean click = false;
 
-	public final Set<Integer> pressed = new HashSet<Integer>();
-	public Point shoot;
+	private final Set<Integer> pressed = new HashSet<Integer>();
+	
 	
 	protected long CD_HIT = 1000;
 	
@@ -36,9 +42,75 @@ public class Player extends Walker {
 	private int currentWeapon= 0;
 	private static final Point2D MAX_VELOCITY=new Point2D(0.0005f,0.0005f).multiply(Config.scale);
 	
-	public Player(Point2D position) {
-		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),10, 10);		
+	public CopyOfPlayer(Point2D position,JFrame jp) {
+		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),10, 10);
+		this.jp = jp;
+
 		changeWeapon(currentWeapon);
+		
+		
+		KeyListener kl = new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+			}
+
+			public synchronized void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_W) {
+					movYImg = 0;
+					imgFija = 10;
+				}
+				if (e.getKeyCode() == KeyEvent.VK_A) {
+					movXImg = 0;
+					imgFija = 4;
+				}
+				if (e.getKeyCode() == KeyEvent.VK_S) {
+					movYImg = 0;
+					imgFija = 1;
+				}
+				if (e.getKeyCode() == KeyEvent.VK_D) {
+					movXImg = 0;
+					imgFija = 7;
+				}
+				pressed.remove(e.getKeyCode());
+			}
+
+			public synchronized void keyPressed(KeyEvent e) {
+				pressed.add(e.getKeyCode());
+
+			}
+		};
+		// 1 boton inquierdo, 2 central y 3 derecho
+		MouseListener ml = new MouseListener() {
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.getButton() == 1) {
+					finishFire();
+				}
+			}
+
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == 1) {
+					startFire();
+				}
+
+			}
+
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		jp.addMouseListener(ml);
+		jp.addKeyListener(kl);
 	}
 
 	public synchronized void update(long ms) {
@@ -84,7 +156,7 @@ public class Player extends Walker {
 	}
 
 	public void attack(){
-		Point last = shoot;
+		Point last = jp.getMousePosition();
 		
 		if (last != null) {
 			last_mouse_position = last;

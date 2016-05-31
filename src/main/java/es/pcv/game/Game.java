@@ -17,33 +17,22 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.Maps;
 import es.pcv.game.gui.ButtonRestart;
 import es.pcv.game.gui.EndTitle;
+import es.pcv.game.gui.GuiDefault;
 import es.pcv.game.gui.Stats;
 
 public class Game {
 	private static Game game;
 	public Updater updater;
 	public Render render;
-	private JFrame frame;
 	private SoundPlayer player;
-	
+	private GuiDefault guirender;
 	public Game(){
 		game=this;
 		updater=new UpdaterDefault();
-		render=new RenderDefault();
-	    frame = new JFrame("DrawPanel");
-	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    Config.scale=new Point2D(screenSize.getHeight()*0.8, screenSize.getHeight()*0.8);
-	    frame.setBounds(0,0,screenSize.width, screenSize.height);
-	    frame.setVisible(true);
-	    frame.add(render);
-
-	    updater.start();
-		new Thread(new Runnable() {
-			public void run() {
-				render.render();
-			}
-		}).start();
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    guirender=new GuiDefault();
+		render=new Render(screenSize.width, screenSize.height,guirender);
 	    player=new SoundPlayer();
 	    player.start();
 	}
@@ -51,14 +40,15 @@ public class Game {
 	
 	public void startGame(){
 		
-		Player pl=new Player(new Point2D(0.8f, 0.5f),frame);
+		Player pl=new Player(new Point2D(0.8f, 0.5f));
 		maps=new Maps(updater,render,pl);
 		//Sword sword=new Sword(pl,pl.getPos().clone(), 1, 70, 2);
 		addElement(pl);
-		
 		//addElement(sword);
 		Stats st=new Stats(pl);
-		render.add(st);
+		guirender.add(st);		
+		updater.start();
+		render.start();
 	}
 	
 	public void addElement(Element e){
@@ -75,10 +65,20 @@ public class Game {
 	}
 
 	public void end() {
-		updater.clear();
-		render.clear();
-		render.add(new ButtonRestart(this,frame));
-		render.add(new EndTitle());
+		//updater.clear();
+		//render.clear();
+		render.end();		
+		guirender.clear();
+		guirender.add(new EndTitle());
+		render.addRestartButton();
+		while(!render.isRestarted()){
+			System.out.println("hola");
+		}
+		render.dispose();
+		Game g=new Game();
+		g.startGame();	
+		
+		
 	}
 	
 	public void clearRoom(){

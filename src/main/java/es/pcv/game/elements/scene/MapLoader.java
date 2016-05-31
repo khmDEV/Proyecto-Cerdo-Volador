@@ -80,7 +80,14 @@ public class MapLoader extends PolygonObstacle implements Element{
 		}
 		
 	}
-
+	public boolean isActivate(){
+		if(activate){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	public void update(long ms) {
 		// TODO Auto-generated method stub
 		
