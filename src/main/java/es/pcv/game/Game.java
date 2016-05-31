@@ -14,6 +14,7 @@ import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.Maps;
+import es.pcv.game.gui.ButtonRestart;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Stats;
 
@@ -34,9 +35,16 @@ public class Game {
 	    frame.setVisible(true);
 	    frame.add(render);
 
+	    updater.start();
+		new Thread(new Runnable() {
+			public void run() {
+				render.render();
+			}
+		}).start();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	private Maps maps;
+	
 	public void startGame(){
 		
 		Player pl=new Player(new Point2D(0.8f, 0.5f),frame);
@@ -47,21 +55,12 @@ public class Game {
 		//addElement(sword);
 		Stats st=new Stats(pl);
 		render.add(st);
-		
-		
-		updater.start();
-		new Thread(new Runnable() {
-			public void run() {
-				render.render();
-			}
-		}).start();
-		
 	}
 	
 	public void addElement(Element e){
-		if (!(e instanceof Player)) {
+		/*if (!(e instanceof Player)) {
 			maps.add(e);
-		}
+		}*/
 		updater.add(e);
 		render.add(e);
 	}
@@ -74,7 +73,7 @@ public class Game {
 	public void end() {
 		updater.clear();
 		render.clear();
-		
+		render.add(new ButtonRestart(this,frame));
 		render.add(new EndTitle());
 	}
 	

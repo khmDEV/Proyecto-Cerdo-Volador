@@ -11,7 +11,9 @@ import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.enemies.EnemyCrazy;
 import es.pcv.game.elements.enemies.EnemyMelee;
+import es.pcv.game.elements.enemies.EnemyShoter;
 import es.pcv.game.elements.objects.Something;
 import es.pcv.game.elements.player.Player;
 
@@ -121,18 +123,20 @@ public class Maps {
 					id=s.nextInt();
 					x=s.nextDouble();
 					y=s.nextDouble();
-					if(id == 1){
+					if(id == 0){
 						m.addElement(new EnemyMelee(new Point2D(x, y),player));
+					}else if(id == 1){
+						m.addElement(new EnemyCrazy(new Point2D(x, y),player));
+					}else if(id == 2){
+						m.addElement(new EnemyShoter(new Point2D(x, y),player));
+					}else if(id == 3){
+						//m.addElement(new EnemyCrazy(new Point2D(x, y),player));
 					}
 					s.nextLine();
 				}
+
 				
-				
-				
-				
-				
-				
-				if(i==4){
+				if(i==0){
 					m.show();
 					player.setPos(new Point2D(0.5f,0.9f).setAbsolutePosition());
 				}

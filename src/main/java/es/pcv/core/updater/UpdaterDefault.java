@@ -24,6 +24,7 @@ public class UpdaterDefault extends Updater {
 
 	public int last_enemies = 0;
 
+	private boolean restart = false;
 	@Override
 	public synchronized void update() {
 		List<Element> use = Arrays.asList(elements.toArray(new Element[elements.size()]));
@@ -49,18 +50,27 @@ public class UpdaterDefault extends Updater {
 			remove(element);
 		}
 		if (enemies == 0) {
-			MapLoader.activate();
-			if (last_enemies != 0) {
-				Game.getGame().clearRoom();
+			if(restart){
+				restart=false;
+			}else{
+				MapLoader.activate();
+				if (last_enemies != 0) {
+					Game.getGame().clearRoom();
+				}
 			}
+
 		} else {
 			MapLoader.desactivate();
 		}
+		System.out.println(enemies);
+		System.out.println(last_enemies);
+		System.out.println("-------");
 		last_enemies = enemies;
 	}
 
 	public synchronized void clear() {
 		elements.clear();
+		restart = true;
 	}
 
 }
