@@ -18,7 +18,7 @@ import es.pcv.game.elements.weapons.WeaponEntity;
 
 public class Map {
 
-	private List<Element> elements;
+	List<Element> elements;
 	
 	Updater updater;
 	Render render;

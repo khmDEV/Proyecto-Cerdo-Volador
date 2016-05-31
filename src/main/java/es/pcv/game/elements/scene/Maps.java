@@ -14,6 +14,7 @@ import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.EnemyAnnoying;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.enemies.EnemyShoter;
+import es.pcv.game.elements.enemies.EnemyWall;
 import es.pcv.game.elements.objects.Something;
 import es.pcv.game.elements.player.Player;
 
@@ -119,6 +120,7 @@ public class Maps {
 				int id;
 				double x;
 				double y;
+				int nWls=0;
 				while(s.hasNext()){
 					id=s.nextInt();
 					x=s.nextDouble();
@@ -131,6 +133,22 @@ public class Maps {
 						m.addElement(new EnemyShoter(new Point2D(x, y),player));
 					}else if(id == 3){
 						m.addElement(new EnemyAnnoying(new Point2D(x, y),player));
+					}else if(id==4){
+						Wall w=null;
+						int ns=0;
+						for (Element e:m.elements) {
+							if (e instanceof Wall) {
+								ns++;
+								w=(Wall) e;
+								if (nWls<ns) {
+									break;
+								}
+							}
+						}
+						if (w!=null&&nWls<ns) {
+							m.addElement(new EnemyWall(w, player));
+							nWls++;
+						}
 					}
 					s.nextLine();
 				}

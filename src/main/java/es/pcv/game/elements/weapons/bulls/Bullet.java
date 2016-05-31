@@ -17,7 +17,7 @@ public abstract class Bullet extends WeaponEntity{
 	}
 	public void collisionObstacle(Collisionable c) {
 		super.collisionObstacle(c);
-		if (c!=whoAttack) {
+		if (c!=whoAttack&&!(c instanceof Bullet)&& !(whoAttack instanceof Enemy && c instanceof Enemy)) {
 			kill();
 			if(c instanceof Walker){
 				((Walker) c).doDamage(getDamage());

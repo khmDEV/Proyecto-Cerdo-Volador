@@ -91,7 +91,7 @@ public class MapLoader extends PolygonObstacle implements Element{
 		if(activate){
 			g.setColor(new Color(0, 255, 0));
 		}else{
-			g.setColor(new Color(0, 0, 0));
+			g.setColor(new Color(30, 30, 30));
 		}
 		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
 		
