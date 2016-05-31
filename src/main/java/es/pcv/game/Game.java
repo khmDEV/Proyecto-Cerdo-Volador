@@ -58,9 +58,9 @@ public class Game {
 	}
 	
 	public void addElement(Element e){
-		/*if (!(e instanceof Player)) {
+		if (!(e instanceof Player)) {
 			maps.add(e);
-		}*/
+		}
 		updater.add(e);
 		render.add(e);
 	}

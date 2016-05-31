@@ -23,17 +23,22 @@ public class UpdaterDefault extends Updater {
 	}
 
 	public int last_enemies = 0;
-	private long last_update=System.currentTimeMillis();
+
 	private boolean restart = false;
+	private long last=-1;
 	@Override
 	public synchronized void update() {
 		List<Element> use = Arrays.asList(elements.toArray(new Element[elements.size()]));
 		List<Element> tests = Arrays.asList(elements.toArray(new Element[elements.size()]));
 		List<Element> toRemove = new LinkedList<Element>();
 		int enemies = 0;
-		long diff=System.currentTimeMillis()-last_update;
+		long nw=20;
+		if (last!=-1) {
+			nw=System.currentTimeMillis()-last;
+		}
+		last=System.currentTimeMillis();
 		for (Element e : use) {
-			e.update(diff);
+			e.update(nw);
 			for (Element element : tests) {
 				if (element != e && !element.isDead() && !e.isDead() && e.isCollision(element)) {
 					e.collision(element);
@@ -59,15 +64,16 @@ public class UpdaterDefault extends Updater {
 					Game.getGame().clearRoom();
 				}
 			}
+
 		} else {
 			MapLoader.desactivate();
 		}
 		last_enemies = enemies;
-		last_update=System.currentTimeMillis();
 	}
 
 	public synchronized void clear() {
 		elements.clear();
+		restart = true;
 	}
-	
+
 }
