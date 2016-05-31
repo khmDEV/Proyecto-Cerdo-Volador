@@ -116,4 +116,7 @@ public class Point2D {
 		this.y/=v;
 		return this;
 	}
+	public double value() {
+		return Math.sqrt(x*x+y*y);
+	}
 }

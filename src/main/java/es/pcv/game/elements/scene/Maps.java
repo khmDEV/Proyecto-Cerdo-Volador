@@ -11,6 +11,7 @@ import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.enemies.EnemyAnnoying;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.enemies.EnemyShoter;
 import es.pcv.game.elements.objects.Something;
@@ -129,7 +130,7 @@ public class Maps {
 					}else if(id == 2){
 						m.addElement(new EnemyShoter(new Point2D(x, y),player));
 					}else if(id == 3){
-						//m.addElement(new EnemyCrazy(new Point2D(x, y),player));
+						m.addElement(new EnemyAnnoying(new Point2D(x, y),player));
 					}
 					s.nextLine();
 				}

@@ -27,7 +27,7 @@ public class EnemyMelee extends Enemy {
 	}
 	
 	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity) {
-		super(position, maxVelocity.multiply(Config.scale), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
@@ -36,7 +36,7 @@ public class EnemyMelee extends Enemy {
 	}
 	
 	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity,int live) {
-		super(position, maxVelocity.multiply(Config.scale), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position,new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
