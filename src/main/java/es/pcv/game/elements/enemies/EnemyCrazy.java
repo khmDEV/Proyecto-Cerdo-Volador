@@ -34,7 +34,7 @@ public class EnemyCrazy extends Enemy{
 		float mod=(float) Math.sqrt((x*x)+(y*y));
 		x=(x/mod)*maxModVelocity;
 		y=(y/mod)*maxModVelocity;
-		Point2D vel=new Point2D(x,y);
+		velocity=new Point2D(x,y);
 		if (obstacle_collision_dx && obstacle_collision_ux) {
 			velocity.setX(0);
 			obstacle_collision_dx = false;
@@ -58,11 +58,11 @@ public class EnemyCrazy extends Enemy{
 			obstacle_collision_uy = false;
 		}
 		if(colPlayer){
-			vel.setX(-vel.getX());
-			vel.setY(-vel.getY());
+			velocity.setX(-velocity.getX());
+			velocity.setY(-velocity.getY());
 			colPlayer=false;
 		}
-		posAdd(vel);
+		posAdd(velocity);
 	}
 
 	public void draw(Graphics g) {

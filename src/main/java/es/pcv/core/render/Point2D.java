@@ -76,7 +76,16 @@ public class Point2D {
 		this.y*=v;
 		return this;
 	}
-	
+	public Point2D adaptar(){
+		Point2D p=this.getAbsolutePosition();
+
+		float x=(-p.getX()*2)+1;
+		float y=(-p.getY()*2)+1;
+		return new Point2D(x,y);
+  	  
+  	  
+  	  
+    }
 	@Override
 	public String toString(){
 		return x+","+y;
