@@ -6,3 +6,7 @@ Mapas conectados
 3 2
 9 2
 Enemigos
+2 0,9 0,3
+2 0,9 0,5
+1 0,45 0,1
+1 0,55 0,1
