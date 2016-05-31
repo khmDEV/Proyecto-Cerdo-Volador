@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import es.pcv.core.render.figure.Drawable;
-import es.pcv.game.configuration.Config;
 
 public class EndTitle implements Drawable {
 

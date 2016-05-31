@@ -5,13 +5,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 import es.pcv.core.render.figure.Drawable;
+import es.pcv.game.gui.Gui;
 
 @SuppressWarnings("serial")
 public class RenderDefault extends Render {
+	public RenderDefault(int width, int height, Gui gui) {
+		super(width, height, gui);
+		// TODO Auto-generated constructor stub
+	}
+
 	List<Drawable> figures = new LinkedList<Drawable>();
 
-	public RenderDefault() {
-	}
+	/*public RenderDefault() {
+	}*/
 
 	@Override
 	public synchronized void add(Drawable d) {

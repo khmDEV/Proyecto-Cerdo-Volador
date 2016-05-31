@@ -55,39 +55,45 @@ public class EnemyShoter extends Enemy{
 		Point2D vel=new Point2D(x,y);
 		return vel;
 	}
-	public void update(long ms) {	
-		Point2D di=calcularVel();
-		if(atack+ms>CD){
-			attack(di.clone());
-			atack=0;
+	public void update(long ms) {
+		if(ms>100){
+			
 		}
 		else{
-			atack+=ms;
+			Point2D di=calcularVel();
+			if(atack+ms>CD){
+				attack(di.clone());
+				atack=0;
+			}
+			else{
+				atack+=ms;
+			}
+			velocity=di.clone().multiply(maxVelocity);
+			if (obstacle_collision_dx && obstacle_collision_ux) {
+				velocity.setX(0);
+				obstacle_collision_dx = false;
+				obstacle_collision_ux = false;
+			}else if (obstacle_collision_dx) {
+				velocity.setX(-Math.abs(maxVelocity.getX()));
+				obstacle_collision_dx = false;
+			}else if (obstacle_collision_ux) {
+				velocity.setX(Math.abs(maxVelocity.getX()));
+				obstacle_collision_ux = false;
+			}
+			if (obstacle_collision_dy && obstacle_collision_uy) {
+				velocity.setY(0);
+				obstacle_collision_dy = false;
+				obstacle_collision_uy = false;
+			}else if (obstacle_collision_dy) {
+				velocity.setY(-Math.abs(maxVelocity.getY()));
+				obstacle_collision_dy = false;
+			}else if (obstacle_collision_uy) {
+				velocity.setY(Math.abs(maxVelocity.getY()));
+				obstacle_collision_uy = false;
+			}
+			super.update(ms);
 		}
-		velocity=di.clone().multiply(maxVelocity);
-		if (obstacle_collision_dx && obstacle_collision_ux) {
-			velocity.setX(0);
-			obstacle_collision_dx = false;
-			obstacle_collision_ux = false;
-		}else if (obstacle_collision_dx) {
-			velocity.setX(-Math.abs(maxVelocity.getX()));
-			obstacle_collision_dx = false;
-		}else if (obstacle_collision_ux) {
-			velocity.setX(Math.abs(maxVelocity.getX()));
-			obstacle_collision_ux = false;
-		}
-		if (obstacle_collision_dy && obstacle_collision_uy) {
-			velocity.setY(0);
-			obstacle_collision_dy = false;
-			obstacle_collision_uy = false;
-		}else if (obstacle_collision_dy) {
-			velocity.setY(-Math.abs(maxVelocity.getY()));
-			obstacle_collision_dy = false;
-		}else if (obstacle_collision_uy) {
-			velocity.setY(Math.abs(maxVelocity.getY()));
-			obstacle_collision_uy = false;
-		}
-		super.update(ms);
+
 	}
 	
 	public void collision(Collisionable col) {

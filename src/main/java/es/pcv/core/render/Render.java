@@ -44,7 +44,6 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.MapLoader;
 import es.pcv.game.elements.scene.Wall;
 import es.pcv.game.elements.weapons.bulls.Bullet;
-import es.pcv.game.gui.ButtonRestart;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Gui;
 
@@ -70,9 +69,14 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		this.width=width;
 		this.height=height;
 		canvas.setPreferredSize(new Dimension(width-100,height-200));
+		JButton butt=new JButton("Restart");
+		butt.setPreferredSize(new Dimension(width,100));
+		butt.addActionListener(this);
+		
 		gui.setPreferredSize(new Dimension(width,100));
 		this.setSize(width, height);
 		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(butt, BorderLayout.PAGE_END);
 		this.setName("Minimal OpenGL");
 		this.getContentPane().add(canvas, BorderLayout.CENTER);
 		this.getContentPane().add(gui,BorderLayout.PAGE_START);	
@@ -80,10 +84,6 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
-		JButton butt=new JButton("Restart");
-		butt.setPreferredSize(new Dimension(width,100));
-		butt.addActionListener(this);
-		this.getContentPane().add(butt, BorderLayout.PAGE_END);
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
 		canvas.requestFocusInWindow();
@@ -108,10 +108,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		
 	}
 	public void addRestartButton(){
-		JButton butt=new JButton("Restart");
-		butt.setPreferredSize(new Dimension(width,100));
-		butt.addActionListener(this);
-		this.getContentPane().add(butt, BorderLayout.PAGE_END);
+		
 		
 	}
 	public boolean isRestarted(){
@@ -267,16 +264,16 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		gl.glVertex3f(x4, 0.0f, y4);
 
 		// gl.glNormal3f(0.0f, 1.0f, 0.0f);                 // Top Face
-		gl.glVertex3f(x1,h, y1);
-		gl.glVertex3f(x2, h, y2);
-		gl.glVertex3f(x3, h, y3);
-		gl.glVertex3f(x4, h, y4);
+		 gl.glVertex3f(x4, h, y4);
+   	  gl.glVertex3f(x2, h, y2);
+   	  gl.glVertex3f(x3, h, y3);
+   	  gl.glVertex3f(x1, h, y1);
 
-		//gl.glNormal3f(0.0f, -1.0f, 0.0f);              // Bottom Face
-		gl.glVertex3f(x1,0.0f, y1);
-		gl.glVertex3f(x2, 0.0f, y2);
-		gl.glVertex3f(x3, 0.0f, y3);
-		gl.glVertex3f(x4, 0.0f, y4);
+		//gl.glNormal3f(0.0f, -1.0f, 0.0f);     
+   	 gl.glVertex3f(x1, 0, y1);
+  	  gl.glVertex3f(x2, 0, y2);
+  	  gl.glVertex3f(x3, 0, y3);
+  	  gl.glVertex3f(x4, 0, y4);// Bottom Face
 
 		//gl.glNormal3f(1.0f, 0.0f, 0.0f);               // Right Face
 		gl.glVertex3f(x2, 0.0f, y2);
@@ -457,6 +454,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		animator.start();
 	}
 	public void end(){
+		//animator.stop();
 		canvas.setVisible(false);
 	}
 	public void add(Drawable d) {

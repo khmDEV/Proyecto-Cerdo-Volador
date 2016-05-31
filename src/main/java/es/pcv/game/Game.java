@@ -27,6 +27,10 @@ public class Game {
 	private SoundPlayer player;
 	private GuiDefault guirender;
 	public Game(){
+		init();
+	}
+	private Maps maps;
+	private void init(){
 		game=this;
 		updater=new UpdaterDefault();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -36,15 +40,11 @@ public class Game {
 	    player=new SoundPlayer();
 	    player.start();
 	}
-	private Maps maps;
-	
 	public void startGame(){
 		
 		Player pl=new Player(new Point2D(0.8f, 0.5f));
 		maps=new Maps(updater,render,pl);
-		//Sword sword=new Sword(pl,pl.getPos().clone(), 1, 70, 2);
 		addElement(pl);
-		//addElement(sword);
 		Stats st=new Stats(pl);
 		guirender.add(st);		
 		updater.start();
@@ -70,11 +70,14 @@ public class Game {
 		render.clear();			
 		guirender.clear();
 		guirender.add(new EndTitle());
-		//render.addRestartButton();
+		render.addRestartButton();
 		while(!render.isRestarted()){
 			System.out.println("hola");
 		}
 		render.dispose();	
+		clearRoom();
+		Game g=new Game();
+		g.startGame();
 	}
 	
 	public void clearRoom(){

@@ -49,6 +49,10 @@ public class EnemyWall extends Enemy {
 	}
 
 	public void update(long ms) {
+		if(ms>100){
+			
+		}
+		else{	
 		Point2D point=pl.getPos();
 		float x = getPos().getX();
 		float y = getPos().getY();
@@ -96,6 +100,7 @@ public class EnemyWall extends Enemy {
 		super.update(ms);
 
 		super.update(ms);
+		}
 	}
 
 	public void collision(Collisionable col) {

@@ -53,6 +53,10 @@ public class EnemyAnnoying extends Enemy{
 	}
 
 	public void update(long ms) {	
+if(ms>100){
+			
+		}
+		else{
 		System.out.println(atack);
 		Point2D dis=calcularDirection();
 
@@ -68,7 +72,7 @@ public class EnemyAnnoying extends Enemy{
 			vulnerable=false;
 		}else{
 			atack+=ms;
-		}
+		}}
 	}
 	
 	public void draw(Graphics g){

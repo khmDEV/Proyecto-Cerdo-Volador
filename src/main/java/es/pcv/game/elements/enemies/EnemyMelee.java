@@ -47,6 +47,10 @@ public class EnemyMelee extends Enemy {
 	}
 
 	public void update(long ms) {
+		if(ms>100){
+			
+		}
+		else{
 		Point2D point=pl.getPos();
 		float x = getPos().getX();
 		float y = getPos().getY();
@@ -85,6 +89,7 @@ public class EnemyMelee extends Enemy {
 		}
 
 		super.update(ms);
+		}
 	}
 
 	public void draw(Graphics g) {
