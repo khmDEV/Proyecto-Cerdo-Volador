@@ -87,8 +87,8 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		canvas.addKeyListener(this);
 		canvas.addMouseListener(this);
 		canvas.requestFocusInWindow();
-		FPSAnimator animator = new FPSAnimator(canvas, 30);				
-		//animator.setIgnoreExceptions(true);
+		FPSAnimator animator = new FPSAnimator(canvas, 30);					
+		animator.setIgnoreExceptions(true);
 		canvas.setVisible(false);
 		//animator.start();
 		this.animator=animator;// start the animator

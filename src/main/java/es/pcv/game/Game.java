@@ -65,20 +65,16 @@ public class Game {
 	}
 
 	public void end() {
-		//updater.clear();
-		//render.clear();
-		render.end();		
+		updater.clear();
+		render.end();	
+		render.clear();			
 		guirender.clear();
 		guirender.add(new EndTitle());
-		render.addRestartButton();
+		//render.addRestartButton();
 		while(!render.isRestarted()){
 			System.out.println("hola");
 		}
-		render.dispose();
-		Game g=new Game();
-		g.startGame();	
-		
-		
+		render.dispose();	
 	}
 	
 	public void clearRoom(){
