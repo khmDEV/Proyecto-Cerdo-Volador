@@ -9,7 +9,6 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
 import es.pcv.core.render.Point2D;
-import es.pcv.core.render.Render3D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
@@ -19,8 +18,8 @@ import es.pcv.core.updater.elements.PolygonObstacle;
 import es.pcv.game.elements.player.Player;
 
 public class MapLoader extends PolygonObstacle implements Element{
-	protected int TEXTURE_ACT = 1;
-	protected int TEXTURE_DEC = 2;
+	protected int TEXTURE_ACT = 2;
+	protected int TEXTURE_DEC = 1;
 
 	private static Semaphore s = new Semaphore(1);
 	private static boolean activate = false;

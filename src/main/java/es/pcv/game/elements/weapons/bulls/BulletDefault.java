@@ -8,14 +8,13 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
 import es.pcv.core.render.Point2D;
-import es.pcv.core.render.Render3D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.updater.elements.Walker;
 
 public class BulletDefault extends Bullet {
 
 	public final static Point2D size = new Point2D(0.01f, 0.01f);
-	Color c = new Color(255, 0, 255);
+	Color c = new Color(1, 0, 0);
 
 	public BulletDefault(Walker whoAttack, Point2D position, Point2D vel) {
 		super(whoAttack, position, vel, size, 1, 50);
@@ -31,7 +30,7 @@ public class BulletDefault extends Bullet {
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		Helper3D.drawSphere(gl, glu, quadric, getCenterPos(),  0, 0.01, c,0);
+		Helper3D.drawSphere(gl, glu, quadric, getCenterPos(),  0, 0.01, c,-1);
 	}
 
 }

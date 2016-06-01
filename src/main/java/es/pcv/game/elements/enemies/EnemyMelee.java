@@ -1,13 +1,8 @@
 package es.pcv.game.elements.enemies;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Polygon;
 
-import com.jogamp.opengl.GL2;
-
 import es.pcv.core.render.Point2D;
-import es.pcv.core.render.Render3D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;

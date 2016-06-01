@@ -9,7 +9,6 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
 import es.pcv.core.render.Point2D;
-import es.pcv.core.render.Render3D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;

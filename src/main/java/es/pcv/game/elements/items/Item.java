@@ -1,15 +1,7 @@
 package es.pcv.game.elements.items;
 
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
-import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.glu.GLU;
-import com.jogamp.opengl.glu.GLUquadric;
-
-import es.pcv.core.render.Point2D;
-import es.pcv.core.render.Render3D;
-import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.core.updater.elements.PolygonCollision;

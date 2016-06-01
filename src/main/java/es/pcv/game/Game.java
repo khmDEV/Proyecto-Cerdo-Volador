@@ -3,11 +3,8 @@ package es.pcv.game;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render3D;
-import es.pcv.core.render.RenderDefault;
 import es.pcv.core.sound.SoundPlayer;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.UpdaterDefault;
@@ -15,7 +12,6 @@ import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.Maps;
-import es.pcv.game.gui.ButtonRestart;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.GuiDefault;
 import es.pcv.game.gui.Stats;

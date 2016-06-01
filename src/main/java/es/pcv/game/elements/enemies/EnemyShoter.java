@@ -12,7 +12,6 @@ public class EnemyShoter extends Enemy{
 	//Polygon ply;
 	//Color c = new Color(0, 255, 0);
 	private Point2D maxVelocity=(new Point2D(0.0005f, 0.0005f)).multiply(Config.scale);
-	private float maxModVelocity;
 	int atack=0;
 	private long CD=400;
 	private Weapon weapon = new LaserGun(this);
@@ -22,18 +21,12 @@ public class EnemyShoter extends Enemy{
 		this.maxVelocity=maxVelocity.clone();
 		weapon=wp;
 		weapon.equip(this);
-		float x = velocity.getX();
-		float y = velocity.getY();
-		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
 		this.addLive(500);
 	}
 	
 	public EnemyShoter(Point2D position,Player pl) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		weapon.equip(this);
-		float x = velocity.getX();
-		float y = velocity.getY();
-		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
 		this.addLive(500);
 	}
 	public void attack(Point2D point){

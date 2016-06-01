@@ -1,6 +1,5 @@
 package es.pcv.game.elements.items;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import com.jogamp.opengl.GL2;
