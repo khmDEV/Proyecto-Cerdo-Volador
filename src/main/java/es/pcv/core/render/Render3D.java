@@ -105,9 +105,9 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 	}
 	private boolean lightingEnabled;    // Lighting ON/OFF
 
-	private float[] lightPosition = {0.0f, 0.0f, 2.0f, 1.0f};
-	private float[] lightAmbient = {0.5f, 0.5f, 0.5f, 1.0f};
-	private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};                 // Which Filter To Use
+	private float[] lightPosition = {0f, 1f, 0f, 1.0f};
+	private float[] lightAmbient = {1.2f, 1.2f, 1.2f, 1.0f};
+	private float[] lightDiffuse = {1.2f, 1.2f, 1.2f, 1.0f};                 // Which Filter To Use
 	private GLU glu = new GLU();
 
 	private GLUquadric quadric;
@@ -398,7 +398,7 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		//System.out.println(this.getMousePosition());
 		update();
 		
-		if (!lightingEnabled)
+		if (false)
 			gl.glDisable(GL_LIGHTING);
 		else
 			gl.glEnable(GL_LIGHTING);
