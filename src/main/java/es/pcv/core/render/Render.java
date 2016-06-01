@@ -56,7 +56,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 	/**
 	 * 
 	 */
-	private Texture[] textures = new Texture[4];
+	private Texture[] textures = new Texture[6];
 	private Gui gui;
 	List<Drawable> figures = new LinkedList<Drawable>();
 	private static final long serialVersionUID = 1L;    
@@ -123,7 +123,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 	boolean textInit=false;
 	private void initTextures(GL2 gl){
 		textInit=true;
-		for(int i=0;i<4;i++){
+		for(int i=0;i<6;i++){
 			String ruta=Config.RESOURCES_PATH+"/textures/";
 			if(i==0){
 				ruta=ruta+"floor.bmp";
@@ -138,7 +138,10 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 				ruta=ruta+"box.bmp";
 			}
 			else if(i==4){
-				ruta=ruta+"text.bmp";
+				ruta=ruta+"tu.bmp";
+			}
+			else if(i==5){
+				ruta=ruta+"zombie.bmp";
 			}
 			Texture tex=loadGLTextures(ruta);
 		  	tex.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
@@ -278,7 +281,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
     }
 	private void drawRectangle(float x1,float x2,float x3,float x4,float y1,float y2,float y3,float y4,GL2 gl,int texture,float h){
 		
-		gl.glTranslatef(0f, -0.1f, 0f);
+		//gl.glTranslatef(0f, -0.1f, 0f);
 		gl.glColor3f(1, 1, 1);
 		textures[texture].enable(gl);
 	  	textures[texture].bind(gl);
@@ -351,7 +354,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 
 
 		gl.glEnd();
-		gl.glTranslatef(0f,0.1f, 0f);
+		//gl.glTranslatef(0f,0.1f, 0f);
 	
 		
 		textures[texture].disable(gl);
@@ -394,7 +397,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		gl.glColor3f(1, 1, 1);
 		
 		drawBase(gl);
-		gl.glTranslatef(0f, 1.1f, 0f);
+		gl.glTranslatef(0f, 1.0f, 0f);
 		Color play=new Color(1,0,0);
 		Color enem=new Color(0,1,0);
 		for (Drawable draw : figures) {
@@ -402,7 +405,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 				Player pl = (Player) draw;
 				this.player=pl;
 				Point2D p=pl.getCenterPos();
-				drawCilinder(gl,p.adaptar().getX(),p.adaptar().getY(),play);				
+				drawCilinder(gl,p.adaptar().getX(),p.adaptar().getY(),play,4);				
 			}
 			else if(draw instanceof Wall){
 				Wall pl = (Wall) draw;
@@ -419,7 +422,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 			else if(draw instanceof Enemy){
 				Enemy pl = (Enemy) draw;
 				Point2D p=pl.getCenterPos();
-				drawCilinder(gl,p.adaptar().getX(),p.adaptar().getY(),enem);		
+				drawCilinder(gl,p.adaptar().getX(),p.adaptar().getY(),enem,5);		
 			}
 			else if(draw instanceof Bullet){
 				Color col=new Color(1,1,0);
@@ -453,7 +456,6 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 			}
 			else if(draw instanceof PolygonCollision){
 				PolygonCollision pl = (PolygonCollision) draw;
-				Color col=new Color(0,1,1);
 				Point2D abs=pl.getCenterPos().adaptar();	
 				abs.setX(-abs.getX());
 				abs.setY(-abs.getY());
@@ -468,13 +470,17 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 			}
 		}
 	}
-	public void drawCilinder(GL2 gl,double posX,double posY,Color c){ 
+	public void drawCilinder(GL2 gl,double posX,double posY,Color c,int texture){ 
+		textures[texture].enable(gl);
+		textures[texture].bind(gl);	
 		gl.glTranslated(-posX, 0, -posY);
-		gl.glRotated(90, 1, 0, 0);
-		gl.glColor3f(c.getRed(), c.getGreen(), c.getBlue());
-		glu.gluCylinder(quadric, 0.00f, 0.05f, .1f, 32, 32); 
-		gl.glRotated(-90, 1, 0, 0);
+		gl.glRotated(-110, 1, 0, 0);
+		
+		//gl.glColor3f(c.getRed(), c.getGreen(), c.getBlue());
+		glu.gluCylinder(quadric, 0.06f, 0.06f, .11f, 32, 32); 
+		gl.glRotated(110, 1, 0, 0);
 		gl.glTranslated(posX, 0, posY);
+		textures[texture].disable(gl);
 	}
 	public void reshape(GLAutoDrawable drawable,
 			int xstart,
