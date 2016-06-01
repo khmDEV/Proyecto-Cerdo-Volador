@@ -26,7 +26,7 @@ public class EndTitle implements Drawable {
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.setFont(font);
-		g.drawString("You're death", (int)Math.round(20),
+		g.drawString("You're dead", (int)Math.round(20),
 				(int)Math.round(50));
 		
 	}
