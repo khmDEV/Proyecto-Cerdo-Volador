@@ -6,22 +6,21 @@ import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.game.configuration.Config;
 
-public abstract class Walker extends LiveEntity{
-	
-	protected ObjectIcon icon = new ObjectIcon(Config.RESOURCES_PATH+"/icons/bad1.png", 4, 3);
-	
+public abstract class Walker extends LiveEntity {
+
+	protected ObjectIcon icon = new ObjectIcon(Config.RESOURCES_PATH + "/icons/bad1.png", 4, 3);
+
 	protected int movYImg = 0;
 	protected int movXImg = 0;
 	protected int mov = 0;
 	protected int imgFija = 1;
 	protected int img = 0;
-	
-	
+
 	public Walker(Point2D p, Point2D v, Point2D s, int l, int d) {
 		super(p, v, s, l, d);
-		
+
 	}
-	
+
 	public void draw(Graphics g) {
 		if (!isVulnerable() && System.currentTimeMillis() % 8 < 5) {
 			return;
@@ -53,14 +52,28 @@ public abstract class Walker extends LiveEntity{
 			if (mov == 3) {
 				mov = 0;
 			}
-		}		
+		}
 
-		g.drawImage(icon.getImage(img), getX(),getY(),getSizeX(),getSizeY(),null);
+		g.drawImage(icon.getImage(img), getX(), getY(), getSizeX(), getSizeY(), null);
 
 	}
-	
-	
-	public int getDir(){
-		return img/3;
+
+	private int dir = 0;
+
+	public int getDir() {
+		if (Math.abs(velocity.getX()) > Math.abs(velocity.getY())) {
+			if (velocity.getX() > 0) {
+				dir = 2;
+			} else {
+				dir = 1;
+			}
+		} else if (Math.abs(velocity.getX()) < Math.abs(velocity.getY())) {
+			if (velocity.getY() > 0) {
+				dir = 0;
+			} else {
+				dir = 3;
+			}
+		}
+		return dir;
 	}
 }

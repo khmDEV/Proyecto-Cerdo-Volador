@@ -197,6 +197,24 @@ public class Helper3D {
 		
 		
 	}
+	public static void drawRotatedRectangle(GL2 gl, Point2D center, Point2D size, float offH, float h, Color c, int texture,Point2D p,float angle){
+		Point2D abs = center.adaptar();
+		abs.setX(-abs.getX());
+		abs.setY(-abs.getY());
+		float alt = size.getX() / Config.scale.getX();
+		float anch = size.getY() / Config.scale.getY();
+		Point2D ca=p.adaptar().multiply(-1);
+		
+		gl.glTranslatef(ca.getX(),0,ca.getY());
+  	  	gl.glRotated(angle, 0, 1, 0);
+  	  	gl.glTranslatef(-ca.getX(),0,-ca.getY());
+  	    drawRectangle(gl, abs.getX(), abs.getY(), offH, alt, anch, h, c, texture);
+  	    gl.glTranslatef(ca.getX(),0,ca.getY());
+  	  	gl.glRotated(-angle, 0, 1, 0);
+  	    gl.glTranslatef(-ca.getX(),0,-ca.getY());
+		
+		
+	}
 	public static void drawRectangle(GL2 gl, float x, float y, float z, float sizeX, float sizeY, float h, Color c,
 			int texture) {
 		gl.glTranslatef(0f, z, 0f);

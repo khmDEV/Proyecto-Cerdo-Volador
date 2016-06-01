@@ -15,7 +15,6 @@ import es.pcv.game.elements.enemies.Enemy;
 import es.pcv.game.elements.player.Player;
 
 public class Sword extends Melee {
-	protected int TEXTURE = 1;
 
 	public Sword(Walker w, int dur, int damage) {
 		super(w,new Point2D(0.01f,0.05), dur, damage);
@@ -37,6 +36,6 @@ public class Sword extends Melee {
 	Color c=new Color(1, 0, 0);
 	
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0.01f, 0.02f, c,TEXTURE);
+		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0.01f, 0.02f, c,-1);
 	}
 }

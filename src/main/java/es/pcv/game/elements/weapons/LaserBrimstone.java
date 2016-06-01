@@ -4,13 +4,14 @@ import es.pcv.core.render.Point2D;
 import es.pcv.core.sound.SoundPlayer;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.weapons.bulls.BulletBrimstone;
 
 public class LaserBrimstone extends Weapon {
 	private final static float V_DEFAULT = 0.001f;
 	private final static int DAMAGE_DEFAULT = 1;
-	private final static int AMMO_DEFAULT = 500;
-	private final static int CD_DEFAULT = 0;
+	private final static int AMMO_DEFAULT = 250;
+	private final static int CD_DEFAULT = (int) Config.RENDER_TICK/2;
 	private final static int ID = 1;
 	private static final String sound="fx/Cortical-Intermed-499_hifi.mp3";
 

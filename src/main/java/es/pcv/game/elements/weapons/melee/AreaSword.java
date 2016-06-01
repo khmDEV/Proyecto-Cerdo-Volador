@@ -1,5 +1,6 @@
 package es.pcv.game.elements.weapons.melee;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
@@ -9,12 +10,14 @@ import com.jogamp.opengl.glu.GLUquadric;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render3D;
+import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;
 
 public class AreaSword extends Melee {
 	private long time;
 	private long init;
+	Color c=new Color(1, 0, 0);
 
 	public AreaSword(Walker w, int dur, int damage, long time) {
 		super(w, new Point2D(0.01f, 0.05), dur, damage);
@@ -27,11 +30,8 @@ public class AreaSword extends Melee {
 		double perc = (double) init / time;
 		if (perc >= 1) {
 			kill();
-		} else {
-			super.update(ms);
-			pl = PolygonHelper.createRectangle(getPos().getAbsolutePosition(), getSize());
-			pl = PolygonHelper.rotatePolygon(pl, whoAttack.getCenterPos(), -perc * (Math.PI / 2));
-			rect = pl.getBounds2D();
+		}else{
+			super.update(0);
 		}
 	}
 
@@ -42,20 +42,19 @@ public class AreaSword extends Melee {
 		return size;
 	}
 
-	protected void moveMelee() {
-		float aux = size.getX();
-		size.setX(size.getY());
-		size.setY(aux);
-		vertical = !vertical;
-	}
-
 	public void draw(Graphics g) {
+		double perc = (double) init / time;
+		pl = PolygonHelper.createRectangle(getPos().getAbsolutePosition(), getSize());
+		pl = PolygonHelper.rotatePolygon(pl, whoAttack.getCenterPos(), -perc * (Math.PI / 2));
+		rect = pl.getBounds2D();
 		g.drawPolygon(pl);
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		// TODO Auto-generated method stub
-		
+		double perc = (double) init / time;
+		double an=-perc * 90;
+		Helper3D.drawRotatedRectangle(gl, getCenterPos(), super.getSize(), 0.01f, 0.02f, c, -1,whoAttack.getCenterPos(),(float) an);	
+
 	}
 
 }

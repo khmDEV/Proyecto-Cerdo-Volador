@@ -1,5 +1,6 @@
 package es.pcv.game.elements.items;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import com.jogamp.opengl.GL2;
@@ -36,10 +37,13 @@ public class ItemHeal extends Item {
 	public void draw(Graphics g) {
 		g.drawOval(getX(), getY(), getSizeX(), getSizeY());
 	}
-	
+	Color c = new Color(1f, 0, 0);
+
 	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		float vm=0.01f*heal>0.05f?0.05f:0.005f*heal;
+		float MAX=0.02f;
+		float M=0.003f;
+		float vm=M*heal>MAX?MAX:M*heal;
 		Helper3D.drawSphere(gl, glu, quadric, getCenterPos(), 0f, vm, c, -1);
 	}
 

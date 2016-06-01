@@ -11,6 +11,7 @@ import com.jogamp.opengl.glu.GLUquadric;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render3D;
+import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;
 
@@ -28,7 +29,6 @@ public class BulletBrimstone extends Bullet {
 	}
 
 	public void update(long ms) {
-		
 	}
 
 	public void draw(Graphics g) {
@@ -43,8 +43,9 @@ public class BulletBrimstone extends Bullet {
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		// TODO Auto-generated method stub
-		
+		float an =(float) (Math.atan2(-velocity.getX(), -velocity.getY())/Math.PI*180 + 180-90);;
+		Helper3D.drawRotatedRectangle(gl, getCenterPos(), getSize(), 0.05f, 0.01f, c, -1,an );	
+		kill();
 	}
 
 }

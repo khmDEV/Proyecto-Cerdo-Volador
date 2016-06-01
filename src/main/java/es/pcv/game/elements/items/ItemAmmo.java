@@ -1,5 +1,6 @@
 package es.pcv.game.elements.items;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import com.jogamp.opengl.GL2;
@@ -45,7 +46,8 @@ public class ItemAmmo extends Item {
 	public ItemAmmo cloneItem(){
 		return new ItemAmmo(position.clone(), ammo);
 	}
-	
+	Color c = new Color(0.2f, 0.2f, 0.2f);
+
 	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.01f, c, -1);
