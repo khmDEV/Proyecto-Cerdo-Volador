@@ -76,6 +76,7 @@ public class Game {
 		}
 		render.dispose();	
 		clearRoom();
+		player.stop();
 		Game g=new Game();
 		g.startGame();
 	}

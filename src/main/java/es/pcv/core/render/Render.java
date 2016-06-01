@@ -20,6 +20,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,11 +32,14 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
 
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.core.updater.elements.PolygonCollision;
@@ -51,6 +56,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 	/**
 	 * 
 	 */
+	private Texture[] textures = new Texture[4];
 	private Gui gui;
 	List<Drawable> figures = new LinkedList<Drawable>();
 	private static final long serialVersionUID = 1L;    
@@ -58,8 +64,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 	private FPSAnimator animator;
 	GLCanvas canvas;
 	int width, height;
-	public Render(int width, int height,Gui gui) {
-		
+	public Render(int width, int height,Gui gui) {		
 		super("Minimal OpenGL");
 		this.gui=gui;
 		GLProfile profile = GLProfile.get(GLProfile.GL2);
@@ -115,37 +120,56 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		return restart;
 		
 	}
+	boolean textInit=false;
+	private void initTextures(GL2 gl){
+		textInit=true;
+		for(int i=0;i<4;i++){
+			String ruta=Config.RESOURCES_PATH+"/textures/";
+			if(i==0){
+				ruta=ruta+"floor.bmp";
+			}
+			else if(i==1){
+				ruta=ruta+"wall.bmp";
+			}
+			else if(i==2){
+				ruta=ruta+"door.bmp";
+			}
+			else if(i==3){
+				ruta=ruta+"box.bmp";
+			}
+			else if(i==4){
+				ruta=ruta+"text.bmp";
+			}
+			Texture tex=loadGLTextures(ruta);
+		  	tex.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
+		  	tex.setTexParameteri(gl, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
+		  	tex.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER,GL2.GL_NEAREST);
+		  	tex.setTexParameteri(gl, GL2.GL_TEXTURE_MIN_FILTER,GL2.GL_LINEAR_MIPMAP_LINEAR);
+		  	gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
+		  	textures[i]=tex;
+		}
 	
-
+	  
+	  	
+	}
 
 	
-	/*private void loadGLTextures(GL gl, GLU glu) {    // Load image And Convert To Textures
-      	 Texture texture = TextureIO.newTexture(new File("D:\text.bmp"), true);
-           gl.glGenTextures(3, textures, 0);  // Create Three Textures
-           // Create Nearest Filtered Texture
-           gl.glBindTexture(GL.GL_TEXTURE_2D, textures[0]);
-           gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
-           gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
-           gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, 3, texture.getWidth(), 
-                   texture.getHeight(), 0, GL.GL_RGB, GL.GL_UNSIGNED_BYTE, texture.getPixels());
-
-           // Create Linear Filtered Texture
-           gl.glBindTexture(GL.GL_TEXTURE_2D, textures[1]);
-           gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-           gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-           gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, 3, texture.getWidth(), 
-                   texture.getHeight(), 0, GL.GL_RGB, GL.GL_UNSIGNED_BYTE, texture.getPixels());
-
-           // Create MipMapped Texture
-           gl.glBindTexture(GL.GL_TEXTURE_2D, textures[2]);
-           gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-           gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, 
-                   GL.GL_LINEAR_MIPMAP_NEAREST);
-
-           glu.gluBuild2DMipmaps(GL.GL_TEXTURE_2D, 3, 
-                   texture.getWidth(), texture.getHeight(), GL.GL_RGB, 
-                   GL.GL_UNSIGNED_BYTE, texture.getPixels());
-       }*/
+	private Texture loadGLTextures(String file) {    // Load image And Convert To Textures
+      	try {
+			Texture texture = TextureIO.newTexture(new File(file), true);
+			return texture;
+		} catch (GLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      	return null;
+      	 
+      	 
+          
+       }
 
 	public void init(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
@@ -181,114 +205,156 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		gl.glTranslated(posX, -h, posY);
 	}
 	private void drawBase(GL2 gl){
-		gl.glTranslatef(0.0f, -.5f, -3.2f);
-		gl.glRotatef(45, 1, 0, 0);
+		gl.glActiveTexture(0);
+  	  textures[0].enable(gl);
+  	  textures[0].bind(gl);
+		
+  	  gl.glTranslatef(0.0f, -.5f, -3.2f);
+  	  gl.glRotatef(45, 1, 0, 0);
+  	  gl.glBegin(GL_QUADS);
+  	  gl.glNormal3f(0.0f, 0.0f, 1.0f);               // Front Face
+  	  gl.glTexCoord2f(0.0f, 0.0f);
+  	  gl.glVertex3f(-1.0f, 0.7f, 1.0f);
+  	  gl.glTexCoord2f(1.0f, 0.0f);
+  	  gl.glVertex3f(1.0f, 0.7f, 1.0f);
+  	  gl.glTexCoord2f(1.0f, 1.0f);
+  	  gl.glVertex3f(1.0f, 1.0f, 1.0f);
+  	  gl.glTexCoord2f(0.0f, 1.0f);
+  	  gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+
+  	  gl.glNormal3f(0.0f, 0.0f, -1.0f);                // Back Face
+  	  gl.glTexCoord2f(1.0f, 0.0f);
+  	  gl.glVertex3f(-1.0f, 0.7f, -1.0f);
+  	  gl.glTexCoord2f(1.0f, 1.0f);
+  	  gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+  	  gl.glTexCoord2f(0.0f, 1.0f);
+  	  gl.glVertex3f(1.0f, 1.0f, -1.0f);
+  	  gl.glTexCoord2f(0.0f, 0.0f);
+  	  gl.glVertex3f(1.0f, 0.7f, -1.0f);
+
+  	  gl.glNormal3f(0.0f, 1.0f, 0.0f);                 // Top Face
+  	  gl.glTexCoord2f(0.0f, 1.0f);
+  	  gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+  	  gl.glTexCoord2f(0.0f, 0.0f);
+  	  gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+  	  gl.glTexCoord2f(1.0f, 0.0f);
+  	  gl.glVertex3f(1.0f, 1.0f, 1.0f);
+  	  gl.glTexCoord2f(1.0f, 1.0f);
+  	  gl.glVertex3f(1.0f, 1.0f, -1.0f);
+
+  	  gl.glNormal3f(0.0f, -1.0f, 0.0f);              // Bottom Face
+  	  gl.glTexCoord2f(1.0f, 1.0f);
+  	  gl.glVertex3f(-1.0f, 0.7f, -1.0f);
+  	  gl.glTexCoord2f(0.0f, 1.0f);
+  	  gl.glVertex3f(1.0f, 0.7f, -1.0f);
+  	  gl.glTexCoord2f(0.0f, 0.0f);
+  	  gl.glVertex3f(1.0f, 0.7f, 1.0f);
+  	  gl.glTexCoord2f(1.0f, 0.0f);
+  	  gl.glVertex3f(-1.0f, 0.7f, 1.0f);
+
+  	  gl.glNormal3f(1.0f, 0.0f, 0.0f);               // Right Face
+  	  gl.glTexCoord2f(1.0f, 0.0f);
+  	  gl.glVertex3f(1.0f, 0.7f, -1.0f);
+      gl.glTexCoord2f(1.0f, 1.0f);
+  	  gl.glVertex3f(1.0f, 1.0f, -1.0f);
+  	  gl.glTexCoord2f(0.0f, 1.0f);
+  	  gl.glVertex3f(1.0f, 1.0f, 1.0f);
+  	  gl.glTexCoord2f(0.0f, 0.0f);
+  	  gl.glVertex3f(1.0f, 0.7f, 1.0f);
+
+  	  gl.glNormal3f(-1.0f, 0.0f, 0.0f);               // Left Face
+  	  gl.glTexCoord2f(0.0f, 0.0f);
+  	  gl.glVertex3f(-1.0f, 0.7f, -1.0f);
+ 	  gl.glTexCoord2f(1.0f, 0.0f);
+  	  gl.glVertex3f(-1.0f, 0.7f, 1.0f);
+  	  gl.glTexCoord2f(1.0f, 1.0f);
+  	  gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+ 	  gl.glTexCoord2f(0.0f, 1.0f);
+  	  gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+  	  gl.glEnd();
+  	  
+  	  textures[0].disable(gl);
+  	
+    }
+	private void drawRectangle(float x1,float x2,float x3,float x4,float y1,float y2,float y3,float y4,GL2 gl,int texture,float h){
+		
+		gl.glTranslatef(0f, -0.1f, 0f);
+		gl.glColor3f(1, 1, 1);
+		textures[texture].enable(gl);
+	  	textures[texture].bind(gl);
 		gl.glBegin(GL_QUADS);
-		gl.glNormal3f(0.0f, 0.0f, 1.0f);               // Front Face
-		//gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, 1.0f);
-		//gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, 1.0f);
-		//gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f);
-		//gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f);
+		//gl.glColor3f(c.getRed(), c.getGreen(), c.getBlue());
+		
+	  	gl.glNormal3f(0.0f, 0.0f, 1.0f);
+	  	gl.glTexCoord2f(0.0f, 0.0f);
+		gl.glVertex3f(x2, 0.0f, y2);
+		gl.glTexCoord2f(1.0f, 0.0f);
+		gl.glVertex3f(x1, 0.0f, y1);
+		gl.glTexCoord2f(1.0f, 1.0f);
+		gl.glVertex3f(x1, h, y1);
+		gl.glTexCoord2f(0.0f, 1.0f);
+		gl.glVertex3f(x2, h, y2);
+		
+			
+		 gl.glNormal3f(0.0f, 0.0f, -1.0f);  
+	  	gl.glTexCoord2f(1.0f, 0.0f);// Back Face
+		gl.glVertex3f(x4, 0.0f, y4);
+		gl.glTexCoord2f(1.0f, 1.0f);
+		gl.glVertex3f(x4, h, y4);
+		gl.glTexCoord2f(0.0f, 1.0f);
+		gl.glVertex3f(x3, h, y3);
+		gl.glTexCoord2f(0.0f, 0.0f);
+		gl.glVertex3f(x3, 0.0f, y3);
 
-		gl.glNormal3f(0.0f, 0.0f, -1.0f);                // Back Face
-		//gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, -1.0f);
-		//gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-		//gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f);
-		//gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.75f, -1.0f);
+		
+	  	  // Top Face
+		gl.glNormal3f(0.0f, 1.0f, 0.0f);
+	  	gl.glTexCoord2f(1.0f, 1.0f);
+		gl.glVertex3f(x4, h, y4);
+		gl.glTexCoord2f(0.0f, 1.0f);
+		gl.glVertex3f(x2, h, y2);
+		gl.glTexCoord2f(0.0f, 0.0f);
+		gl.glVertex3f(x3, h, y3);
+		gl.glTexCoord2f(1.0f, 0.0f);
+		gl.glVertex3f(x1, h, y1);
 
-		gl.glNormal3f(0.0f, 1.0f, 0.0f);                 // Top Face
-		//gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-		//gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-		//gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f);
-		//gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f);
-
-		gl.glNormal3f(0.0f, -1.0f, 0.0f);              // Bottom Face
-		//gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 0.7f, -1.0f);
-		//gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(1.0f, 0.7f, -1.0f);
-		//gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, 1.0f);
-		//gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, 1.0f);
-
-		gl.glNormal3f(1.0f, 0.0f, 0.0f);               // Right Face
-		// gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, -1.0f);
-		// gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f);
-		// gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f);
-		// gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, 1.0f);
+		
+		gl.glNormal3f(0.0f, -1.0f, 0.0f);                // Bottom Face
+	  	gl.glTexCoord2f(1.0f, 1.0f);
+	  	gl.glVertex3f(x4,0.0f, y4);
+	  	gl.glTexCoord2f(0.0f, 1.0f);
+		gl.glVertex3f(x3, 0.0f, y3);
+		gl.glTexCoord2f(0.0f, 0.0f);
+		gl.glVertex3f(x1, 0.0f, y1);
+		gl.glTexCoord2f(1.0f, 0.0f);
+		gl.glVertex3f(x2, 0.0f, y2);
+		
+		gl.glNormal3f(1.0f, 0.0f, 0.0f);
+	  	gl.glTexCoord2f(1.0f, 0.0f);
+	  	gl.glVertex3f(x3, 0.0f, y3);
+	  	gl.glTexCoord2f(1.0f, 1.0f);
+		gl.glVertex3f(x3, h, y3);
+		gl.glTexCoord2f(0.0f, 1.0f);
+		gl.glVertex3f(x1, h, y1);
+		gl.glTexCoord2f(0.0f, 0.0f);
+		gl.glVertex3f(x1, 0.0f, y1);
 
 		gl.glNormal3f(-1.0f, 0.0f, 0.0f);               // Left Face
-		//  gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, -1.0f);
-		//  gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, 1.0f);
-		//  gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-		//  gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-		gl.glEnd();
-	}
-	private void drawRectangle(float x1,float x2,float x3,float x4,float y1,float y2,float y3,float y4,GL2 gl,Color c,float h){
-		gl.glTranslatef(0f, -0.1f, 0f);
-		gl.glBegin(GL_QUADS);
-		gl.glColor3f(c.getRed(), c.getGreen(), c.getBlue());
-		//gl.glNormal3f(0.0f, 0.0f, 1.0f);               // Front Face
-
+	  	gl.glTexCoord2f(0.0f, 0.0f);
+	  	gl.glVertex3f(x4, 0.0f, y4);
+	  	gl.glTexCoord2f(1.0f, 0.0f);
 		gl.glVertex3f(x2, 0.0f, y2);
-		gl.glVertex3f(x1, 0.0f, y1);
-		gl.glVertex3f(x1, h, y1);
+		gl.glTexCoord2f(1.0f, 1.0f);
 		gl.glVertex3f(x2, h, y2);
-
-
-		//gl.glNormal3f(0.0f, 0.0f, -1.0f);                // Back Face
-		gl.glVertex3f(x3, 0.0f, y3);
-		gl.glVertex3f(x3, h, y3);
+		gl.glTexCoord2f(0.0f, 1.0f);
 		gl.glVertex3f(x4, h, y4);
-		gl.glVertex3f(x4, 0.0f, y4);
 
-		// gl.glNormal3f(0.0f, 1.0f, 0.0f);                 // Top Face
-		 gl.glVertex3f(x4, h, y4);
-   	  gl.glVertex3f(x2, h, y2);
-   	  gl.glVertex3f(x3, h, y3);
-   	  gl.glVertex3f(x1, h, y1);
-
-		//gl.glNormal3f(0.0f, -1.0f, 0.0f);     
-   	 gl.glVertex3f(x1, 0, y1);
-  	  gl.glVertex3f(x2, 0, y2);
-  	  gl.glVertex3f(x3, 0, y3);
-  	  gl.glVertex3f(x4, 0, y4);// Bottom Face
-
-		//gl.glNormal3f(1.0f, 0.0f, 0.0f);               // Right Face
-		gl.glVertex3f(x2, 0.0f, y2);
-		gl.glVertex3f(x4, 0.0f, y4);
-		gl.glVertex3f(x4, h, y4);
-		gl.glVertex3f(x2, h, y2);
-
-		// gl.glNormal3f(-1.0f, 0.0f, 0.0f);               // Left Face
-		gl.glVertex3f(x1, 0.0f, y1);
-		gl.glVertex3f(x3, 0.0f, y3);
-		gl.glVertex3f(x3, h, y3);
-		gl.glVertex3f(x1, h, y1);
 
 		gl.glEnd();
 		gl.glTranslatef(0f,0.1f, 0f);
+	
+		
+		textures[texture].disable(gl);
 
 
 	}
@@ -311,9 +377,13 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		}
 	}
 	public void display(GLAutoDrawable drawable) {
+		GL2 gl = drawable.getGL().getGL2(); 
+		if(!textInit){
+			initTextures(gl);
+		}
 		//System.out.println(this.getMousePosition());
 		update();
-		GL2 gl = drawable.getGL().getGL2(); 
+		
 		if (!lightingEnabled)
 			gl.glDisable(GL_LIGHTING);
 		else
@@ -322,6 +392,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity(); // Reset The View    	  
 		gl.glColor3f(1, 1, 1);
+		
 		drawBase(gl);
 		gl.glTranslatef(0f, 1.1f, 0f);
 		Color play=new Color(1,0,0);
@@ -341,9 +412,8 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 				System.out.println(abs);
 				float alt=pl.getSizeX()/Config.scale.getX();
 				float anch=pl.getSizeY()/Config.scale.getY();
-				Color b=new Color(0,0,1);
 				drawRectangle(abs.getX()+alt,abs.getX()-alt,abs.getX()+alt,abs.getX()-alt,
-						abs.getY()+anch,abs.getY()+anch,abs.getY()-anch,abs.getY()-anch,gl,b,0.1f);
+						abs.getY()+anch,abs.getY()+anch,abs.getY()-anch,abs.getY()-anch,gl,1,0.1f);
 				
 			}
 			else if(draw instanceof Enemy){
@@ -364,8 +434,6 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 				drawSphere(gl, p.adaptar().getX(), p.adaptar().getY(), col, 0, 0.01);
 			}
 			else if(draw instanceof MapLoader){
-				
-				Color col=new Color(1,0,1);
 				MapLoader pl = (MapLoader) draw;
 				if(pl.isActivate()){
 					
@@ -378,7 +446,7 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 					float anch=pl.getSizeY()/Config.scale.getY();
 					
 					drawRectangle(abs.getX()+alt,abs.getX()-alt,abs.getX()+alt,abs.getX()-alt,
-							abs.getY()+anch,abs.getY()+anch,abs.getY()-anch,abs.getY()-anch,gl,col,0.1f);
+							abs.getY()+anch,abs.getY()+anch,abs.getY()-anch,abs.getY()-anch,gl,2,0.1f);
 				}
 				
 				
@@ -393,26 +461,12 @@ public class Render extends JFrame implements GLEventListener, KeyListener, Mous
 				float anch=pl.getSizeY()/Config.scale.getY();
 				
 				drawRectangle(abs.getX()+alt,abs.getX()-alt,abs.getX()+alt,abs.getX()-alt,
-						abs.getY()+anch,abs.getY()+anch,abs.getY()-anch,abs.getY()-anch,gl,col,0.01f);
+						abs.getY()+anch,abs.getY()+anch,abs.getY()-anch,abs.getY()-anch,gl,3,0.01f);
 				
 				
 				
 			}
 		}
-		//Color c=new Color(1,0,0);
-		
-		//drawRectangle(1,0.9f,1,0.9f,1,1,-1,-1,gl,c,0.1f);
-
-		// System.out.println("cil")
-		/*Color f=new Color(0,1,0);
-		drawCilinder(gl,1,1,f);
-		drawCilinder(gl,-1,1,c);
-		drawCilinder(gl,1,-1,f);
-		drawCilinder(gl,-1,-1,c);
-		drawSphere(gl, 0.5, 0.2, c, 0, 0.01);*/
-
-
-
 	}
 	public void drawCilinder(GL2 gl,double posX,double posY,Color c){ 
 		gl.glTranslated(-posX, 0, -posY);
