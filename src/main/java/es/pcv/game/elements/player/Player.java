@@ -120,6 +120,7 @@ public class Player extends Walker {
 	public Player(Point2D position) {
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 10);
 		changeWeapon(currentWeapon);
+		dead = false;
 	}
 	
 	public synchronized void addKey(Integer k){
@@ -220,10 +221,11 @@ public class Player extends Walker {
 	}
 
 	public boolean isDead() {
-		return false;
+		return dead;
 	}
 
 	public boolean kill() {
+		dead = true;
 		Game.getGame().end();
 		return false;
 	}
@@ -283,7 +285,6 @@ public class Player extends Walker {
 
 	Color c = new Color(0, 255, 0);
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawCilinder(gl,glu,quadric, getCenterPos(), 0.0f, 0.05f, 0, .1f, c,TEXTURE);
 	}

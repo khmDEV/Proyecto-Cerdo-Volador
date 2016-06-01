@@ -42,7 +42,6 @@ public class BulletBrimstone extends Bullet {
 		kill();
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		// TODO Auto-generated method stub
 		

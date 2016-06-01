@@ -46,7 +46,6 @@ public class BulletLaser extends Bullet {
 		g.drawPolygon(rec);
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		// TODO Auto-generated method stub
 		

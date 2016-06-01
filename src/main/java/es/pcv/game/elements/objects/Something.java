@@ -47,7 +47,6 @@ public class Something extends Wall{
 		
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,TEXTURE);
 	}

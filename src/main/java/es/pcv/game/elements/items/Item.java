@@ -36,7 +36,7 @@ public abstract class Item extends PolygonCollision implements Element {
 	public abstract Item cloneItem();
 	
 	Color c=new Color(0.2f, 0.2f, 0.2f);
-	@Override
+	
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, c,-1);
 	}

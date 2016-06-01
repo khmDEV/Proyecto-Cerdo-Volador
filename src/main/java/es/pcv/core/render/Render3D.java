@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import com.jogamp.opengl.GL;
@@ -44,6 +45,7 @@ import com.jogamp.opengl.util.texture.TextureIO;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.core.updater.elements.PolygonCollision;
+import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.Enemy;
 import es.pcv.game.elements.player.Player;
@@ -65,6 +67,8 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 	private FPSAnimator animator;
 	GLCanvas canvas;
 	int width, height;
+	JButton butt;
+	
 	public Render3D(int width, int height,Gui gui) {		
 		super("Minimal OpenGL");
 		this.gui=gui;
@@ -75,14 +79,13 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		this.width=width;
 		this.height=height;
 		canvas.setPreferredSize(new Dimension(width-100,height-200));
-		JButton butt=new JButton("Restart");
+		butt=new JButton();
 		butt.setPreferredSize(new Dimension(width,100));
 		butt.addActionListener(this);
-		
+		butt.setIcon(new ImageIcon(Config.RESOURCES_PATH+"icons/play_again.png"));
 		gui.setPreferredSize(new Dimension(width,100));
 		this.setSize(width, height);
 		this.getContentPane().setLayout(new BorderLayout());
-		this.getContentPane().add(butt, BorderLayout.PAGE_END);
 		this.setName("Minimal OpenGL");
 		this.getContentPane().add(canvas, BorderLayout.CENTER);
 		this.getContentPane().add(gui,BorderLayout.PAGE_START);	
@@ -114,9 +117,11 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		
 	}
 	public void addRestartButton(){
-		
-		
+		//esto
+		this.getContentPane().add(butt, BorderLayout.PAGE_END);
+		setVisible(true);
 	}
+
 	public boolean isRestarted(){
 		return restart;
 		
@@ -517,8 +522,13 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 	}
 	public void actionPerformed(ActionEvent arg0) {
 		restart=true;
-		
+		//esto
+		getContentPane().remove(butt);
+		gui.clear();
+		Game.getGame().startGame();
+		setVisible(true);
 	}
+
 
 
 

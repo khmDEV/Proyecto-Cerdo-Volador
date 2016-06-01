@@ -31,7 +31,6 @@ public class EndTitle implements Drawable {
 		
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		// TODO Auto-generated method stub
 		

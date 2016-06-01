@@ -39,6 +39,8 @@ public class Game {
 		render=new Render3D(screenSize.width, screenSize.height,guirender);
 	    player=new SoundPlayer();
 	    player.start();
+		updater.start();
+		render.start();
 	}
 	public void startGame(){
 		
@@ -47,8 +49,6 @@ public class Game {
 		addElement(pl);
 		Stats st=new Stats(pl);
 		guirender.add(st);		
-		updater.start();
-		render.start();
 	}
 	
 	public void addElement(Element e){
@@ -66,19 +66,15 @@ public class Game {
 
 	public void end() {
 		updater.clear();
-		render.end();	
+		//render.end();	
 		render.clear();			
 		guirender.clear();
 		guirender.add(new EndTitle());
 		render.addRestartButton();
-		while(!render.isRestarted()){
-			System.out.println("hola");
-		}
-		render.dispose();	
+		//render.dispose();	
 		clearRoom();
-		player.stop();
-		Game g=new Game();
-		g.startGame();
+		//Game g=new Game();
+		//g.startGame();
 	}
 	
 	public void clearRoom(){

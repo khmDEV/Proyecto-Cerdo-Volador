@@ -663,7 +663,8 @@ public class Maps {
 	}
 
 	public void clearRoom() {
-		if (maps.get(currentMap)!=null) {
+		if (maps.get(currentMap)!=null && !player.isDead()) {
+			System.out.println("Voy a Spawnear");
 			maps.get(currentMap).clearRoom();
 		}
 	}

@@ -30,7 +30,6 @@ public class BulletDefault extends Bullet {
 		g.drawOval(getX(), getY(), getSizeX(), getSizeY());
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawSphere(gl, glu, quadric, getCenterPos(),  0, 0.01, c,0);
 	}

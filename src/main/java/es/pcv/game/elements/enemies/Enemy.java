@@ -39,7 +39,6 @@ public abstract class Enemy extends Walker{
 		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawCilinder(gl, glu, quadric, getPos(), 0.06f, 0.06f, 0, .11f, null,TEXTURE);
 	}

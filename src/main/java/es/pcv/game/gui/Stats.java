@@ -111,7 +111,6 @@ public class Stats implements Drawable {
 		//g.drawString(s, 0,20);
 	}
 
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		// TODO Auto-generated method stub
 		

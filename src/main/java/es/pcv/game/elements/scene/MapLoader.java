@@ -113,7 +113,6 @@ public class MapLoader extends PolygonObstacle implements Element{
 		
 	}
 	
-	@Override
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		if(activate){
 			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,TEXTURE_ACT);

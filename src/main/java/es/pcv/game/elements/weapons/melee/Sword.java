@@ -35,7 +35,7 @@ public class Sword extends Melee {
 		}
 	}
 	Color c=new Color(1, 0, 0);
-	@Override
+	
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0.01f, 0.02f, c,TEXTURE);
 	}
