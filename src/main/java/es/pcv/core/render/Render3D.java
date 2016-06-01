@@ -465,21 +465,21 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		canvas.setVisible(false);
 		Helper3D.end();
 	}
-	public void add(Drawable d) {
-		animator.stop();
+	public  void add(Drawable d) {
+		//animator.stop();
 		figures.add(d);
-		animator.start();
+		//animator.start();
 		
 	}
 	public void remove(Drawable d) {
-		animator.stop();
+		//animator.stop();
 		figures.remove(d);
-		animator.start();		
+	//	animator.start();		
 	}
 	public void clear(){	
-		animator.stop();
+		//animator.stop();
 		figures.clear();		
-		animator.start();	
+		//animator.start();	
 		
 	}
 	
