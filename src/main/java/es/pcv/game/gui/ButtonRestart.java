@@ -11,6 +11,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.game.Game;
@@ -84,6 +88,14 @@ public class ButtonRestart implements Drawable{
 		g.updater.clear();
 		g.startGame();
 		j.removeMouseListener(ml);
+	}
+
+
+
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

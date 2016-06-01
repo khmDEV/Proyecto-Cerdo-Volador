@@ -1,8 +1,16 @@
 package es.pcv.game.elements.enemies;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.Render3D;
+import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
@@ -18,6 +26,8 @@ public class EnemyAnnoying extends Enemy{
 	private long CD_SHOOT=2000,CD_VULNERABLE=1000;
 	private double MIN_DISTANCE=AllDirectionsWeapon.SCOPE_DEFAULT*Config.scale.getX();
 	private boolean vulnerable=false;
+	protected int TEXTURE = 5;
+
 	public EnemyAnnoying(Point2D position,Player pl, Weapon wp) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		weapon=wp;
@@ -57,10 +67,8 @@ if(ms>100){
 			
 		}
 		else{
-		System.out.println(atack);
 		Point2D dis=calcularDirection();
 
-		System.out.println(dis.value()+" < "+MIN_DISTANCE);
 		if(atack>CD_SHOOT&&atack<=CD_VULNERABLE+CD_SHOOT){
 			if (vulnerable||dis.value()<MIN_DISTANCE) {
 				attack(dis);
@@ -90,5 +98,17 @@ if(ms>100){
 			pl.doDamage(getDamage());
 		}
 	}
+	Color inv=new Color(0, 0, 0),vul=new Color(0.3f, 0.3f, 0.3f);
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		Point2D p=getCenterPos().adaptar();
+		Point2D s=getSize().adaptar();
+		if (vulnerable) {
+			Helper3D.drawCilinder(gl,glu,quadric,p.getX(), 0,p.getY(), .1f, s.getY(),s.getY(),vul,TEXTURE);
+		}else{
+			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, inv,TEXTURE);
+		}
+	}
+
 
 }

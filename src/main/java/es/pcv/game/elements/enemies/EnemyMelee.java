@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+import com.jogamp.opengl.GL2;
+
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.Render3D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
@@ -12,7 +15,6 @@ import es.pcv.game.elements.player.Player;
 public class EnemyMelee extends Enemy {
 
 	Polygon ply;
-	Color c = new Color(0, 255, 0);
 	private Point2D maxVelocity=(new Point2D(0.0003f, 0.0003f)).multiply(Config.scale);
 	private float maxModVelocity;
 	private boolean colPlayer;
@@ -92,11 +94,6 @@ public class EnemyMelee extends Enemy {
 		}
 	}
 
-	public void draw(Graphics g) {
-		g.setColor(c);
-		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
-	}
-
 	public void collision(Collisionable col) {
 		super.collision(col);
 		if (col instanceof Player) {
@@ -104,8 +101,7 @@ public class EnemyMelee extends Enemy {
 			pl.doDamage(getDamage());
 			colPlayer=true;
 		}
-		c = new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255),
-				(int) Math.round(Math.random() * 255));
 	}
+
 
 }

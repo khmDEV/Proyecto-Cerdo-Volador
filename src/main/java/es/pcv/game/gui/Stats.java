@@ -9,6 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.figure.Drawable;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
@@ -105,6 +109,12 @@ public class Stats implements Drawable {
 		}
 		//String s="Live:" + pl.getLive() + "/" + pl.getMaxLive();
 		//g.drawString(s, 0,20);
+	}
+
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

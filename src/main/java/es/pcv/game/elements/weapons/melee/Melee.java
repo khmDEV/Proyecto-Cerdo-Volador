@@ -83,7 +83,7 @@ public abstract class Melee extends WeaponEntity {
 			r.doDamage(getDamage());
 			durability--;
 			if (durability == 0) {
-				this.kill();
+			//	this.kill();
 			}
 		}
 	}

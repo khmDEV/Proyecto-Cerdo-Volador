@@ -4,7 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.concurrent.Semaphore;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.Render3D;
+import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
@@ -13,6 +19,8 @@ import es.pcv.core.updater.elements.PolygonObstacle;
 import es.pcv.game.elements.player.Player;
 
 public class MapLoader extends PolygonObstacle implements Element{
+	protected int TEXTURE_ACT = 1;
+	protected int TEXTURE_DEC = 2;
 
 	private static Semaphore s = new Semaphore(1);
 	private static boolean activate = false;
@@ -92,16 +100,26 @@ public class MapLoader extends PolygonObstacle implements Element{
 		// TODO Auto-generated method stub
 		
 	}
+	Color act=new Color(0, 255, 0),des=new Color(30, 30, 30);
 
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		if(activate){
-			g.setColor(new Color(0, 255, 0));
+			g.setColor(act);
 		}else{
-			g.setColor(new Color(30, 30, 30));
+			g.setColor(des);
 		}
 		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
 		
+	}
+	
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		if(activate){
+			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,TEXTURE_ACT);
+		}else{
+			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,TEXTURE_DEC);
+		}
 	}
 	
 	

@@ -5,7 +5,12 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.Render3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.configuration.Config;
@@ -39,6 +44,12 @@ public class BulletLaser extends Bullet {
 		setCollisionBox(rec.getBounds2D());
 		
 		g.drawPolygon(rec);
+	}
+
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

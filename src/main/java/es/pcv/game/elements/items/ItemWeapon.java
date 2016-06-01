@@ -26,7 +26,6 @@ public class ItemWeapon extends Item {
 	}
 	
 	public void collision(Collisionable c){
-		System.out.println(hit);
 		if (c instanceof Player) {
 			if (hit>1) {
 				takeIt((Player) c);

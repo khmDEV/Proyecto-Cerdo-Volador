@@ -2,7 +2,12 @@ package es.pcv.game.elements.items;
 
 import java.awt.Graphics;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.Point2D;
+import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.elements.player.Player;
@@ -40,5 +45,11 @@ public class ItemAmmo extends Item {
 	public ItemAmmo cloneItem(){
 		return new ItemAmmo(position.clone(), ammo);
 	}
+	
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.01f, c, -1);
+	}
+
 
 }

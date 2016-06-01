@@ -8,7 +8,7 @@ import es.pcv.core.render.figure.Drawable;
 import es.pcv.game.gui.Gui;
 
 @SuppressWarnings("serial")
-public class RenderDefault extends Render {
+public class RenderDefault extends Render3D {
 	public RenderDefault(int width, int height, Gui gui) {
 		super(width, height, gui);
 		// TODO Auto-generated constructor stub

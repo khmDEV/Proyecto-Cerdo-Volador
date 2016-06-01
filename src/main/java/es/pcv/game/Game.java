@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import es.pcv.core.render.Point2D;
-import es.pcv.core.render.Render;
+import es.pcv.core.render.Render3D;
 import es.pcv.core.render.RenderDefault;
 import es.pcv.core.sound.SoundPlayer;
 import es.pcv.core.updater.Updater;
@@ -23,7 +23,7 @@ import es.pcv.game.gui.Stats;
 public class Game {
 	private static Game game;
 	public Updater updater;
-	public Render render;
+	public Render3D render;
 	private SoundPlayer player;
 	private GuiDefault guirender;
 	public Game(){
@@ -36,7 +36,7 @@ public class Game {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    Config.scale=new Point2D(screenSize.getHeight()*0.8, screenSize.getHeight()*0.8);
 	    guirender=new GuiDefault();
-		render=new Render(screenSize.width, screenSize.height,guirender);
+		render=new Render3D(screenSize.width, screenSize.height,guirender);
 	    player=new SoundPlayer();
 	    player.start();
 	}

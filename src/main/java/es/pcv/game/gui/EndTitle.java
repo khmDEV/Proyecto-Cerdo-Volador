@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
+
 import es.pcv.core.render.figure.Drawable;
 
 public class EndTitle implements Drawable {
@@ -24,6 +28,12 @@ public class EndTitle implements Drawable {
 		g.setFont(font);
 		g.drawString("You're death", (int)Math.round(20),
 				(int)Math.round(50));
+		
+	}
+
+	@Override
+	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
+		// TODO Auto-generated method stub
 		
 	}
 
