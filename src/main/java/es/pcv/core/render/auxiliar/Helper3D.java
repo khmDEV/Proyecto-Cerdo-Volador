@@ -259,10 +259,11 @@ public class Helper3D {
 		
 	  	  // Top Face
 		gl.glNormal3f(0.0f, 1.0f, 0.0f);
-	  	gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(x4, h, y4);
+	  	
 		gl.glTexCoord2f(0.0f, 1.0f);
 		gl.glVertex3f(x2, h, y2);
+		gl.glTexCoord2f(1.0f, 1.0f);
+		gl.glVertex3f(x4, h, y4);
 		gl.glTexCoord2f(0.0f, 0.0f);
 		gl.glVertex3f(x3, h, y3);
 		gl.glTexCoord2f(1.0f, 0.0f);
