@@ -1,5 +1,8 @@
 package es.pcv.game.elements.items.drops;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +35,12 @@ public abstract class Drops {
 	}
 	
 	public static Item getRandom(Point2D p, HashMap<Item, Double>drops){
+		Item[] its=new Item[drops.size()];
+		drops.keySet().toArray(its);
+		
+		List<Item>lits=Arrays.asList(its);
+		Collections.shuffle(lits);
+		return lits.get(0);/*
 		double max=0;
 		for (double d:drops.values()) {
 			max+=d;
@@ -46,7 +55,7 @@ public abstract class Drops {
 				c+=e.getValue();
 			}
 		}
-		return drops.size()!=0?drops.keySet().iterator().next().cloneItem():null;
+		return drops.size()!=0?drops.keySet().iterator().next().cloneItem():null;*/
 	}
 	
 	public void spawnDrops(Point2D p) {
