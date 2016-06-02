@@ -56,7 +56,10 @@ public class EnemyAnnoying extends Enemy{
 	}
 	
 	public boolean isVulnerable(){
-		atack=0;
+		if (!vulnerable) {
+			atack=0;
+		}
+		
 		return vulnerable;
 	}
 
@@ -104,7 +107,7 @@ if(ms>100){
 		if (vulnerable) {
 			Helper3D.drawCilinder(gl,glu,quadric,p.getX(), 0,p.getY(), .1f, s.getY(),s.getY(),vul,TEXTURE);
 		}else{
-			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, inv,TEXTURE);
+			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,3);
 		}
 	}
 

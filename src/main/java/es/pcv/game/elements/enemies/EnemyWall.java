@@ -45,7 +45,7 @@ public class EnemyWall extends Enemy {
 		float ox = (float) (getSizeX()/2);
 		float oy = (float) (getSizeY()/2);
 
-		weapon.attack(this, new Point2D(ox, oy).add(getPos()), point);
+		weapon.attack(this, new Point2D(ox, oy).multiply(point).add(getPos()), point);
 	}
 
 	public void update(long ms) {
@@ -58,17 +58,17 @@ public class EnemyWall extends Enemy {
 		float y = getPos().getY();
 		x=point.getX()-x<0?-1:1;
 		y=point.getY()-y<0?-1:1;
-		x=x*maxModVelocity;
-		y=y*maxModVelocity;
-		Point2D di = new Point2D(x,y);
+		float xv=x*maxModVelocity;
+		float yv=y*maxModVelocity;
+		Point2D di = new Point2D(xv,yv);
 		if(atack+ms>CD){
 			Point2D s=di.clone();
 			if (wall.getSizeX()>wall.getSizeY()) {
 				s.setX(0);
-				s.setY(1);
+				s.setY(y);
 			}else{
 				s.setY(0);
-				s.setX(1);
+				s.setX(x);
 			}
 			attack(s);
 			atack=0;

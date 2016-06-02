@@ -22,10 +22,13 @@ import es.pcv.game.elements.player.Player;
 public class Maps {
 	public Updater updater;
 	public Render render;
-	private List<Map> maps;
-	private int currentMap;
-	private Player player;
+	protected List<Map> maps;
+	protected int currentMap;
+	protected Player player;
 	
+	public Maps(){
+		
+	}
 	
 	public Maps(Updater u, Render r,Player p){
 		updater=u;

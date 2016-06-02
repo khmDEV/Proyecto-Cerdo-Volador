@@ -21,6 +21,7 @@ import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.updater.elements.Walker;
 import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.weapons.GunDefault;
 import es.pcv.game.elements.weapons.Weapon;
 
 public class Player extends Walker {
@@ -40,8 +41,7 @@ public class Player extends Walker {
 	// Weapons
 
 	// private List weapons;
-	private Weapon[] weapons = Weapon.ALL_WEAPONS;// new Weapon[]{new
-													// LaserGun(this),null};
+	private Weapon[] weapons = new Weapon[]{new GunDefault(this),null};
 
 	private int currentWeapon = 0;
 	private static final Point2D MAX_VELOCITY = new Point2D(0.0005f, 0.0005f).multiply(Config.scale);
@@ -290,6 +290,10 @@ public class Player extends Walker {
 
 	public synchronized void removeKey(int keyCode) {
 		pressed.remove(keyCode);
+	}
+
+	public void setWeapons(Weapon[] aLL_WEAPONS) {
+		weapons=aLL_WEAPONS;
 	}
 
 }

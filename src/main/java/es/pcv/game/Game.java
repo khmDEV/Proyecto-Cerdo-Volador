@@ -12,6 +12,7 @@ import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.Maps;
+import es.pcv.game.elements.scene.MapsDebug;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.GuiDefault;
 import es.pcv.game.gui.Stats;
@@ -22,6 +23,8 @@ public class Game {
 	public Render3D render;
 	private SoundPlayer player;
 	private GuiDefault guirender;
+	private boolean debug=true;
+	
 	public Game(){
 		init();
 	}
@@ -41,7 +44,11 @@ public class Game {
 	public void startGame(){
 		
 		Player pl=new Player(new Point2D(0.8f, 0.5f));
-		maps=new Maps(updater,render,pl);
+		if (debug) {
+			maps=new MapsDebug(updater,render,pl);
+		}else{
+			maps=new Maps(updater,render,pl);
+		}
 		addElement(pl);
 		Stats st=new Stats(pl);
 		guirender.add(st);		
