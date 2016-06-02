@@ -50,7 +50,6 @@ public class MapLoader extends PolygonObstacle implements Element{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		activate = true;
 		s.release();
 	}

@@ -171,7 +171,7 @@ public class Player extends Walker {
 			last_mouse_position = last;
 		}
 
-		float fx = (float) (last_mouse_position.getX() - getCenterPos().getX())- 200;
+		float fx = (float) (last_mouse_position.getX() - getCenterPos().getX())- 220;
 		float fy = (float) (last_mouse_position.getY() - getCenterPos().getY()) +50;
 
 		float aux = (float) Math.sqrt(fx * fx + fy * fy);
@@ -225,7 +225,7 @@ public class Player extends Walker {
 
 	public boolean kill() {
 		dead = true;
-		Game.getGame().end();
+		Game.getGame().end(false);
 		return false;
 	}
 

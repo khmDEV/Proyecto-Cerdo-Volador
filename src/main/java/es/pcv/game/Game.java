@@ -16,6 +16,7 @@ import es.pcv.game.elements.scene.MapsDebug;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.GuiDefault;
 import es.pcv.game.gui.Stats;
+import es.pcv.game.gui.WinTitle;
 
 public class Game {
 	private static Game game;
@@ -23,7 +24,7 @@ public class Game {
 	public Render3D render;
 	private SoundPlayer player;
 	private GuiDefault guirender;
-	private boolean debug=true;
+	private boolean debug=false;
 	
 	public Game(){
 		init();
@@ -67,12 +68,17 @@ public class Game {
 		return game;
 	}
 
-	public void end() {
+	public void end(boolean win) {
 		updater.clear();
 		//render.end();	
 		render.clear();			
 		guirender.clear();
-		guirender.add(new EndTitle());
+		if(win){
+			guirender.add(new WinTitle());
+		}else{
+			guirender.add(new EndTitle());
+		}
+		
 		render.addRestartButton();
 		//render.dispose();	
 		clearRoom();
