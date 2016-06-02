@@ -27,16 +27,16 @@ public class EnemyAnnoying extends Enemy{
 	protected int TEXTURE = 5;
 
 	public EnemyAnnoying(Point2D position,Player pl, Weapon wp) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);
 		weapon=wp;
 		weapon.equip(this);
-		this.addLive(500);
+		//this.addLive(500);
 	}
 	
 	public EnemyAnnoying(Point2D position,Player pl) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);
 		weapon.equip(this);
-		this.addLive(500);
+		//this.addLive(500);
 	}
 	public void attack(Point2D point){
 		// Calculate offset

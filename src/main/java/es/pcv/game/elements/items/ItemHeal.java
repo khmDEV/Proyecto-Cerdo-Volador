@@ -27,7 +27,7 @@ public class ItemHeal extends Item {
 		position = p;
 	}
 
-	@Override
+	
 	public void takeIt(Player pl) {
 		if (!kill()) {
 			pl.addLive(heal);
@@ -39,7 +39,7 @@ public class ItemHeal extends Item {
 	}
 	Color c = new Color(1f, 0, 0);
 
-	@Override
+	
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		float MAX=0.02f;
 		float M=0.003f;

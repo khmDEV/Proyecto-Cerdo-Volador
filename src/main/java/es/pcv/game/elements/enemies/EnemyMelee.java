@@ -14,17 +14,17 @@ public class EnemyMelee extends Enemy {
 	private float maxModVelocity;
 	private boolean colPlayer;
 	public EnemyMelee(Point2D position,Player pl) {
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 50, 10,pl);
 		velocity=maxVelocity;
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
 		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
 		colPlayer=false;
-		this.addLive(500);
+		//this.addLive(500);
 	}
 	
 	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity) {
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 50, 10,pl);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
@@ -33,14 +33,14 @@ public class EnemyMelee extends Enemy {
 	}
 	
 	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity,int live) {
-		super(position,new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position,new Point2D(0, 0), new Point2D(0.05f, 0.05f), 50, 10,pl);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
 		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
 		colPlayer=false;
 		this.setMaxLive(live);
-		addLive(live);
+		//addLive(live);
 	}
 
 	public void update(long ms) {

@@ -16,7 +16,7 @@ public class EnemyWall extends Enemy {
 	private float maxModVelocity=0.1f;
 	int atack = 0;
 	private long CD = 400;
-	private Weapon weapon = new LaserGun(this);
+	private Weapon weapon = new LaserGun(this,5000);
 	private Wall wall;
 	private Point2D size=new Point2D(0.05f, 0.05f).multiply(Config.scale);
 

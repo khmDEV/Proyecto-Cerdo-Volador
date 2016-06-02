@@ -11,6 +11,7 @@ import es.pcv.core.render.Render;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.enemies.Boss;
 import es.pcv.game.elements.enemies.EnemyAnnoying;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.enemies.EnemyShoter;
@@ -116,7 +117,6 @@ public class Maps {
 					default:
 						break;
 				}
-				
 				int id;
 				double x;
 				double y;
@@ -126,16 +126,24 @@ public class Maps {
 					x=s.nextDouble();
 					y=s.nextDouble();
 					if(id == 0){
-						m.addElement(new EnemyMelee(new Point2D(x, y),player));
+						//melee lento
+						m.addElement(new EnemyMelee(new Point2D(x, y),player,new Point2D(0.15f, 0.15f)));
 					}else if(id == 1){
-						m.addElement(new EnemyMelee(new Point2D(x, y),player,new Point2D(0.01f, 0.01f)));
+						//melee rapido
+						m.addElement(new EnemyMelee(new Point2D(x, y),player,new Point2D(0.2f, 0.2f)));
 					}else if(id == 2){
-						m.addElement(new EnemyShoter(new Point2D(x, y),player));
+						//shooter estatico
+						m.addElement(new EnemyShoter(new Point2D(x, y),player,new Point2D(0, 0)));
 					}else if(id == 3){
+						//shooter movimiento
+						m.addElement(new EnemyShoter(new Point2D(x, y),player,new Point2D(0.14f, 0.14f)));
+					}else if(id == 4){
+						//Bola sorpresa
 						m.addElement(new EnemyAnnoying(new Point2D(x, y),player));
-					}else if(id==4){
+					}else if(id==5){
+						//corremuros
 						Wall w=null;
-						int ns=0;
+						int ns=(int) x;
 						for (Element e:m.elements) {
 							if (e instanceof Wall) {
 								ns++;
@@ -149,6 +157,10 @@ public class Maps {
 							m.addElement(new EnemyWall(w, player));
 							nWls++;
 						}
+					}else if(id == 6){
+						//Boss
+						System.out.println("Boss is coming");
+						m.addElement(new Boss(new Point2D(x, y),player,new Point2D(0.2f, 0.2f)));
 					}
 					s.nextLine();
 				}

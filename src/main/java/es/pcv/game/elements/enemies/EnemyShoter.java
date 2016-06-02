@@ -14,20 +14,28 @@ public class EnemyShoter extends Enemy{
 	private Point2D maxVelocity=(new Point2D(0.0005f, 0.0005f)).multiply(Config.scale);
 	int atack=0;
 	private long CD=400;
-	private Weapon weapon = new LaserGun(this);
+	private Weapon weapon = new LaserGun(this,5000);
 	
 	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity, Weapon wp) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
 		this.maxVelocity=maxVelocity.clone();
 		weapon=wp;
 		weapon.equip(this);
-		this.addLive(500);
+		//this.addLive(500);
+	}
+	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity) {		
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		this.maxVelocity=maxVelocity.clone();
+		weapon.equip(this);
+		//this.addLive(500);
 	}
 	
+	
+	
 	public EnemyShoter(Point2D position,Player pl) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
 		weapon.equip(this);
-		this.addLive(500);
+		//this.addLive(500);
 	}
 	public void attack(Point2D point){
 		// Calculate offset

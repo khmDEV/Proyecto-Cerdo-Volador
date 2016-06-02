@@ -68,7 +68,7 @@ public class Stats implements Drawable {
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.setFont(font);
-		g.fillRect(5, 5, 50*pl.getLive() , 20);
+		g.fillRect(5, 5, (int) (2.5*pl.getLive()) , 20);
 		g.setColor(black);
 		g.drawRect(5, 5, 500, 20);
 		g.drawRect(4, 4, 502, 22);

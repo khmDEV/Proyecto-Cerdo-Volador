@@ -47,7 +47,7 @@ public class Player extends Walker {
 	private static final Point2D MAX_VELOCITY = new Point2D(0.0005f, 0.0005f).multiply(Config.scale);
 
 	public Player(Point2D position,JFrame jp) {
-		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),10, 10);
+		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),200, 10);
 
 		changeWeapon(currentWeapon);
 		
@@ -117,7 +117,7 @@ public class Player extends Walker {
 	}
 	
 	public Player(Point2D position) {
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 10);
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 200, 10);
 		changeWeapon(currentWeapon);
 		dead = false;
 	}
@@ -171,8 +171,8 @@ public class Player extends Walker {
 			last_mouse_position = last;
 		}
 
-		float fx = (float) (last_mouse_position.getX() - getCenterPos().getX());
-		float fy = (float) (last_mouse_position.getY() - getCenterPos().getY());
+		float fx = (float) (last_mouse_position.getX() - getCenterPos().getX())- 200;
+		float fy = (float) (last_mouse_position.getY() - getCenterPos().getY()) +50;
 
 		float aux = (float) Math.sqrt(fx * fx + fy * fy);
 		fx = (fx / aux);

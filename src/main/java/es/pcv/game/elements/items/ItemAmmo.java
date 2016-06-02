@@ -27,7 +27,7 @@ public class ItemAmmo extends Item {
 		position = p;
 	}
 
-	@Override
+	
 	public void takeIt(Player pl) {
 		if (!kill()) {
 			pl.addAmmo(ammo);
@@ -48,7 +48,7 @@ public class ItemAmmo extends Item {
 	}
 	Color c = new Color(0.2f, 0.2f, 0.2f);
 
-	@Override
+	
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.01f, c, -1);
 	}
