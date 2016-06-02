@@ -55,7 +55,10 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 	GLCanvas canvas;
 	int width, height;
 	JButton butt;
-
+	public int rotationx=0;
+	public int rotationy=0;
+	public int rotationz=0;
+	public float zoom=0;
 	public Render3D(int width, int height, Gui gui) {
 		super("Minimal OpenGL");
 		this.gui = gui;
@@ -184,7 +187,7 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		gl.glLoadIdentity(); // Reset The View
 		gl.glColor3f(1, 1, 1);
 
-		Helper3D.drawBase(gl);
+		Helper3D.drawBase(gl,rotationx,rotationy,zoom);
 		gl.glTranslatef(0f, 1.0f, 0f);
 
 		for (Drawable draw : figures) {
@@ -244,7 +247,6 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		// animator.start();
 
 	}
-
 	public void mouseClicked(MouseEvent arg0) {
 
 	}
@@ -282,6 +284,29 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 
 	public synchronized void keyPressed(KeyEvent e) {
 		player.pressed.add(e.getKeyCode());
+		if(e.getKeyCode()==KeyEvent.VK_UP){
+			rotationx+=1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_DOWN){
+			rotationx-=1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_LEFT){
+			rotationy-=1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+			rotationy+=1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_PLUS){
+			zoom+=0.1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_MINUS){
+			zoom-=0.1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_R){
+			rotationx=0;
+			rotationy=0;
+			zoom=0;
+		}
 
 	}
 

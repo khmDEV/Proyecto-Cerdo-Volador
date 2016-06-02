@@ -101,11 +101,15 @@ public class Helper3D {
 
 	}
 
-	public static void drawBase(GL2 gl) {
+	public static void drawBase(GL2 gl, int rotationx, int rotationy, float zoom) {
 		enableTexture(gl, 0);
-
-		gl.glTranslatef(0.0f, -.5f, -3.2f);
-		gl.glRotatef(45, 1, 0, 0);
+	
+		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));
+		gl.glRotatef(45, 1, 0,0);
+		gl.glTranslatef(0.0f, 1f, -0f);
+		gl.glRotatef(rotationx, 1, 0,0);
+		gl.glRotatef(rotationy, 0, 1,0);
+		gl.glTranslatef(0.0f, -1f, -0f);
 		gl.glBegin(GL_QUADS);
 		gl.glNormal3f(0.0f, 0.0f, 1.0f); // Front Face
 		gl.glTexCoord2f(0.0f, 0.0f);
@@ -167,7 +171,6 @@ public class Helper3D {
 		gl.glTexCoord2f(0.0f, 1.0f);
 		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
 		gl.glEnd();
-
 		disableTexture(gl, 0);
 	}
 
