@@ -12,6 +12,7 @@ import es.pcv.game.elements.enemies.Boss;
 import es.pcv.game.elements.enemies.EnemyAnnoying;
 import es.pcv.game.elements.enemies.EnemyMelee;
 import es.pcv.game.elements.enemies.EnemyShoter;
+import es.pcv.game.elements.enemies.EnemyTest;
 import es.pcv.game.elements.enemies.EnemyWall;
 import es.pcv.game.elements.items.ItemAmmo;
 import es.pcv.game.elements.items.ItemHeal;
@@ -42,7 +43,7 @@ public class MapsDebug extends Maps{
 		
 		p.setWeapons(ALL_WEAPONS);
 			
-		Map map0=map0(new Integer[]{1}, new Integer[]{0}, 0f, false);
+		Map map0=map1(new Integer[]{7,1}, new Integer[]{1,0}, 0f, false);
 		map0.addElement(new ItemWeapon(new Point2D(0.3f, 0.4f),new GunDefault(null)));
 		map0.addElement(new ItemWeapon(new Point2D(0.5f, 0.4f),new Shotgun(null)));
 		map0.addElement(new ItemWeapon(new Point2D(0.7f, 0.4f),new ScabbardSword(null)));
@@ -53,7 +54,7 @@ public class MapsDebug extends Maps{
 		
 		map0.addElement(new ItemWeapon(new Point2D(0.3f, 0.8f),new LaserGun(null)));
 		map0.addElement(new ItemWeapon(new Point2D(0.5f, 0.8f),new RepeatGun(null)));
-		EnemyMelee em=new EnemyMelee(new Point2D(0.7f, 0.8f), p,new Point2D(0, 0));em.doDamage(em.getMaxLive()-1);
+		EnemyTest em=new EnemyTest(new Point2D(0.7f, 0.8f));em.doDamage(em.getMaxLive()-1);
 		map0.addElement(em);
 
 		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.2f), 1));

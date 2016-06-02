@@ -24,7 +24,7 @@ public class Game {
 	public Render3D render;
 	private SoundPlayer player;
 	private GuiDefault guirender;
-	private boolean debug=false;
+	private boolean debug=true;
 	
 	public Game(){
 		init();
