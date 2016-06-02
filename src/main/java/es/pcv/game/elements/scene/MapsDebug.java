@@ -57,14 +57,14 @@ public class MapsDebug extends Maps{
 		map0.addElement(em);
 
 		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.2f), 1));
-		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.3f), 10));
-		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.4f), 20));
-		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.5f), 200));
+		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.3f), 3));
+		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.4f), 5));
+		map0.addElement(new ItemHeal(new Point2D(0.1f, 0.5f), 8));
 		
 		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.6f), 1));
-		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.7f), 10));
-		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.8f), 20));
-		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.9f), 200));
+		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.7f), 3));
+		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.8f), 5));
+		map0.addElement(new ItemAmmo(new Point2D(0.1f, 0.9f), 8));
 
 		maps.add(map0);
 		
@@ -72,15 +72,9 @@ public class MapsDebug extends Maps{
 		Map map;
 		
 		map=map1(new Integer[]{0,i}, new Integer[]{0,0}, 0f, false);
-		map.addElement(new EnemyAnnoying(new Point2D(0.5, 0.5), p));
-		maps.add(map);
-		i++;
-		
-		map=map1(new Integer[]{0,i}, new Integer[]{0,0}, 0f, false);
 		map.addElement(new EnemyMelee(new Point2D(0.5, 0.5), p));
 		maps.add(map);
 		i++;
-		
 		
 		
 		map=map1(new Integer[]{0,i}, new Integer[]{0,0}, 0f, false);
@@ -110,8 +104,11 @@ public class MapsDebug extends Maps{
 		}
 		maps.add(map);
 		i++;
-	
 		
+		map=map1(new Integer[]{0,i}, new Integer[]{0,0}, 0f, false);
+		map.addElement(new EnemyAnnoying(new Point2D(0.5, 0.5), p));
+		maps.add(map);
+		i++;
 		
 		map=map1(new Integer[]{0,0}, new Integer[]{0,0}, 0f, false);
 		map.addElement(new Boss(new Point2D(0.5, 0.5), p, new Point2D(0.2f, 0.2f)));

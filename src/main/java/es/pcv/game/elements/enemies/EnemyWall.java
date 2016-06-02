@@ -1,5 +1,7 @@
 package es.pcv.game.elements.enemies;
 
+import java.awt.geom.Rectangle2D;
+
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
@@ -8,6 +10,7 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.scene.Wall;
 import es.pcv.game.elements.weapons.LaserGun;
 import es.pcv.game.elements.weapons.Weapon;
+import es.pcv.game.elements.weapons.WeaponEntity;
 
 public class EnemyWall extends Enemy {
 
@@ -19,9 +22,9 @@ public class EnemyWall extends Enemy {
 	private Weapon weapon = new LaserGun(this,5000);
 	private Wall wall;
 	private Point2D size=new Point2D(0.05f, 0.05f).multiply(Config.scale);
-
+	private int DIFF=10;
 	public EnemyWall(Wall w, Player pl, Point2D maxVelocity, Weapon wp) {
-		super(w.getCenterPos(), new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1, pl);
+		super(w.getCenterPos(), new Point2D(0, 0), new Point2D(0.05f, 0.05f), 1, 1, pl);
 		rect=PolygonHelper.getRectangle(w.getCenterPos(), size).getBounds2D();
 		wall = w;
 		weapon = wp;
@@ -78,12 +81,12 @@ public class EnemyWall extends Enemy {
 		}
 
 		velocity.multiply(0);
-		if (wall.getCollisionBox().getMinX() < getX() + di.getX()
-				&& wall.getCollisionBox().getMaxX() > getX() + di.getX()) {
+		if (wall.getCollisionBox().getMinX() < getX() 
+				&& wall.getCollisionBox().getMaxX() > getX() ) {
 			velocity.setX(di.getX());
 		}
-		if (wall.getCollisionBox().getMinY() < getY() + di.getY()
-				&& wall.getCollisionBox().getMaxY() > getY() + di.getY()) {
+		if (wall.getCollisionBox().getMinY() < getY() 
+				&& wall.getCollisionBox().getMaxY() > getY() ) {
 			velocity.setY(di.getY());
 		}
 		
@@ -93,11 +96,10 @@ public class EnemyWall extends Enemy {
 			setX((int) wall.getCollisionBox().getMaxX());
 		}
 		if (wall.getCollisionBox().getMinY()>getY()) {
-			setX((int) (wall.getCollisionBox().getMinY()));
+			setY((int) (wall.getCollisionBox().getMinY()));
 		}else if (wall.getCollisionBox().getMaxY()<getY()) {
-			setX((int) wall.getCollisionBox().getMaxY());
+			setY((int) wall.getCollisionBox().getMaxY());
 		}
-		super.update(ms);
 
 		super.update(ms);
 		}
@@ -109,6 +111,15 @@ public class EnemyWall extends Enemy {
 			Player pl = (Player) col;
 			pl.doDamage(getDamage());
 		}
+	}
+	
+	public boolean isCollision(Collisionable c) {
+		if (!(c instanceof WeaponEntity)&&!(c instanceof Player)) {
+			return false;
+		}
+		Rectangle2D r=PolygonHelper.getRectangle(getPos().clone().add(DIFF), getSize()).getBounds2D();
+		Rectangle2D r2=PolygonHelper.getRectangle(getPos().clone().add(-DIFF), getSize()).getBounds2D();
+		return c.getCollisionBox().intersects(rect)||c.getCollisionBox().intersects(r)||c.getCollisionBox().intersects(r2);
 	}
 
 }
