@@ -6,6 +6,7 @@ import java.util.List;
 
 import es.pcv.core.updater.elements.Element;
 import es.pcv.game.Game;
+import es.pcv.game.elements.enemies.Boss;
 import es.pcv.game.elements.enemies.Enemy;
 import es.pcv.game.elements.scene.MapLoader;
 
@@ -45,7 +46,12 @@ public class UpdaterDefault extends Updater {
 				}
 			}
 			if (e.isDead()) {
-				toRemove.add(e);
+				if(e instanceof Boss){
+					Game.getGame().end(true);
+				}else{
+					toRemove.add(e);
+				}
+				
 			} else {
 				if (e instanceof Enemy) {
 					enemies++;

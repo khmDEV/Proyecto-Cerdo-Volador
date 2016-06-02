@@ -146,7 +146,8 @@ public class Maps {
 					}else if(id==5){
 						//corremuros
 						Wall w=null;
-						int ns=(int) x;
+						int ns=0;
+						nWls = (int) x;
 						for (Element e:m.elements) {
 							if (e instanceof Wall) {
 								ns++;
@@ -170,7 +171,7 @@ public class Maps {
 				s.close();
 
 				
-				if(i==23){
+				if(i==0){
 					m.show();
 					player.setPos(new Point2D(0.5f,0.9f).setAbsolutePosition());
 				}

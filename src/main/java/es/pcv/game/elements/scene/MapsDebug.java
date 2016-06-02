@@ -93,7 +93,7 @@ public class MapsDebug extends Maps{
 		i++;
 		
 		map=map1(new Integer[]{0,i}, new Integer[]{0,0}, 0f, false);
-		List<Element>els=new LinkedList<>();
+		List<Element>els=new LinkedList<Element>();
 		for (Element e:map.elements) {
 			if (e instanceof Wall) {
 				els.add(new EnemyWall((Wall) e, p));

@@ -28,7 +28,7 @@ public class Boss extends Enemy{
 	int atack=0;
 	
 	public Boss(Point2D position,Player pl,Point2D maxVelocity) {
-		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 100, 1,pl);
+		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1,pl);
 		weapon = new LaserGun(this,5000,15,200);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
@@ -112,86 +112,6 @@ public class Boss extends Enemy{
 		else{
 			atack+=ms;
 		}
-		
-		/**
-		if(ms>100){
-			
-		}
-		else{
-		long time = System.currentTimeMillis();
-		if((System.currentTimeMillis()-lastTeleport)>3000){
-			lastTeleport = time;
-			Random r = new Random();
-			int n =r.nextInt(4);
-			setPos(positions[n]);
-			boolean dir = r.nextInt(2) == 0;
-			if(dir){
-				if(n==0){
-					velocity.setX(0.01f);
-					velocity.setY(0);
-				}else if(n==1){
-					velocity.setX(0);
-					velocity.setY(0.01f);			
-				}else if(n==2){
-					velocity.setX(0);
-					velocity.setY(-0.01f);			
-				}else if(n==3){
-					velocity.setX(-0.01f);
-					velocity.setY(0);			
-				}
-			}else{
-				if(n==0){
-					velocity.setX(0);
-					velocity.setY(0.01f);
-				}else if(n==1){
-					velocity.setX(-0.01f);
-					velocity.setY(0);			
-				}else if(n==2){
-					velocity.setX(0.01f);
-					velocity.setY(0);			
-				}else if(n==3){
-					velocity.setX(0);
-					velocity.setY(-0.01f);	
-				}
-			}
-			
-		}else{
-			if(atack==10){
-				attack(calcularVel());
-				atack=0;
-			}
-			else{
-				atack++;
-			}
-			if (obstacle_collision_dx && obstacle_collision_ux) {
-				velocity.setX(0);
-				obstacle_collision_dx = false;
-				obstacle_collision_ux = false;
-			}else if (obstacle_collision_dx) {
-				velocity.setX(-Math.abs(maxVelocity.getX()));
-				obstacle_collision_dx = false;
-			}else if (obstacle_collision_ux) {
-				velocity.setX(Math.abs(maxVelocity.getX()));
-				obstacle_collision_ux = false;
-			}
-			if (obstacle_collision_dy && obstacle_collision_uy) {
-				velocity.setY(0);
-				obstacle_collision_dy = false;
-				obstacle_collision_uy = false;
-			}else if (obstacle_collision_dy) {
-				velocity.setY(-Math.abs(maxVelocity.getY()));
-				obstacle_collision_dy = false;
-			}else if (obstacle_collision_uy) {
-				velocity.setY(Math.abs(maxVelocity.getY()));
-				obstacle_collision_uy = false;
-			}
-			
-			posAdd(velocity);
-		}
-		
-		super.update(ms);
-		}
-		*/
 		System.out.println(velocity.getX());
 		posAdd(velocity);
 	}
