@@ -8,7 +8,7 @@ import es.pcv.game.elements.weapons.bulls.BulletWithRange;
 
 public class Shotgun extends Weapon{
 	private final static float V_DEFAULT = 0.0005f;
-	private final static int DAMAGE_DEFAULT = 1;
+	private final static int DAMAGE_DEFAULT = 20;
 	private final static int AMMO_DEFAULT = 50;
 	private final static float SCOPE_DEFAULT = 0.2f;
 	private final static int CD_DEFAULT = 1000;

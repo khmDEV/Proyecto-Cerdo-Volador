@@ -7,8 +7,8 @@ import es.pcv.game.elements.weapons.melee.Sword;
 
 public class ScabbardSword extends Scabbard{
 	protected final static int ID = 22;
-	protected final static int DAMAGE_DEFAULT = 1;
-	protected final static int DURABILITY_DEFAULT = 1;
+	protected final static int DAMAGE_DEFAULT = 30;
+	protected final static int DURABILITY_DEFAULT = 100;
 
 	protected boolean vertical = true;
 	

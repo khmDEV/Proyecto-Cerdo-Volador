@@ -8,7 +8,7 @@ import es.pcv.game.elements.weapons.melee.AreaSword;
 
 public class ScabbardAreaSword extends Scabbard{
 	private final static int ID = 0;
-	protected final static int DAMAGE_DEFAULT = 1;
+	protected final static int DAMAGE_DEFAULT = 40;
 	protected final static int DURABILITY_DEFAULT = 0;
 	protected final static int CD_DEFAULT = 300;
 	private static final String sound="fx/Sword_sw-Dyed-8959_hifi.mp3";

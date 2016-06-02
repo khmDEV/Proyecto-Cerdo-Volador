@@ -9,7 +9,7 @@ import es.pcv.game.elements.weapons.bulls.BulletLaser;
 public class LaserGun extends Weapon {
 
 	private final static float V_DEFAULT = 0.001f;
-	private final static int DAMAGE_DEFAULT = 5;
+	private int DAMAGE_DEFAULT = 5;
 	private final static int AMMO_DEFAULT = 100;
 	private final static int CD_DEFAULT = 100;
 	private final static int ID = 11;
@@ -20,6 +20,10 @@ public class LaserGun extends Weapon {
 	}
 	public LaserGun(Walker w, int amo) {
 		super(w,CD_DEFAULT,amo,ID);
+	}
+	public LaserGun(Walker w, int amo,int damage, int cd) {
+		super(w,cd,amo,ID);
+		DAMAGE_DEFAULT=damage;
 	}
 
 	public void doAttack(Walker shooter, Point2D origin, Point2D direction) {

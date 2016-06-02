@@ -29,7 +29,7 @@ public class Boss extends Enemy{
 	
 	public Boss(Point2D position,Player pl,Point2D maxVelocity) {
 		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 100, 1,pl);
-		weapon = new LaserGun(this,5000);
+		weapon = new LaserGun(this,5000,15,200);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
@@ -66,10 +66,8 @@ public class Boss extends Enemy{
 	
 	public void update(long ms) {
 		
-		
-		
 		long time = System.currentTimeMillis();
-		if((System.currentTimeMillis()-lastTeleport)>1000){
+		if((System.currentTimeMillis()-lastTeleport)>1200){
 			lastTeleport = time;
 			Random r = new Random();
 			int n =r.nextInt(4);
