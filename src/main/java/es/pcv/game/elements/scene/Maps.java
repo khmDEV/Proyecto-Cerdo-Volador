@@ -142,7 +142,7 @@ public class Maps {
 						m.addElement(new EnemyShoter(new Point2D(x, y),player,new Point2D(0.14f, 0.14f)));
 					}else if(id == 4){
 						//Bola sorpresa
-						m.addElement(new EnemyAnnoying(new Point2D(x, y),player));
+						m.addElement(new EnemyAnnoying(new Point2D(x, y),player,30));
 					}else if(id==5){
 						//corremuros
 						Wall w=null;
@@ -170,7 +170,7 @@ public class Maps {
 				s.close();
 
 				
-				if(i==0){
+				if(i==23){
 					m.show();
 					player.setPos(new Point2D(0.5f,0.9f).setAbsolutePosition());
 				}
@@ -442,7 +442,7 @@ public class Maps {
 		Point2D[] playerPos = new Point2D[3];
 		
 		playerPos[0]=new Point2D(0.5f,0.9f).setAbsolutePosition();
-		playerPos[1]=new Point2D(0.5f,0.05f).setAbsolutePosition();
+		playerPos[1]=new Point2D(0.5f,0.1f).setAbsolutePosition();
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		

@@ -8,7 +8,7 @@ import es.pcv.game.elements.weapons.bulls.BulletWithRange;
 
 public class AllDirectionsWeapon extends Weapon{
 	private final static float V_DEFAULT = 0.0005f;
-	private final static int DAMAGE_DEFAULT = 30;
+	private int DAMAGE_DEFAULT = 15;
 	private final static int AMMO_DEFAULT = 50;
 	public final static float SCOPE_DEFAULT = 0.2f;
 	private final static int CD_DEFAULT = 1000;
@@ -17,6 +17,10 @@ public class AllDirectionsWeapon extends Weapon{
 
 	public AllDirectionsWeapon(Walker w) {
 		super(w,CD_DEFAULT,AMMO_DEFAULT,ID);
+	}
+	public AllDirectionsWeapon(Walker w, int damage) {
+		super(w,CD_DEFAULT,AMMO_DEFAULT,ID);
+		DAMAGE_DEFAULT = damage;
 	}
 	
 	@Override

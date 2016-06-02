@@ -38,6 +38,12 @@ public class EnemyAnnoying extends Enemy{
 		weapon.equip(this);
 		//this.addLive(500);
 	}
+	public EnemyAnnoying(Point2D position,Player pl, int damage) {		
+		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);
+		weapon = new AllDirectionsWeapon(this,damage);
+		weapon.equip(this);
+		//this.addLive(500);
+	}
 	public void attack(Point2D point){
 		// Calculate offset
 		float ox = (float) (getSizeX()/2-1);
