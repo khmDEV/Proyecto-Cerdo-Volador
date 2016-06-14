@@ -1,0 +1,37 @@
+Generales:
+
+	Cambiar titulo
+	Versión 2D y 3D
+	Menú inicial
+
+-----------------------------
+
+Gráficos:
+
+	Vista 3D isométrica y ortogonal
+	Movimiento libre de cámara
+	Fijar en el personaje o en el centro
+
+Opcionales:
+	
+	Modelos 3D para los personajes
+	Funcionalidad en 3D (el personaje o los enemigos pueden dar saltos)
+
+----------------------------
+
+
+IA:
+
+	Describir mejor la IA en la memoria
+	Los enemigos heredan de otras clases (comportamientos comunes) para obtener un comportamiento especifico  
+	IA avanzada que aprende del usuario
+
+----------------------------
+
+Memoria:
+
+	Mejorar el formato de la memoria
+	Contar como funcionan cada uno de los objetos, no solo una descripción
+	Más larga
+
+----------------------------
