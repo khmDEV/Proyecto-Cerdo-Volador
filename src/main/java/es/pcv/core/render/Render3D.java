@@ -24,6 +24,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -43,54 +45,81 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Gui;
 
-public class Render3D extends JFrame implements GLEventListener, KeyListener, MouseListener, ActionListener, Render {
+public class Render3D extends Render implements GLEventListener {
 	/**
 	 * 
 	 */
-	private Gui gui;
+	private Render gui;
 	List<Drawable> figures = new LinkedList<Drawable>();
 	private static final long serialVersionUID = 1L;
-	private Player player;
+	//private Player player;
 	private FPSAnimator animator;
 	GLCanvas canvas;
 	int width, height;
-	JButton butt;
+	//JButton butt;
 	public int rotationx=0;
 	public int rotationy=0;
 	public int rotationz=0;
 	public float zoom=0;
-	public Render3D(int width, int height, Gui gui) {
-		super("Minimal OpenGL");
+	
+	
+	public Render3D(int width, int height, Render gui) {
+		//System.out.println("creando render");
+		//super("Minimal OpenGL");
+		super();
 		this.gui = gui;
 		GLProfile profile = GLProfile.get(GLProfile.GL2);
 		GLCapabilities capabilities = new GLCapabilities(profile);
 		this.canvas = new GLCanvas(capabilities);
+		
+		
 		canvas.addGLEventListener(this);
 		this.width = width;
 		this.height = height;
 		canvas.setPreferredSize(new Dimension(width - 100, height - 200));
-		butt = new JButton();
-		butt.setPreferredSize(new Dimension(width, 100));
-		butt.addActionListener(this);
-		butt.setIcon(new ImageIcon(Config.RESOURCES_PATH + "icons/play_again.png"));
+		
+		
+		//boton de restart
+		//butt = new JButton();
+		//butt.setPreferredSize(new Dimension(width, 100));
+		//butt.addActionListener(this);
+		//butt.setIcon(new ImageIcon(Config.RESOURCES_PATH + "icons/play_again.png"));
+		
+		//gui superior
 		gui.setPreferredSize(new Dimension(width, 100));
 		this.setSize(width, height);
-		this.getContentPane().setLayout(new BorderLayout());
-		this.setName("Minimal OpenGL");
-		this.getContentPane().add(canvas, BorderLayout.CENTER);
-		this.getContentPane().add(gui, BorderLayout.PAGE_START);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setLayout(new BorderLayout());
+		//this.setName("Minimal OpenGL");
+		//this.getContentPane().add(canvas, BorderLayout.CENTER);
+		//this.getContentPane().add(gui, BorderLayout.PAGE_START);
+		//this.setLocationRelativeTo(null);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setVisible(true);
+		//this.setResizable(false);
+		
+		
+		this.add(canvas, BorderLayout.CENTER);
+		this.add(gui, BorderLayout.PAGE_START);
+		//this.add(butt, BorderLayout.PAGE_END);
+		//validate();
+		//setVisible(true);
+		//this.setLocationRelativeTo(null);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		this.setResizable(false);
-		canvas.addKeyListener(this);
-		canvas.addMouseListener(this);
+		//this.setResizable(false);
+		
+		//canvas.addKeyListener(this);
+		//canvas.addMouseListener(this);
 		canvas.requestFocusInWindow();
+		
 		FPSAnimator animator = new FPSAnimator(canvas, 30);
 		animator.setIgnoreExceptions(true);
 		canvas.setVisible(false);
 		// animator.start();
 		this.animator = animator;// start the animator
+		//esto
+		start();
 
 	}
 
@@ -103,20 +132,24 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 	private GLUquadric quadric;
 	private boolean restart = false;
 
+	/**
 	public void addEnd(EndTitle tip) {
 
-	}
+	}*/
 
+	/**
 	public void addRestartButton() {
 		// esto
-		this.getContentPane().add(butt, BorderLayout.PAGE_END);
+		//this.getContentPane().add(butt, BorderLayout.PAGE_END);
+		this.add(butt, BorderLayout.PAGE_END);
+		validate();
 		setVisible(true);
-	}
+	}*/
 
+	/**
 	public boolean isRestarted() {
 		return restart;
-
-	}
+	}*/
 
 	public void init(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
@@ -149,9 +182,9 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 
 		// loadGLTextures(gl, glu);
 		Helper3D.initTextures(gl);
-
 	}
 
+	/**
 	private void update() {
 		List<Drawable> toRemove = new LinkedList<Drawable>();
 		for (Drawable drawable : figures) {
@@ -173,14 +206,29 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 
 		gui.render();
 
-	}
+	}*/
 
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
 		// System.out.println(this.getMousePosition());
-		update();
+		//update();
+		List<Drawable> toRemove = new LinkedList<Drawable>();
+		for (Drawable dr : figures) {
+			if (dr.isDead()) {
+				toRemove.add(dr);
+			}
+			/**
+			if (dr instanceof Player) {
+				player = (Player) dr;
+			}*/
+		}
 
-		// gl.glDisable(GL_LIGHTING);
+		for (Drawable d : toRemove) {
+			remove(d);
+		}
+		
+		gui.repaint();
+		//gl.glDisable(GL_LIGHTING);
 		gl.glEnable(GL_LIGHTING);
 
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
@@ -247,6 +295,12 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		// animator.start();
 
 	}
+	
+	
+	
+	
+	
+	/**
 	public void mouseClicked(MouseEvent arg0) {
 
 	}
@@ -282,8 +336,8 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 
 	}
 
-	public synchronized void keyPressed(KeyEvent e) {
-		player.pressed.add(e.getKeyCode());
+*/
+	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_UP){
 			rotationx+=1;
 		}
@@ -309,14 +363,27 @@ public class Render3D extends JFrame implements GLEventListener, KeyListener, Mo
 		}
 
 	}
-
-	public void actionPerformed(ActionEvent arg0) {
-		restart = true;
-		// esto
-		getContentPane().remove(butt);
-		gui.clear();
-		Game.getGame().startGame();
-		setVisible(true);
+	
+	public void addMouseListener(MouseListener ml){
+		canvas.addMouseListener(ml);
 	}
+	
+	public void addKeyListener(KeyListener kl){
+		canvas.addKeyListener(kl);
+		
+	}
+	public boolean is3D(){
+		return true;
+	}
+	
+/**
+	public void actionPerformed(ActionEvent arg0) {
+		//restart = true;
+		// esto
+		//remove(butt);
+		//gui.clear();
+		Game.getGame().restart();
+		setVisible(true);
+	}*/
 
 }

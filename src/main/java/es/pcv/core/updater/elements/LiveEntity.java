@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
 
 import es.pcv.core.render.Point2D;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.player.Player;
 
 public abstract class LiveEntity extends PolygonObstacle implements hasLive, Element {
 
@@ -78,6 +79,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 	}
 
 	public int doDamage(int d) {
+		
 		try {
 			liveS.acquire();
 		} catch (InterruptedException e) {

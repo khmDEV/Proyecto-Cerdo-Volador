@@ -163,7 +163,6 @@ public class Maps {
 						}
 					}else if(id == 6){
 						//Boss
-						System.out.println("Boss is coming");
 						m.addElement(new Boss(new Point2D(x, y),player,new Point2D(0.2f, 0.2f)));
 					}
 					s.nextLine();
@@ -680,7 +679,6 @@ public class Maps {
 
 	public void clearRoom() {
 		if (maps.get(currentMap)!=null && !player.isDead()) {
-			System.out.println("Voy a Spawnear");
 			maps.get(currentMap).clearRoom();
 		}
 	}

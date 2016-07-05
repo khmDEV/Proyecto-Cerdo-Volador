@@ -112,7 +112,7 @@ public class Boss extends Enemy{
 		else{
 			atack+=ms;
 		}
-		System.out.println(velocity.getX());
+		//System.out.println(velocity.getX());
 		posAdd(velocity);
 	}
 

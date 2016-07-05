@@ -129,7 +129,6 @@ public class Map {
 	}
 
 	public void clearRoom() {
-		System.out.println("Spawneando");
 		drop.spawnDrops(new Point2D(Config.startX + Config.scale.getX() / 2, Config.startY + Config.scale.getY() / 2));
 	}
 }
