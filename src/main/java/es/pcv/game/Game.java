@@ -5,11 +5,15 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,8 +47,10 @@ public class Game{
 	private Maps maps;
 	private JFrame frame;
 	private JPanel menu;
+	private JPanel endMenu;
 	private Dimension screenSize;
 	private JButton restart;
+	private JButton exit2;
 	//private boolean showRestart = false;
 	
 	
@@ -65,8 +71,15 @@ public class Game{
 	    frame.setVisible(true);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    frame.setLayout(null);
+	    GridLayout layout = new GridLayout(3,1);
+	    layout.setVgap(10);
+	    menu = new JPanel(layout);
 	    
-	    menu = new JPanel();
+	    menu.setBounds((int) (screenSize.getWidth()*0.4), (int) (screenSize.getHeight()*0.4), 
+	    		(int)(screenSize.getWidth()*0.2), (int)(screenSize.getHeight()*0.2));
+	    
+	    endMenu = new JPanel();
 	    
 		//Boton 2D
 		JButton boton2D = new JButton("Jugar en 2D");
@@ -107,7 +120,8 @@ public class Game{
 		
 		
 		restart = new JButton();
-		//restart.setPreferredSize(new Dimension(width, 100));
+		endMenu.add(restart);
+		restart.setPreferredSize(new Dimension(200, 100));
 		restart.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -116,19 +130,50 @@ public class Game{
 			}
 		});
 		restart.setIcon(new ImageIcon(Config.RESOURCES_PATH + "icons/play_again.png"));
+
 		
-		//System.out.println("hola");
+		
+		
+		exit2 = new JButton();
+		endMenu.add(exit2);
+		exit2.setPreferredSize(new Dimension(200, 100));
+		exit2.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				frame.remove(endMenu);
+				frame.remove(render);
+				//endMenu.setVisible(false);
+				frame.setVisible(false);
+				
+				
+				stop();
+				frame.setLayout(null);
+				frame.add(menu);
+				frame.setVisible(true);
+				
+				updater = new UpdaterDefault();
+				player=new SoundPlayer();
+			}
+		});
+		ImageIcon exit = new ImageIcon(Config.RESOURCES_PATH + "icons/exit.png");
+		Image img = exit.getImage();
+		Image newimg = img.getScaledInstance(200, 70,  java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon = new ImageIcon(newimg);
+		exit2.setIcon(newIcon);
 		
 	}
 	
 	
 	public void startMenu(){
 		frame.add(menu);
+		//frame.add(new JPanel());
 		frame.setVisible(true);
 	}
 	
 	
 	public void init2D(){
+		frame.setLayout(new BorderLayout());
 		frame.remove(menu);
 		render=new RenderDefault();
 		new Thread(new Runnable() {
@@ -149,6 +194,7 @@ public class Game{
 	}
 	
 	public void init3D(){
+		frame.setLayout(new BorderLayout());
 		frame.remove(menu);
 	    guirender=new RenderDefault();
 		render=new Render3D(screenSize.width, screenSize.height,guirender);
@@ -191,7 +237,7 @@ public class Game{
 	
 	public void restart(){
 		System.out.println("reiniciando");
-		frame.remove(restart);
+		frame.remove(endMenu);
 		//frame.setVisible(true);
 		if(render.is3D()){
 			render.clear();
@@ -202,6 +248,11 @@ public class Game{
 			startGame2D();
 		}
 	}
+	public void stop(){
+		player.end();
+		updater.end();
+		render.end();
+	}
 	
 	public void addElement(Element e){
 		if (!(e instanceof Player)) {
@@ -210,14 +261,6 @@ public class Game{
 		updater.add(e);
 		render.add(e);
 	}
-	/**
-	public void addRestartButton() {
-		// esto
-		//this.getContentPane().add(butt, BorderLayout.PAGE_END);
-		//this.add(butt, BorderLayout.PAGE_END);
-		//validate();
-		//setVisible(true);
-	}*/
 	
 	
 	public static Game getGame(){
@@ -245,7 +288,8 @@ public class Game{
 		//render.end();	
 					
 		
-		frame.add(restart,BorderLayout.PAGE_END);
+		
+		frame.add(endMenu,BorderLayout.PAGE_END);
 		frame.setVisible(true);
 		//render.addRestartButton();
 		//render.dispose();	

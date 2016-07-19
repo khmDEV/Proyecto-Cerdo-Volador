@@ -22,6 +22,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JPanel;
 
@@ -30,6 +31,9 @@ import es.pcv.game.configuration.Config;
 
 @SuppressWarnings("serial")
 public abstract class Render extends JPanel {
+	
+	private boolean seguir = true;
+	private Semaphore s = new Semaphore(1);
 	
 	public Render(){/**
 		addComponentListener( new ComponentListener() {
@@ -60,15 +64,33 @@ public abstract class Render extends JPanel {
 
 	public void render() {
 		long start = System.currentTimeMillis();
-		while (true) {
+		while (seguir) {
+			s.release();
 			if (System.currentTimeMillis() - start > Config.RENDER_TICK) {
 				repaint();
 				start = System.currentTimeMillis();
+			}
+			try {
+				s.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
 	
 	public abstract void clear();
+	
+	public void end(){
+		try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		seguir=false;
+		s.release();
+	}
 	
 	
 	public void addMouseListener(MouseListener ml){
