@@ -153,6 +153,7 @@ public abstract class LiveEntity extends PolygonObstacle implements hasLive, Ele
 					Math.abs(dY.getX1() - dY.getX2()), 1));
 			Rectangle2D cuY = r2.createIntersection(ruY);
 			Rectangle2D cdY = r2.createIntersection(rdY);
+			
 			if (cuY.getWidth() > cdY.getWidth()) {
 				obstacle_collision_uy = true;
 			} else if (cuY.getWidth() > cdY.getWidth()) {

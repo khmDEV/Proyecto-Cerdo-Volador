@@ -1,8 +1,8 @@
 Generales:
 
 	Cambiar titulo
-	Versión 2D y 3D
-	Menú inicial
+	Versión 2D y 3D			OK
+	Menú inicial			OK
 
 -----------------------------
 
@@ -15,7 +15,7 @@ Gráficos:
 Opcionales:
 	
 	Modelos 3D para los personajes
-	Funcionalidad en 3D (el personaje o los enemigos pueden dar saltos)
+	Funcionalidad en 3D (el personaje o los enemigos pueden dar saltos)		OK
 
 ----------------------------
 

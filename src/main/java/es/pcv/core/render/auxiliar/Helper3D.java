@@ -348,7 +348,6 @@ public class Helper3D {
 
 	public static void drawCilinder(GL2 gl, GLU glu, GLUquadric quadric, double posX, double posY, double posZ,
 			double rBase, double rTop, double heigth, Color c,int texture) {
-		
 		enableTexture(gl, texture);
 		gl.glTranslated(-posX, -posY, -posZ);
 		gl.glRotated(-110, 1, 0, 0);
@@ -356,7 +355,8 @@ public class Helper3D {
 		//gl.glColor3f(c.getRed(), c.getGreen(), c.getBlue());
 		glu.gluCylinder(quadric, 0.06f, 0.06f, .11f, 32, 32); 
 		gl.glRotated(110, 1, 0, 0);
-		gl.glTranslated(posX, -posY, posZ);
+		gl.glTranslated(posX, posY, posZ);
+		
 		disableTexture(gl, texture);
 	}
 

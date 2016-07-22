@@ -351,6 +351,7 @@ public class Player extends Walker{
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		
 		//esto -z/100 .1f
+		
 		Helper3D.drawCilinder(gl,glu,quadric, getCenterPos(), 0, 0.05f, -z/100, .1f, c,TEXTURE);
 	}
 
