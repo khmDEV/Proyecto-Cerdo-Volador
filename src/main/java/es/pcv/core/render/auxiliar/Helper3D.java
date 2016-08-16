@@ -363,4 +363,11 @@ public class Helper3D {
 	public static void end() {
 		textInit=false;
 	}
+
+	public static void drawCilinder(GL2 gl, GLU glu, GLUquadric quadric,
+			Point2D centerPos, int i, float f, double d, float g, Color c,
+			int tEXTURE, boolean jumping) {
+		
+		
+	}
 }

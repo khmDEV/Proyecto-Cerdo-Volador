@@ -213,7 +213,7 @@ public class Game{
 	
 	public void startGame2D(){
 		
-		Player pl=new Player(new Point2D(0.8f, 0.5f),render);
+		Player pl=new Player(new Point2D(0.8f, 0.5f),render,false);
 		maps=new Maps(updater,render,pl);
 		addElement(pl);
 		
@@ -224,7 +224,7 @@ public class Game{
 	public void startGame3D(){
 		
 		
-		Player pl=new Player(new Point2D(0.8f, 0.5f),render);
+		Player pl=new Player(new Point2D(0.8f, 0.5f),render,true);
 		//if (debug) {
 			//maps=new MapsDebug(updater,render,pl);
 		//}else{

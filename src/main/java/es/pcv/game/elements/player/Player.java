@@ -31,7 +31,7 @@ public class Player extends Walker{
 	// for shooting
 	private Semaphore fireS = new Semaphore(1);
 	private Point last_mouse_position;
-
+	private boolean dim3d;
 	private boolean click = false;
 	private double z = 0;
 	private boolean jump = false;
@@ -55,9 +55,9 @@ public class Player extends Walker{
 	private int currentWeapon = 0;
 	private static final Point2D MAX_VELOCITY = new Point2D(0.0005f, 0.0005f).multiply(Config.scale);
 
-	public Player(Point2D position,Render render) {
+	public Player(Point2D position,Render render,boolean dim3D) {		
 		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),200, 10);
-
+		this.dim3d=dim3D;
 		changeWeapon(currentWeapon);
 		dead = false;
 		
@@ -85,7 +85,10 @@ public class Player extends Walker{
 					imgFija = 7;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE  && !jump) {
-					jump = true;
+					if(dim3d){
+						jump = true;
+					}
+					
 				}
 				pressed.remove(e.getKeyCode());
 			}
@@ -147,77 +150,57 @@ public class Player extends Walker{
 	}
 	
 	public synchronized void update(long ms) {
-		
+		if(jump){
+			if(up){
+				if(z == 30){
+					up = false;
+				}else{
+					z += 2;
+				}
+			}else{
+				if(z == 0){
+					up = true;
+					jump = false;
+				}else{
+					z -= 2;
+				}
+			}
+		}
 		velocity.multiply(0);
 		if (pressed.size() > 0) {
-			
-			if(jump){
-				if(up){
-					if(z == 30){
-						up = false;
-					}else{
-						z += 2;
-					}
-				}else{
-					if(z == 0){
-						up = true;
-						jump = false;
-					}else{
-						z -= 2;
-					}
-				}
-				if (pressed.contains(KeyEvent.VK_W)) {
-					movYImg = 1;
-	
-					velocity.addY(-MAX_VELOCITY.getY());
-				}
-				if (pressed.contains(KeyEvent.VK_A)) {
-					movXImg = -1;
-					velocity.addX(-MAX_VELOCITY.getX());
-				}
-				if (pressed.contains(KeyEvent.VK_S)) {
-					movYImg = -1;
-					velocity.addY(MAX_VELOCITY.getY());
-				}
-				if (pressed.contains(KeyEvent.VK_D)) {
-					movXImg = 1;
-					velocity.addX(MAX_VELOCITY.getX());
-				}
-				
-			}else{
-			
-			
-				if (pressed.contains(KeyEvent.VK_W) && !obstacle_collision_uy) {
-					movYImg = 1;
-	
-					velocity.addY(-MAX_VELOCITY.getY());
-				}
-				if (pressed.contains(KeyEvent.VK_A) && !obstacle_collision_dx) {
-					movXImg = -1;
-					velocity.addX(-MAX_VELOCITY.getX());
-				}
-				if (pressed.contains(KeyEvent.VK_S) && !obstacle_collision_dy) {
-					movYImg = -1;
-					velocity.addY(MAX_VELOCITY.getY());
-				}
-				if (pressed.contains(KeyEvent.VK_D) && !obstacle_collision_ux) {
-					movXImg = 1;
-					velocity.addX(MAX_VELOCITY.getX());
-				}
 
+
+			if (pressed.contains(KeyEvent.VK_W) && !obstacle_collision_uy) {
+				movYImg = 1;
+
+				velocity.addY(-MAX_VELOCITY.getY());
 			}
-			for (int i = KeyEvent.VK_1; i <= KeyEvent.VK_9; i++) {
-				if (pressed.contains(i)) {
-					changeWeapon(i - KeyEvent.VK_1);
-				}
+			if (pressed.contains(KeyEvent.VK_A) && !obstacle_collision_dx) {
+				movXImg = -1;
+				velocity.addX(-MAX_VELOCITY.getX());
+			}
+			if (pressed.contains(KeyEvent.VK_S) && !obstacle_collision_dy) {
+				movYImg = -1;
+				velocity.addY(MAX_VELOCITY.getY());
+			}
+			if (pressed.contains(KeyEvent.VK_D) && !obstacle_collision_ux) {
+				movXImg = 1;
+				velocity.addX(MAX_VELOCITY.getX());
 			}
 
-			obstacle_collision_uy = false;
-			obstacle_collision_dy = false;
-			obstacle_collision_ux = false;
-			obstacle_collision_dx = false;
 		}
-		
+		for (int i = KeyEvent.VK_1; i <= KeyEvent.VK_9; i++) {
+			if (pressed.contains(i)) {
+				changeWeapon(i - KeyEvent.VK_1);
+			}
+		}
+
+		obstacle_collision_uy = false;
+		obstacle_collision_dy = false;
+		obstacle_collision_ux = false;
+		obstacle_collision_dx = false;
+
+
 		checkWeapon();
 		super.update(ms);
 
