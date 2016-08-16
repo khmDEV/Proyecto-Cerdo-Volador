@@ -252,7 +252,6 @@ public class Render3D extends Render implements GLEventListener {
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL_PROJECTION);
 		gl.glLoadIdentity();
-
 		glu.gluPerspective(45, (float) width / height, 1, 1000);
 		gl.glMatrixMode(GL_MODELVIEW);
 		gl.glLoadIdentity();

@@ -9,7 +9,6 @@ import es.pcv.game.configuration.Config;
 public abstract class Walker extends LiveEntity {
 
 	protected ObjectIcon icon = new ObjectIcon(Config.RESOURCES_PATH + "/icons/bad1.png", 4, 3);
-
 	protected int movYImg = 0;
 	protected int movXImg = 0;
 	protected int mov = 0;
