@@ -61,6 +61,7 @@ public class Render3D extends Render implements GLEventListener {
 	public int rotationy=0;
 	public int rotationz=0;
 	public float zoom=0;
+	public boolean player_center = false;
 	
 	
 	public Render3D(int width, int height, Render gui) {
@@ -235,7 +236,8 @@ public class Render3D extends Render implements GLEventListener {
 		gl.glLoadIdentity(); // Reset The View
 		gl.glColor3f(1, 1, 1);
 
-		Helper3D.drawBase(gl,rotationx,rotationy,zoom);
+		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy, zoom);
+		Helper3D.drawBase(gl);
 		gl.glTranslatef(0f, 1.0f, 0f);
 
 		for (Drawable draw : figures) {
@@ -359,6 +361,9 @@ public class Render3D extends Render implements GLEventListener {
 			rotationx=0;
 			rotationy=0;
 			zoom=0;
+		}
+		if (e.getKeyCode()==KeyEvent.VK_C) {
+			player_center=!player_center;
 		}
 
 	}

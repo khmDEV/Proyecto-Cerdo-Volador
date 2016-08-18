@@ -14,7 +14,9 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import es.pcv.core.render.Point2D;
+import es.pcv.game.Game;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.player.Player;
 
 public class Helper3D {
 
@@ -101,15 +103,37 @@ public class Helper3D {
 
 	}
 
-	public static void drawBase(GL2 gl, int rotationx, int rotationy, float zoom) {
+	/**
+	 * Iniciamos renderización del frame
+	 * 
+	 * @param gl GL2 que se usará
+	 * @param player_center si deseamos que se centre en el jugador, o en el centro del mapa
+	 * @param rotationx rotación en el eje x
+	 * @param rotationy rotación en el eje y
+	 * @param zoom zoom que queremos aplicar
+	 */
+	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float zoom) {
 		enableTexture(gl, 0);
-	
+
 		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));
 		gl.glRotatef(45, 1, 0,0);
 		gl.glTranslatef(0.0f, 1f, -0f);
+		
+		if (player_center) {
+			Player pl=Game.getGame().getPlayer();
+			gl.glTranslatef((0.5f-pl.getPos().getAbsolutePosition().getX())*2,0.0f,
+					(0.5f-pl.getPos().getAbsolutePosition().getY())*2);
+
+		}
+
 		gl.glRotatef(rotationx, 1, 0,0);
 		gl.glRotatef(rotationy, 0, 1,0);
 		gl.glTranslatef(0.0f, -1f, -0f);
+	}
+	
+	
+	public static void drawBase(GL2 gl) {
+		
 		gl.glBegin(GL_QUADS);
 		gl.glNormal3f(0.0f, 0.0f, 1.0f); // Front Face
 		gl.glTexCoord2f(0.0f, 0.0f);

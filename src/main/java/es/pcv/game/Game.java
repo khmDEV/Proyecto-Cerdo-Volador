@@ -42,6 +42,7 @@ public class Game{
 	public Updater updater;
 	public Render render;
 	private SoundPlayer player;
+	private Player pl;
 	private Render guirender;
 	private boolean debug=false;
 	private Maps maps;
@@ -213,7 +214,7 @@ public class Game{
 	
 	public void startGame2D(){
 		
-		Player pl=new Player(new Point2D(0.8f, 0.5f),render,false);
+		pl=new Player(new Point2D(0.8f, 0.5f),render,false);
 		maps=new Maps(updater,render,pl);
 		addElement(pl);
 		
@@ -224,7 +225,7 @@ public class Game{
 	public void startGame3D(){
 		
 		
-		Player pl=new Player(new Point2D(0.8f, 0.5f),render,true);
+		pl=new Player(new Point2D(0.8f, 0.5f),render,true);
 		//if (debug) {
 			//maps=new MapsDebug(updater,render,pl);
 		//}else{
@@ -265,6 +266,10 @@ public class Game{
 	
 	public static Game getGame(){
 		return game;
+	}
+	
+	public Player getPlayer(){
+		return pl;
 	}
 
 	public void end(boolean win) {
