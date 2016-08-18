@@ -292,6 +292,7 @@ public class Render3D extends Render implements GLEventListener {
 
 	public void clear() {
 		// animator.stop();
+		gui.clear();
 		figures.clear();
 		// animator.start();
 
