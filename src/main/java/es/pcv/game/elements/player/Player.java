@@ -31,6 +31,7 @@ public class Player extends Walker{
 	// for shooting
 	private Semaphore fireS = new Semaphore(1);
 	private Point last_mouse_position;
+	private Point2D shoot_dir=new Point2D(0, 0);
 	private boolean dim3d;
 	private boolean click = false;
 	private double z = 0;
@@ -113,7 +114,7 @@ public class Player extends Walker{
 
 			public void mousePressed(MouseEvent e) {
 				if (e.getButton() == 1) {
-					startFire();
+					//startFire();
 				}
 
 			}
@@ -167,6 +168,7 @@ public class Player extends Walker{
 			}
 		}
 		velocity.multiply(0);
+		shoot_dir.multiply(0);
 		if (pressed.size() > 0) {
 
 
@@ -186,6 +188,25 @@ public class Player extends Walker{
 			if (pressed.contains(KeyEvent.VK_D) && !obstacle_collision_ux) {
 				movXImg = 1;
 				velocity.addX(MAX_VELOCITY.getX());
+			}
+			if (pressed.contains(KeyEvent.VK_UP)
+					||pressed.contains(KeyEvent.VK_DOWN)
+					||pressed.contains(KeyEvent.VK_LEFT)
+					||pressed.contains(KeyEvent.VK_RIGHT)) {
+				if (pressed.contains(KeyEvent.VK_UP)) {
+					shoot_dir.setY(-1);
+				}else if (pressed.contains(KeyEvent.VK_DOWN)) {
+					shoot_dir.setY(1);
+				}
+				
+				if (pressed.contains(KeyEvent.VK_LEFT)) {
+					shoot_dir.setX(-1);
+				}else if (pressed.contains(KeyEvent.VK_RIGHT)) {
+					shoot_dir.setX(1);
+				}
+				startFire();
+			}else{
+				finishFire();
 			}
 
 		}
@@ -220,7 +241,9 @@ public class Player extends Walker{
 		fx = (fx / aux);
 		fy = (fy / aux);
 
-		weapons[currentWeapon].attack(this, (getCenterPos()), new Point2D(fx, fy));
+		//weapons[currentWeapon].attack(this, (getCenterPos()), new Point2D(fx, fy));
+		weapons[currentWeapon].attack(this, (getCenterPos()), shoot_dir);
+
 	}
 
 	public void startFire() {

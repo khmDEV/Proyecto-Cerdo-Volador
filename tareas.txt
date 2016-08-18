@@ -9,8 +9,8 @@ Generales:
 Gráficos:
 
 	Vista 3D isométrica y ortogonal
-	Movimiento libre de cámara
-	Fijar en el personaje o en el centro
+	Movimiento libre de cámara 			 OK
+	Fijar en el personaje o en el centro OK
 
 Opcionales:
 	

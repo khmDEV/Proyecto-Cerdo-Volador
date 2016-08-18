@@ -226,11 +226,11 @@ public class Game{
 		
 		
 		pl=new Player(new Point2D(0.8f, 0.5f),render,true);
-		//if (debug) {
-			//maps=new MapsDebug(updater,render,pl);
-		//}else{
+		if (debug) {
+			maps=new MapsDebug(updater,render,pl);
+		} else{
 			maps=new Maps(updater,render,pl);
-		//}
+		}
 		addElement(pl);
 		Stats st=new Stats(pl);
 		guirender.add(st);		

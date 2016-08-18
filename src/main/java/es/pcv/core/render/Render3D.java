@@ -18,6 +18,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +48,7 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.gui.EndTitle;
 import es.pcv.game.gui.Gui;
 
-public class Render3D extends Render implements GLEventListener {
+public class Render3D extends Render implements GLEventListener,MouseMotionListener,MouseListener,MouseWheelListener {
 	/**
 	 * 
 	 */
@@ -111,7 +114,9 @@ public class Render3D extends Render implements GLEventListener {
 		//this.setResizable(false);
 		
 		//canvas.addKeyListener(this);
-		//canvas.addMouseListener(this);
+		canvas.addMouseListener(this);
+		canvas.addMouseMotionListener(this);
+		canvas.addMouseWheelListener(this);
 		canvas.requestFocusInWindow();
 		
 		FPSAnimator animator = new FPSAnimator(canvas, 30);
@@ -236,7 +241,7 @@ public class Render3D extends Render implements GLEventListener {
 		gl.glLoadIdentity(); // Reset The View
 		gl.glColor3f(1, 1, 1);
 
-		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy, zoom);
+		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom);
 		Helper3D.drawBase(gl);
 		gl.glTranslatef(0f, 1.0f, 0f);
 
@@ -340,7 +345,7 @@ public class Render3D extends Render implements GLEventListener {
 
 */
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_UP){
+		/*if(e.getKeyCode()==KeyEvent.VK_UP){
 			rotationx+=1;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_DOWN){
@@ -351,7 +356,7 @@ public class Render3D extends Render implements GLEventListener {
 		}
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			rotationy+=1;
-		}
+		}*/
 		if(e.getKeyCode()==KeyEvent.VK_PLUS){
 			zoom+=0.1;
 		}
@@ -361,7 +366,14 @@ public class Render3D extends Render implements GLEventListener {
 		if(e.getKeyCode()==KeyEvent.VK_R){
 			rotationx=0;
 			rotationy=0;
+			rotationz=0;
 			zoom=0;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_Q){
+			rotationz-=1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_E){
+			rotationz+=1;
 		}
 		if (e.getKeyCode()==KeyEvent.VK_C) {
 			player_center=!player_center;
@@ -379,6 +391,54 @@ public class Render3D extends Render implements GLEventListener {
 	}
 	public boolean is3D(){
 		return true;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		last_x=e.getX();
+		last_y=e.getY();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	private int last_x=0,last_y=0;
+	@Override
+	public void mousePressed(MouseEvent e) {
+		last_x=e.getX();
+		last_y=e.getY();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		rotationy=rotationy	+(last_x-e.getX());
+		rotationx=rotationx+(last_y-e.getY());
+		last_x=e.getX();
+		last_y=e.getY();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		zoom+=e.getWheelRotation()*0.1;
 	}
 	
 /**

@@ -111,8 +111,9 @@ public class Helper3D {
 	 * @param rotationx rotación en el eje x
 	 * @param rotationy rotación en el eje y
 	 * @param zoom zoom que queremos aplicar
+	 * @param zoom2 
 	 */
-	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float zoom) {
+	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float rotationz, float zoom) {
 		enableTexture(gl, 0);
 
 		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));
@@ -128,6 +129,7 @@ public class Helper3D {
 
 		gl.glRotatef(rotationx, 1, 0,0);
 		gl.glRotatef(rotationy, 0, 1,0);
+		gl.glRotatef(rotationz, 0, 0,1);
 		gl.glTranslatef(0.0f, -1f, -0f);
 	}
 	
