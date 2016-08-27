@@ -114,8 +114,6 @@ public class Helper3D {
 	 * @param zoom2 
 	 */
 	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float rotationz, float zoom) {
-		enableTexture(gl, 0);
-
 		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));
 		gl.glRotatef(45, 1, 0,0);
 		gl.glTranslatef(0.0f, 1f, -0f);
@@ -136,68 +134,6 @@ public class Helper3D {
 	
 	public static void drawBase(GL2 gl) {
 		
-		gl.glBegin(GL_QUADS);
-		gl.glNormal3f(0.0f, 0.0f, 1.0f); // Front Face
-		gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, 1.0f);
-		gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, 1.0f);
-		gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f);
-		gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-
-		gl.glNormal3f(0.0f, 0.0f, -1.0f); // Back Face
-		gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, -1.0f);
-		gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-		gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f);
-		gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, -1.0f);
-
-		gl.glNormal3f(0.0f, 1.0f, 0.0f); // Top Face
-		gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-		gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-		gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f);
-		gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f);
-
-		gl.glNormal3f(0.0f, -1.0f, 0.0f); // Bottom Face
-		gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 0.7f, -1.0f);
-		gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(1.0f, 0.7f, -1.0f);
-		gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, 1.0f);
-		gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, 1.0f);
-
-		gl.glNormal3f(1.0f, 0.0f, 0.0f); // Right Face
-		gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, -1.0f);
-		gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, -1.0f);
-		gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(1.0f, 1.0f, 1.0f);
-		gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(1.0f, 0.7f, 1.0f);
-
-		gl.glNormal3f(-1.0f, 0.0f, 0.0f); // Left Face
-		gl.glTexCoord2f(0.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, -1.0f);
-		gl.glTexCoord2f(1.0f, 0.0f);
-		gl.glVertex3f(-1.0f, 0.7f, 1.0f);
-		gl.glTexCoord2f(1.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, 1.0f);
-		gl.glTexCoord2f(0.0f, 1.0f);
-		gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-		gl.glEnd();
-		disableTexture(gl, 0);
 	}
 
 	public static void drawRectangle(GL2 gl, Point2D center, Point2D size, float offH, float h, Color c, int texture) {
@@ -337,7 +273,7 @@ public class Helper3D {
 
 	}
 
-	private static void enableTexture(GL2 gl, int texture) {
+	public static void enableTexture(GL2 gl, int texture) {
 		if (textures.length > texture && texture >= 0) {
 			textures[texture].enable(gl);
 			textures[texture].bind(gl);

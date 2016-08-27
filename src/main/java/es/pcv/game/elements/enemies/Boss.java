@@ -1,10 +1,10 @@
 package es.pcv.game.elements.enemies;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
@@ -16,25 +16,16 @@ public class Boss extends Enemy{
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
-	private Point2D maxVelocity=(new Point2D(0.005f, 0.005f)).multiply(Config.scale);
-	protected Point2D velocity=maxVelocity.clone();
-	private float maxModVelocity;
-	private boolean colPlayer;
 	private long lastTeleport=0;
 	private Point2D[] positions;
 	private long CD=200;
-	
 	private Weapon weapon;
 	int atack=0;
 	
 	public Boss(Point2D position,Player pl,Point2D maxVelocity) {
-		super(position, new Point2D(-0.005f, -0.005f), new Point2D(0.05f, 0.05f), 10, 1,pl);
+		super(position, new Point2D(0.025f, 0.025f), new Point2D(0.1f, 0.1f), 10, 1,pl);
 		weapon = new LaserGun(this,5000,15,200);
-		this.maxVelocity=maxVelocity.clone();
-		float x = maxVelocity.getX();
-		float y = maxVelocity.getY();
-		maxModVelocity=(float) Math.sqrt((x*x)+(y*y));
-		
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/ryuk.png", 4, 4);
 		
 		positions = new Point2D[4];
 		positions[0] = new Point2D(0.2f,0.2f).setAbsolutePosition();
@@ -122,7 +113,6 @@ public class Boss extends Enemy{
 		if (col instanceof Player) {
 			Player pl = (Player) col;
 			pl.doDamage(getDamage());
-			colPlayer=true;
 		}
 	}
 	

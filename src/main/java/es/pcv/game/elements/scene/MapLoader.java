@@ -8,6 +8,7 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
@@ -15,6 +16,7 @@ import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.core.updater.elements.LiveEntity;
 import es.pcv.core.updater.elements.PolygonObstacle;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 
 public class MapLoader extends PolygonObstacle implements Element{
@@ -26,6 +28,9 @@ public class MapLoader extends PolygonObstacle implements Element{
 	Maps map;
 	int idMap;
 	int pos;
+	protected ObjectIcon icon_hide= new ObjectIcon(Config.RESOURCES_PATH + "/textures/wall.bmp", 1, 1),
+			icon_show= new ObjectIcon(Config.RESOURCES_PATH + "/textures/door.bmp", 1, 1);;
+	
 	public MapLoader(Point2D p, Point2D s, Maps m,int idMap,int pos) {
 		super(p, s);
 		map=m;
@@ -66,15 +71,7 @@ public class MapLoader extends PolygonObstacle implements Element{
 	}
 
 	public void collisionObstacle(Collisionable c) {
-		// TODO Auto-generated method stub
-		try {
-			s.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		boolean res = activate;
-		s.release();
+		boolean res = isActivate();
 		if(res){
 			if((c instanceof Player)){
 				map.changeMap(idMap,pos);
@@ -87,12 +84,15 @@ public class MapLoader extends PolygonObstacle implements Element{
 		
 	}
 	public boolean isActivate(){
-		if(activate){
-			return true;
+		try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else{
-			return false;
-		}
+		boolean res = activate;
+		s.release();
+		return res;
 	}
 	public void update(long ms) {
 		// TODO Auto-generated method stub
@@ -102,17 +102,16 @@ public class MapLoader extends PolygonObstacle implements Element{
 
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		if(activate){
-			g.setColor(act);
+		if(isActivate()){
+			g.drawImage(icon_show.getImage(0), getX(), getY(), getSizeX(), getSizeY(), null);
 		}else{
-			g.setColor(des);
+			g.drawImage(icon_hide.getImage(0), getX(), getY(), getSizeX(), getSizeY(), null);
 		}
-		g.fillRect(getX(), getY(), getSizeX() , getSizeY());
-		
+
 	}
 	
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		if(activate){
+		if(isActivate()){
 			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,TEXTURE_ACT);
 		}else{
 			Helper3D.drawRectangle(gl, getCenterPos(), getSize(), 0, 0.1f, null,TEXTURE_DEC);

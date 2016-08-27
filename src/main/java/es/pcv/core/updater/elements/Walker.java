@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.game.configuration.Config;
+import es.pcv.game.elements.player.Player;
 
 public abstract class Walker extends LiveEntity {
 
-	protected ObjectIcon icon = new ObjectIcon(Config.RESOURCES_PATH + "/icons/bad1.png", 4, 3);
+	protected ObjectIcon icon;
 	protected int movYImg = 0;
 	protected int movXImg = 0;
 	protected int mov = 0;
@@ -21,34 +22,65 @@ public abstract class Walker extends LiveEntity {
 	}
 
 	public void draw(Graphics g) {
+
 		if (!isVulnerable() && System.currentTimeMillis() % 8 < 5) {
 			return;
+		}
+		if (velocity.value()!=0) {
+			switch (getDir()) {
+			case 0:
+				movYImg = -1;
+				movXImg = 0;
+				imgFija = 1;
+				break;
+			case 1:
+				movXImg = -1;
+				movYImg = 0;
+				imgFija = icon.w+1;
+				break;
+			case 2:
+				movXImg = 1;
+				movYImg = 0;
+				imgFija = icon.w*2+1;
+				break;
+			case 3:
+				movYImg = 1;
+				movXImg = 0;
+				imgFija = icon.w*3+1;
+				break;
+	
+			default:
+				break;
+			}
+		}else{
+			movXImg = 0;
+			movYImg = 0;
 		}
 
 		if (movXImg == 0 && movYImg == 0) {
 			img = imgFija;
 		} else if (movXImg == -1) {
-			img = 3 + mov;
+			img = icon.w + mov;
 			mov++;
-			if (mov == 3) {
+			if (mov == icon.w) {
 				mov = 0;
 			}
 		} else if (movXImg == 1) {
-			img = 6 + mov;
+			img = icon.w*2 + mov;
 			mov++;
-			if (mov == 3) {
+			if (mov == icon.w) {
 				mov = 0;
 			}
 		} else if (movYImg == -1) {
 			img = 0 + mov;
 			mov++;
-			if (mov == 3) {
+			if (mov == icon.w) {
 				mov = 0;
 			}
 		} else if (movYImg == 1) {
-			img = 9 + mov;
+			img = icon.w*3 + mov;
 			mov++;
-			if (mov == 3) {
+			if (mov == icon.w) {
 				mov = 0;
 			}
 		}

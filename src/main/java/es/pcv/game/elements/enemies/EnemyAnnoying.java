@@ -7,6 +7,7 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.updater.elements.Collisionable;
@@ -25,9 +26,12 @@ public class EnemyAnnoying extends Enemy{
 	private double MIN_DISTANCE=AllDirectionsWeapon.SCOPE_DEFAULT*Config.scale.getX();
 	private boolean vulnerable=false;
 	protected int TEXTURE = 5;
+	protected ObjectIcon icon_hide= new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_eye.png", 1, 1),
+						icon_show= new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_no_eye.png", 1, 1);;
 
 	public EnemyAnnoying(Point2D position,Player pl, Weapon wp) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);
+		icon=icon_hide;
 		weapon=wp;
 		weapon.equip(this);
 		//this.addLive(500);
@@ -35,11 +39,13 @@ public class EnemyAnnoying extends Enemy{
 	
 	public EnemyAnnoying(Point2D position,Player pl) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);
+		icon=icon_hide;
 		weapon.equip(this);
 		//this.addLive(500);
 	}
 	public EnemyAnnoying(Point2D position,Player pl, int damage) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);
+		icon=icon_hide;
 		weapon = new AllDirectionsWeapon(this,damage);
 		weapon.equip(this);
 		//this.addLive(500);
@@ -92,9 +98,9 @@ if(ms>100){
 	
 	public void draw(Graphics g){
 		if (vulnerable) {
-			g.drawOval(getX(), getY(), getSizeX(), getSizeY());
+			g.drawImage(icon_show.getImage(0), getX(), getY(), getSizeX(), getSizeY(), null);
 		}else{
-			g.drawRect(getX(), getY(), getSizeX(), getSizeY());
+			g.drawImage(icon_hide.getImage(0), getX(), getY(), getSizeX(), getSizeY(), null);
 		}
 	}
 	

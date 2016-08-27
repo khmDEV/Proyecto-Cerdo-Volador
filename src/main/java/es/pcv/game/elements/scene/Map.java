@@ -12,6 +12,7 @@ import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.Updater;
 import es.pcv.core.updater.elements.Element;
 import es.pcv.core.updater.elements.PolygonCollision;
+import es.pcv.core.updater.elements.PolygonObj;
 import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.items.drops.DropMap;
 import es.pcv.game.elements.weapons.WeaponEntity;
@@ -103,8 +104,8 @@ public class Map {
 			}
 		}
 		for (Element element : elements) {
-			if (element instanceof PolygonCollision) {
-				((PolygonCollision) element).rotate(rot,
+			if (element instanceof PolygonObj) {
+				((PolygonObj) element).rotate(rot,
 						new Point2D(Config.startX + Config.scale.getX() / 2, Config.startY + Config.scale.getY() / 2));
 			}
 		}

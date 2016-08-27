@@ -46,7 +46,7 @@ public class AreaSword extends Melee {
 		pl = PolygonHelper.createRectangle(getPos().getAbsolutePosition(), getSize());
 		pl = PolygonHelper.rotatePolygon(pl, whoAttack.getCenterPos(), -perc * (Math.PI / 2));
 		rect = pl.getBounds2D();
-		g.drawPolygon(pl);
+		g.fillPolygon(pl);
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {

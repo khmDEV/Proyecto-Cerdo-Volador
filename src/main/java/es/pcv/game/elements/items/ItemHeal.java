@@ -7,10 +7,12 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
+import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.player.Player;
 
 public class ItemHeal extends Item {
@@ -24,6 +26,8 @@ public class ItemHeal extends Item {
 		super(PolygonHelper.createRectangle(p, new Point2D(size.getX()*heal>max_size.getX()?max_size.getX():size.getX()*heal, 
 				size.getY()*heal>max_size.getY()?max_size.getY():size.getY()*heal)).getBounds2D());
 		this.heal = heal;
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/tileRed_12.png", 1, 1);
+
 		position = p;
 	}
 
@@ -34,9 +38,6 @@ public class ItemHeal extends Item {
 		}
 	}
 
-	public void draw(Graphics g) {
-		g.drawOval(getX(), getY(), getSizeX(), getSizeY());
-	}
 	Color c = new Color(1f, 0, 0);
 
 	

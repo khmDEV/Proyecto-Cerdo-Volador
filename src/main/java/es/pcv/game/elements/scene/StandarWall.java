@@ -7,12 +7,15 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.Helper3D;
+import es.pcv.game.configuration.Config;
 
 public class StandarWall extends Wall {
 	Color c;
 	protected int TEXTURE = 1;
+	protected ObjectIcon icon = new ObjectIcon(Config.RESOURCES_PATH + "/textures/wall.bmp", 1, 1);
 
 	public StandarWall(Point2D p, Point2D s) {
 		super(p, s);
@@ -20,9 +23,7 @@ public class StandarWall extends Wall {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(c);
-		g.fillRect(getX(), getY(), getSizeX(), getSizeY());
-		// g.drawPolygon(getRectangle());
+		g.drawImage(icon.getImage(0), getX(), getY(), getSizeX(), getSizeY(), null);
 	}
 
 	public boolean isDead() {

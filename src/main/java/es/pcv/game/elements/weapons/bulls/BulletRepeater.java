@@ -1,5 +1,7 @@
 package es.pcv.game.elements.weapons.bulls;
 
+import java.awt.Color;
+
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Walker;
 
@@ -8,14 +10,18 @@ public class BulletRepeater extends BulletLaser {
 	private int hits = 3;
 	private static final long FIX = 40;
 	private long last = 0;
+	Color color = new Color(255, 0, 0);
 
 	public BulletRepeater(Walker whoAttack, Point2D position, Point2D vel) {
 		super(whoAttack, position, vel);
+		c = color;
 	}
 
 	public BulletRepeater(Walker whoAttack, Point2D position, Point2D vel, int hits, int damage) {
 		super(whoAttack, position, vel, 1, damage);
 		this.hits = hits;
+		c = color;
+
 	}
 
 	public boolean kill() {

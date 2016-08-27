@@ -73,7 +73,7 @@ public class MapsDebug extends Maps{
 		int i=2;
 		Map map;
 		
-		map=map1(new Integer[]{0,i}, new Integer[]{0,0}, 0f, false);
+		map=map1(new Integer[]{0,i}, new Integer[]{1,0}, 0f, false);
 		map.addElement(new EnemyMelee(new Point2D(0.5, 0.5), p));
 		maps.add(map);
 		i++;

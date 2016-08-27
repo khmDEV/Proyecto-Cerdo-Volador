@@ -1,5 +1,6 @@
 package es.pcv.game.elements.enemies;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
@@ -18,6 +19,7 @@ public class EnemyShoter extends Enemy{
 	
 	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity, Weapon wp) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/wintersoldier.png", 4, 4);
 		this.maxVelocity=maxVelocity.clone();
 		weapon=wp;
 		weapon.equip(this);
@@ -25,6 +27,7 @@ public class EnemyShoter extends Enemy{
 	}
 	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/wintersoldier.png", 4, 4);
 		this.maxVelocity=maxVelocity.clone();
 		weapon.equip(this);
 		//this.addLive(500);
@@ -34,6 +37,7 @@ public class EnemyShoter extends Enemy{
 	
 	public EnemyShoter(Point2D position,Player pl) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/wintersoldier.png", 4, 4);
 		weapon.equip(this);
 		//this.addLive(500);
 	}

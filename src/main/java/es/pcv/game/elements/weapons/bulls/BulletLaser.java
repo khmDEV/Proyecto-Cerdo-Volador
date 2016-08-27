@@ -42,8 +42,7 @@ public class BulletLaser extends Bullet {
 		Point center=new Point((int) Math.round(rec.getBounds2D().getCenterX()), (int) Math.round(rec.getBounds2D().getCenterY()));
 		rec = PolygonHelper.rotatePolygon(rec,center, an);
 		setCollisionBox(rec.getBounds2D());
-		
-		g.drawPolygon(rec);
+		g.fillPolygon(rec);
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {

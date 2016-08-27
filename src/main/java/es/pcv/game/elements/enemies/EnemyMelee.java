@@ -2,6 +2,7 @@ package es.pcv.game.elements.enemies;
 
 import java.awt.Polygon;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.game.configuration.Config;
@@ -15,6 +16,7 @@ public class EnemyMelee extends Enemy {
 	private boolean colPlayer;
 	public EnemyMelee(Point2D position,Player pl) {
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 50, 10,pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/kainhighwind.png", 4, 4);
 		velocity=maxVelocity;
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
@@ -25,6 +27,7 @@ public class EnemyMelee extends Enemy {
 	
 	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity) {
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 50, 10,pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/kainhighwind.png", 4, 4);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
@@ -34,6 +37,7 @@ public class EnemyMelee extends Enemy {
 	
 	public EnemyMelee(Point2D position,Player pl,Point2D maxVelocity,int live) {
 		super(position,new Point2D(0, 0), new Point2D(0.05f, 0.05f), 50, 10,pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/kainhighwind.png", 4, 4);
 		this.maxVelocity=maxVelocity.clone();
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();

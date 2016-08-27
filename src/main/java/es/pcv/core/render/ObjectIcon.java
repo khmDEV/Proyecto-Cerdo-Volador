@@ -8,8 +8,12 @@ import java.util.ArrayList;
 
 public class ObjectIcon {
 	private ArrayList<BufferedImage>imagenes;
+	public final int h,w;
+	
 	public ObjectIcon(String path,int height,int width){
 		File f = new File(path);
+		h=height;
+		w=width;
 		imagenes=new ArrayList<BufferedImage>();
         try {
         	BufferedImage image = ImageIO.read(f);

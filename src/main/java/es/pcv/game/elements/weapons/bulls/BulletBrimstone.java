@@ -12,7 +12,9 @@ import com.jogamp.opengl.glu.GLUquadric;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.Helper3D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
+import es.pcv.core.updater.elements.Collisionable;
 import es.pcv.core.updater.elements.Walker;
+import es.pcv.game.elements.scene.Wall;
 
 public class BulletBrimstone extends Bullet {
 
@@ -29,15 +31,28 @@ public class BulletBrimstone extends Bullet {
 
 	public void update(long ms) {
 	}
+	
+	public void collisionObstacle(Collisionable c) {
+		if (!(c instanceof Wall)) {
+			super.collisionObstacle(c);
+		}
+	}
+
+	
+	public boolean isCollision(Collisionable col){
+		return super.isCollision(col)&&!(col instanceof Wall);
+	}
 
 	public void draw(Graphics g) {
 		g.setColor(c);
 		Polygon rec = PolygonHelper.getRectangle(getPos(), getSize());
 		double an = Math.atan2(velocity.getY(), velocity.getX());
-		Point center=new Point((int) Math.round(rec.getBounds2D().getCenterX()-0.5), (int) Math.round(rec.getBounds2D().getCenterY()-0.5));
+		Point center=new Point((int) Math.round(rec.getBounds2D().getCenterX()), (int) Math.round(rec.getBounds2D().getCenterY()));
+		
 		rec = PolygonHelper.rotatePolygon(rec,center, an);
+		
 		setCollisionBox(rect);
-		g.drawPolygon(rec);
+		g.fillPolygon(rec);
 		kill();
 	}
 

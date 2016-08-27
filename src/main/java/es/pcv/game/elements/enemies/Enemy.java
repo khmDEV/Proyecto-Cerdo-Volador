@@ -20,10 +20,10 @@ public abstract class Enemy extends Walker{
 	public static final DropEnemy drop=new DropEnemy();
 	protected Color c = new Color(1, 0, 0);
 	protected int TEXTURE = 5;
-	protected ObjectIcon iconBad = new ObjectIcon(Config.RESOURCES_PATH + "/icons/zombie.png", 1, 1);
 
 	public Enemy(Point2D p,Point2D v,Point2D s,int l, int d, Player pl) {		
 		super(p, v, s, l, d);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/kainhighwind.png", 4, 4);
 		this.pl=pl;
 	}
 	
@@ -35,10 +35,6 @@ public abstract class Enemy extends Walker{
 		return r;
 	}
 	
-
-	public void draw(Graphics g) {
-		g.drawImage(iconBad.getImage(0), getX(), getY(), getSizeX(), getSizeY(), null);
-	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawCilinder(gl, glu, quadric, getPos(), 0.06f, 0.06f, 0, .11f, null,TEXTURE);

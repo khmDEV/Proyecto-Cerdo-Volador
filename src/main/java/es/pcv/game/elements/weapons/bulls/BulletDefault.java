@@ -26,7 +26,7 @@ public class BulletDefault extends Bullet {
 
 	public void draw(Graphics g) {
 		g.setColor(c);
-		g.drawOval(getX(), getY(), getSizeX(), getSizeY());
+		g.fillOval(getX(), getY(), getSizeX(), getSizeY());
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {

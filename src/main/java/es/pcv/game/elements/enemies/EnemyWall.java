@@ -2,6 +2,7 @@ package es.pcv.game.elements.enemies;
 
 import java.awt.geom.Rectangle2D;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.auxiliar.PolygonHelper;
 import es.pcv.core.updater.elements.Collisionable;
@@ -25,6 +26,7 @@ public class EnemyWall extends Enemy {
 	private int DIFF=10;
 	public EnemyWall(Wall w, Player pl, Point2D maxVelocity, Weapon wp) {
 		super(w.getCenterPos(), new Point2D(0, 0), new Point2D(0.05f, 0.05f), 1, 1, pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/silverbat.png", 4, 4);
 		rect=PolygonHelper.getRectangle(w.getCenterPos(), size).getBounds2D();
 		wall = w;
 		weapon = wp;
@@ -37,6 +39,8 @@ public class EnemyWall extends Enemy {
 
 	public EnemyWall(Wall w, Player pl) {
 		super(w.getCenterPos(), new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1, pl);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/silverbat.png", 4, 4);
+
 		rect=PolygonHelper.getRectangle(w.getCenterPos(), size).getBounds2D();
 		wall = w;
 		weapon.equip(this);

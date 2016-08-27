@@ -58,7 +58,7 @@ public abstract class Melee extends WeaponEntity {
 	}
 	
 	public void draw(Graphics g) {
-		g.drawPolygon(getRectangle());
+		g.fillPolygon(getRectangle());
 	}
 
 	public void setWalker(Walker whoAttack) {

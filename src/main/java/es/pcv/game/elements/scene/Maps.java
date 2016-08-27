@@ -14,7 +14,9 @@ import es.pcv.game.configuration.Config;
 import es.pcv.game.elements.enemies.Boss;
 import es.pcv.game.elements.enemies.EnemyAnnoying;
 import es.pcv.game.elements.enemies.EnemyMelee;
+import es.pcv.game.elements.enemies.EnemyMeleeFast;
 import es.pcv.game.elements.enemies.EnemyShoter;
+import es.pcv.game.elements.enemies.EnemyShoterInmovil;
 import es.pcv.game.elements.enemies.EnemyWall;
 import es.pcv.game.elements.objects.Something;
 import es.pcv.game.elements.player.Player;
@@ -133,10 +135,10 @@ public class Maps {
 						m.addElement(new EnemyMelee(new Point2D(x, y),player,new Point2D(0.15f, 0.15f)));
 					}else if(id == 1){
 						//melee rapido
-						m.addElement(new EnemyMelee(new Point2D(x, y),player,new Point2D(0.2f, 0.2f)));
+						m.addElement(new EnemyMeleeFast(new Point2D(x, y),player));
 					}else if(id == 2){
 						//shooter estatico
-						m.addElement(new EnemyShoter(new Point2D(x, y),player,new Point2D(0, 0)));
+						m.addElement(new EnemyShoterInmovil(new Point2D(x, y),player));
 					}else if(id == 3){
 						//shooter movimiento
 						m.addElement(new EnemyShoter(new Point2D(x, y),player,new Point2D(0.14f, 0.14f)));
@@ -200,6 +202,9 @@ public class Maps {
 		playerPos[0]=new Point2D(0.5f,0.1f).setAbsolutePosition();
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
+		
+		m.addElement(new Floor(new Point2D(0, 0), new Point2D(1, 1)));
+
 		//maps[0].addElement(new StandarWall(new Point2D(0.6f, 0.3f),new Point2D(0.02f, 0.6f) ));
 		
 		m.addElement(new StandarWall(new Point2D(0, 0),new Point2D(0.02f, 1)));
@@ -209,8 +214,7 @@ public class Maps {
 		m.addElement(new StandarWall(new Point2D(0.98f, 0),new Point2D(0.02f, 1)));
 		
 		
-		
-		m.addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),Config.RESOURCES_PATH+"/icons/mesa.png",false));
+		m.addElement(new Something(new Point2D(0.3f, 0.2f),new Point2D(0.1f, 0.2f),Config.RESOURCES_PATH+"/textures/box.bmp",false));
 		
 		m.addElement(new MapLoader(new Point2D(0.4f, 0),new Point2D(0.2f, 0.02f),this,nextMaps[0],nextPos[0]));
 
@@ -243,6 +247,8 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
+		m.addElement(new Floor(new Point2D(0, 0), new Point2D(1, 1)));
+
 		m.addElement(new StandarWall(new Point2D(0, 0),new Point2D(0.02f, 1) ));
 		m.addElement(new StandarWall(new Point2D(0, 0),new Point2D(0.4f, 0.02f)));
 		m.addElement(new StandarWall(new Point2D(0.6f, 0),new Point2D(0.4f, 0.02f)));
@@ -287,7 +293,10 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
-		
+		m.addElement(new Floor(new Point2D(0.4, 0.3), new Point2D(0.22, 0.7)));
+		m.addElement(new Floor(new Point2D(0.3, 0), new Point2D(0.42, 0.32)));
+		m.addElement(new Floor(new Point2D(0.32, 0.7), new Point2D(0.125, 0.12)));
+
 		m.addElement(new StandarWall(new Point2D(0.3f, 0),new Point2D(0.02f, 0.3f) ));
 		m.addElement(new StandarWall(new Point2D(0.3f, 0),new Point2D(0.4f, 0.02f)));
 		
@@ -339,6 +348,8 @@ public class Maps {
 		playerPos[2]=new Point2D(0.1f,0.2f).setAbsolutePosition();
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
+		m.addElement(new Floor(new Point2D(0.23, 0.5), new Point2D(0.54, 0.5)));
+		m.addElement(new Floor(new Point2D(0, 0), new Point2D(1, 0.5)));
 		
 		m.addElement(new StandarWall(new Point2D(0.25f,0.98),new Point2D(0.15f, 0.02f)));
 		m.addElement(new StandarWall(new Point2D(0.60f,0.98),new Point2D(0.15f, 0.02f)));
@@ -395,7 +406,8 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		//maps[0].addElement(new StandarWall(new Point2D(0.6f, 0.3f),new Point2D(0.02f, 0.6f) ));
-		
+		m.addElement(new Floor(new Point2D(0, 0.5), new Point2D(1, 0.5)));
+
 		m.addElement(new StandarWall(new Point2D(0, 0.5f),new Point2D(1, 0.02f)));
 		
 		m.addElement(new StandarWall(new Point2D(0, 0.5f),new Point2D(0.02f, 0.5f)));
@@ -446,6 +458,8 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
+		m.addElement(new Floor(new Point2D(0.4, 0), new Point2D(0.2, 1)));
+		
 		m.addElement(new StandarWall(new Point2D(0.4f, 0),new Point2D(0.02f,1)));
 		
 		m.addElement(new StandarWall(new Point2D(0.4f, 0),new Point2D(0.05f, 0.02f)));
@@ -488,7 +502,10 @@ public class Maps {
 		playerPos[1]=new Point2D(0.65f,0.75f).setAbsolutePosition();
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
-		
+		m.addElement(new Floor(new Point2D(0.33, 0), new Point2D(0.22, 1)));
+		m.addElement(new Floor(new Point2D(0, 0), new Point2D(0.55, 0.4)));
+		m.addElement(new Floor(new Point2D(0.55, 0.58), new Point2D(0.22, 0.42)));
+
 		m.addElement(new StandarWall(new Point2D(0.35f,0.98),new Point2D(0.4f, 0.02f)));
 		
 		m.addElement(new StandarWall(new Point2D(0.33f, 0.4f),new Point2D(0.02f, 0.6f)));
@@ -542,6 +559,9 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
+		m.addElement(new Floor(new Point2D(0.4, 0), new Point2D(0.2, 1)));
+		m.addElement(new Floor(new Point2D(0.6, 0.4), new Point2D(0.4, 0.2)));
+
 		m.addElement(new StandarWall(new Point2D(0.4f, 0),new Point2D(0.02f,1)));
 		
 		m.addElement(new StandarWall(new Point2D(0.4f, 0),new Point2D(0.05f, 0.02f)));
@@ -593,6 +613,9 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
+		m.addElement(new Floor(new Point2D(0.4, 0), new Point2D(0.2, 1)));
+		m.addElement(new Floor(new Point2D(0.6, 0), new Point2D(0.4, 0.6)));
+		
 		m.addElement(new StandarWall(new Point2D(0.4f, 0),new Point2D(0.02f,1)));
 		
 		m.addElement(new StandarWall(new Point2D(0.4f, 0.98f),new Point2D(0.05f, 0.02f)));
@@ -639,6 +662,8 @@ public class Maps {
 		
 		Map m = new Map(updater,render,playerPos,nextMaps);
 		
+		m.addElement(new Floor(new Point2D(0, 0), new Point2D(1, 1)));
+
 		m.addElement(new StandarWall(new Point2D(0, 0),new Point2D(0.02f, 0.4f) ));
 		m.addElement(new StandarWall(new Point2D(0, 0.6f),new Point2D(0.02f, 0.4f) ));
 		
@@ -667,7 +692,11 @@ public class Maps {
 		maps.get(currentMap).hide();
 		Map m = maps.get(id);
 		m.show();
+		updater.remove(player);
+		render.remove(player);
 		player.setPos(m.getPlayerPos(n));
+		updater.add(player);
+		render.add(player);
 		currentMap = id;
 	}
 

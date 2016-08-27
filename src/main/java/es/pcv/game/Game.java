@@ -44,7 +44,7 @@ public class Game{
 	private SoundPlayer player;
 	private Player pl;
 	private Render guirender;
-	private boolean debug=false;
+	private boolean debug=true;
 	private Maps maps;
 	private JFrame frame;
 	private JPanel menu;
@@ -215,7 +215,11 @@ public class Game{
 	public void startGame2D(){
 		
 		pl=new Player(new Point2D(0.8f, 0.5f),render,false);
-		maps=new Maps(updater,render,pl);
+		if (debug) {
+			maps=new MapsDebug(updater,render,pl);
+		} else{
+			maps=new Maps(updater,render,pl);
+		}
 		addElement(pl);
 		
 		Stats st=new Stats(pl);
@@ -304,6 +308,7 @@ public class Game{
 	}
 	
 	public void clearRoom(){
+		maps.clearRoom();
 		maps.clearRoom();
 	}
 

@@ -20,7 +20,7 @@ public class ScabbardAreaSword extends Scabbard{
 	public void doAttack(Walker attacker,Point2D origin,Point2D direction){
 		if (melee==null||melee.isDead()) {
 			SoundPlayer.playInThreath(sound);
-			melee=new AreaSword(attacker, durability, DAMAGE_DEFAULT, CD_DEFAULT);
+			melee=new AreaSword(attacker, durability, DAMAGE_DEFAULT, CD_DEFAULT*2);
 			Game.getGame().addElement(melee);
 		}
 	}

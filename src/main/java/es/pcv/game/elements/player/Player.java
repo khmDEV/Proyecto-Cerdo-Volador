@@ -14,6 +14,7 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUquadric;
 
+import es.pcv.core.render.ObjectIcon;
 import es.pcv.core.render.Point2D;
 import es.pcv.core.render.Render;
 import es.pcv.core.render.Render3D;
@@ -58,6 +59,7 @@ public class Player extends Walker{
 
 	public Player(Point2D position,Render render,boolean dim3D) {		
 		super(position,new Point2D(0, 0),new Point2D(0.05f, 0.05f),200, 10);
+		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/bad1.png", 4, 3);
 		this.dim3d=dim3D;
 		changeWeapon(currentWeapon);
 		dead = false;
@@ -69,22 +71,6 @@ public class Player extends Walker{
 			}
 
 			public synchronized void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_W) {
-					movYImg = 0;
-					imgFija = 10;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_A) {
-					movXImg = 0;
-					imgFija = 4;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_S) {
-					movYImg = 0;
-					imgFija = 1;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_D) {
-					movXImg = 0;
-					imgFija = 7;
-				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE  && !jump) {
 					if(dim3d){
 						jump = true;
@@ -169,24 +155,21 @@ public class Player extends Walker{
 		}
 		velocity.multiply(0);
 		shoot_dir.multiply(0);
+		finishFire();
+
 		if (pressed.size() > 0) {
 
 
 			if (pressed.contains(KeyEvent.VK_W) && !obstacle_collision_uy) {
-				movYImg = 1;
-
 				velocity.addY(-MAX_VELOCITY.getY());
 			}
 			if (pressed.contains(KeyEvent.VK_A) && !obstacle_collision_dx) {
-				movXImg = -1;
 				velocity.addX(-MAX_VELOCITY.getX());
 			}
 			if (pressed.contains(KeyEvent.VK_S) && !obstacle_collision_dy) {
-				movYImg = -1;
 				velocity.addY(MAX_VELOCITY.getY());
 			}
 			if (pressed.contains(KeyEvent.VK_D) && !obstacle_collision_ux) {
-				movXImg = 1;
 				velocity.addX(MAX_VELOCITY.getX());
 			}
 			if (pressed.contains(KeyEvent.VK_UP)
@@ -205,8 +188,6 @@ public class Player extends Walker{
 					shoot_dir.setX(1);
 				}
 				startFire();
-			}else{
-				finishFire();
 			}
 
 		}
