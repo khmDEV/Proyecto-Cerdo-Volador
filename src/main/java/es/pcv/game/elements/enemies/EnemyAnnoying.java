@@ -26,8 +26,8 @@ public class EnemyAnnoying extends Enemy{
 	private double MIN_DISTANCE=AllDirectionsWeapon.SCOPE_DEFAULT*Config.scale.getX();
 	private boolean vulnerable=false;
 	protected int TEXTURE = 5;
-	protected ObjectIcon icon_hide= new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_eye.png", 1, 1),
-						icon_show= new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_no_eye.png", 1, 1);;
+	protected ObjectIcon icon_hide= new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_no_eye.png", 1, 1),
+						icon_show= new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_eye.png", 1, 1);;
 
 	public EnemyAnnoying(Point2D position,Player pl, Weapon wp) {		
 		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 40, 1,pl);

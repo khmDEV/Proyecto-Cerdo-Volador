@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -48,6 +50,7 @@ public class Game{
 	private Maps maps;
 	private JFrame frame;
 	private JPanel menu;
+	private JPanel subMenu;
 	private JPanel endMenu;
 	private Dimension screenSize;
 	private JButton restart;
@@ -64,7 +67,7 @@ public class Game{
 		updater = new UpdaterDefault();
 		player=new SoundPlayer();
 		frame = new JFrame("Juego");
-		
+
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Config.scale=new Point2D(screenSize.getHeight()*0.8, screenSize.getHeight()*0.8);
@@ -73,18 +76,40 @@ public class Game{
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setLayout(null);
+		frame.getContentPane().setBackground(new Color(0, 0, 0));
+		frame.setBackground(new Color(0, 0, 0));
+
 	    GridLayout layout = new GridLayout(3,1);
 	    layout.setVgap(10);
 	    menu = new JPanel(layout);
-	    
-	    menu.setBounds((int) (screenSize.getWidth()*0.4), (int) (screenSize.getHeight()*0.4), 
+	    menu.setBackground(new Color(0, 0, 0));
+
+	    menu.setBounds((int) (0), (int) (0), 
+	    		(int)(screenSize.getWidth()), (int)(screenSize.getHeight()));
+
+	    subMenu = new JPanel(layout);
+	    subMenu.setBackground(new Color(0, 0, 0));
+
+	    subMenu.setBounds((int) (screenSize.getWidth()*0.4), (int) (screenSize.getHeight()*0.4), 
 	    		(int)(screenSize.getWidth()*0.2), (int)(screenSize.getHeight()*0.2));
+	    
+	    BufferedImage myPicture = null;
+		try {
+			myPicture = ImageIO.read(new File(Config.RESOURCES_PATH + "/icons/logo.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+	    menu.add(picLabel);
+	    
+	    menu.add(subMenu);
 	    
 	    endMenu = new JPanel();
 	    
 		//Boton 2D
 		JButton boton2D = new JButton("Jugar en 2D");
-		menu.add(boton2D);
+		subMenu.add(boton2D);
 
 		// Accion del boton de Entrar
 		boton2D.addActionListener(new ActionListener() {
@@ -97,7 +122,7 @@ public class Game{
 		
 		//Boton 3D
 		JButton boton3D = new JButton("Jugar en 3D");
-		menu.add(boton3D);
+		subMenu.add(boton3D);
 
 		// Accion del boton de Entrar
 		boton3D.addActionListener(new ActionListener() {
@@ -109,7 +134,7 @@ public class Game{
 		
 		//Boton salir
 		JButton botonSalir = new JButton("Salir");
-		menu.add(botonSalir);
+		subMenu.add(botonSalir);
 
 		// Accion del boton de Entrar
 		botonSalir.addActionListener(new ActionListener() {
@@ -302,13 +327,12 @@ public class Game{
 		frame.setVisible(true);
 		//render.addRestartButton();
 		//render.dispose();	
-		clearRoom();
+		//clearRoom();
 		//Game g=new Game();
 		//g.startGame();
 	}
 	
 	public void clearRoom(){
-		maps.clearRoom();
 		maps.clearRoom();
 	}
 
