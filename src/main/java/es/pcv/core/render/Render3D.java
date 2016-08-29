@@ -129,7 +129,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 
 	}
 
-	private float[] lightPosition = { 0f, 1f, 0f, 1.0f };
+	private float[] lightPosition = { 0f, 3f, -2f, 1.0f };
 	private float[] lightAmbient = { 1.2f, 1.2f, 1.2f, 1.0f };
 	private float[] lightDiffuse = { 1.2f, 1.2f, 1.2f, 1.0f }; // Which Filter
 																// To Use
@@ -137,6 +137,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 
 	private GLUquadric quadric;
 	private boolean restart = false;
+	private boolean perspective=false;
 
 	/**
 	public void addEnd(EndTitle tip) {
@@ -240,6 +241,12 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity(); // Reset The View
 		gl.glColor3f(1, 1, 1);
+		
+		if (perspective) {
+			glu.gluPerspective(45, (float) width / height, 1, 1000);
+		}else{
+			gl.glOrtho(-1-1*zoom, 1f+1*zoom, -1f-1*zoom, 1f+1*zoom, -3f, 20.0f);
+		}
 
 		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom);
 		Helper3D.drawBase(gl);
@@ -259,7 +266,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL_PROJECTION);
 		gl.glLoadIdentity();
-		glu.gluPerspective(45, (float) width / height, 1, 1000);
+		
 		gl.glMatrixMode(GL_MODELVIEW);
 		gl.glLoadIdentity();
 	}
@@ -357,6 +364,9 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
 			rotationy+=1;
 		}*/
+		if (e.getKeyCode()==KeyEvent.VK_M) {
+			perspective=!perspective;
+		}
 		if(e.getKeyCode()==KeyEvent.VK_PLUS){
 			zoom+=0.1;
 		}

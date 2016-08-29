@@ -11,7 +11,7 @@ public class LaserBrimstone extends Weapon {
 	private final static float V_DEFAULT = 0.001f;
 	private final static int DAMAGE_DEFAULT = 1;
 	private final static int AMMO_DEFAULT = 250;
-	private final static int CD_DEFAULT = (int) Config.RENDER_TICK/2;
+	private final static int CD_DEFAULT = (int) (Config.RENDER_TICK/4);
 	private final static int ID = 1;
 	private static final String sound="fx/Cortical-Intermed-499_hifi.mp3";
 

@@ -30,7 +30,7 @@ public class BulletDefault extends Bullet {
 	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
-		Helper3D.drawSphere(gl, glu, quadric, getCenterPos(),  0, 0.01, c,-1);
+		Helper3D.drawSphere(gl, glu, quadric, getCenterPos(),  0.05f, 0.01, c,-1);
 	}
 
 }

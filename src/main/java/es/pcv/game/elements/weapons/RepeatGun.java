@@ -8,9 +8,9 @@ import es.pcv.game.elements.weapons.bulls.BulletRepeater;
 
 public class RepeatGun extends Weapon {
 
-	private final static float V_DEFAULT = 0.001f;
+	private final static float V_DEFAULT = 0.0005f;
 	private final static int DAMAGE_DEFAULT = 20;
-	private final static int AMMO_DEFAULT = 100;
+	private final static int AMMO_DEFAULT = 130;
 	private final static int REPEAT_DEFAULT = 3;
 	private final static int CD_DEFAULT = 300;
 	private final static int ID = 19;

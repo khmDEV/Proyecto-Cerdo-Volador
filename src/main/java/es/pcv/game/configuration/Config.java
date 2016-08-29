@@ -5,7 +5,7 @@ import es.pcv.core.render.Point2D;
 public class Config {
 	
 	public static long UPDATE_TICK=10;
-	public static long RENDER_TICK=50;
+	public static long RENDER_TICK=60;
 	
 	public static Point2D scale = new Point2D(500,500);
 

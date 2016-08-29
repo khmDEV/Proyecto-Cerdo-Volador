@@ -114,6 +114,7 @@ public class Helper3D {
 	 * @param zoom2 
 	 */
 	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float rotationz, float zoom) {
+
 		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));
 		gl.glRotatef(45, 1, 0,0);
 		gl.glTranslatef(0.0f, 1f, -0f);
