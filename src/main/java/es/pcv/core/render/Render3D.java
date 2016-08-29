@@ -255,7 +255,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		if (perspective) {
 			glu.gluPerspective(45, (float) width / height, 1, 1000);
 		}else{
-			gl.glOrtho(-1-1*zoom, 1f+1*zoom, -1f-1*zoom, 1f+1*zoom, -3f, 20.0f);
+			gl.glOrtho(-1+1*zoom, 1f-1*zoom, -1f+1*zoom, 1f-1*zoom, -3f, 20.0f);
 		}
 
 		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom);
