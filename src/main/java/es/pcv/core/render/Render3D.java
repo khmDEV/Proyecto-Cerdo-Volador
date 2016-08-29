@@ -129,7 +129,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 
 	}
 
-	private float[] lightPosition = { 0f, 3f, -2f, 1.0f };
+	private float[] lightPosition = { 0f, 2f, 2f, 1.0f };
 	private float[] lightAmbient = { 1.2f, 1.2f, 1.2f, 1.0f };
 	private float[] lightDiffuse = { 1.2f, 1.2f, 1.2f, 1.0f }; // Which Filter
 																// To Use
@@ -214,6 +214,16 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		gui.render();
 
 	}*/
+	
+	public void updateLight(GL2 gl){
+		gl.glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmbient, 0); // Setup The
+		// Ambient Light
+		gl.glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDiffuse, 0); // Setup The
+		// Diffuse Light
+		gl.glLightfv(GL_LIGHT1, GL_POSITION, lightPosition, 0); // Position The
+		// Light
+		gl.glEnable(GL_LIGHT1); // Enable Light One
+	}
 
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
@@ -249,6 +259,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		}
 
 		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom);
+		updateLight(gl);
 		Helper3D.drawBase(gl);
 		gl.glTranslatef(0f, 1.0f, 0f);
 
