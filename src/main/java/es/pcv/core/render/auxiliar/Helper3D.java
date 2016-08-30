@@ -113,9 +113,13 @@ public class Helper3D {
 	 * @param zoom zoom que queremos aplicar
 	 * @param zoom2 
 	 */
-	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float rotationz, float zoom) {
-
-		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));
+	public static void startRenderFrame(GL2 gl, boolean player_center, int rotationx, int rotationy, float rotationz, float zoom, boolean rotationMode) {
+		if(rotationMode){
+			gl.glRotatef(rotationx, 1, 0,0);
+			gl.glRotatef(rotationy, 0, 1,0);
+			gl.glRotatef(rotationz, 0, 0,1);		
+		}
+		gl.glTranslatef(0.0f, -.5f, (-3.2f+zoom));		
 		gl.glRotatef(45, 1, 0,0);
 		gl.glTranslatef(0.0f, 1f, -0f);
 		
@@ -125,10 +129,12 @@ public class Helper3D {
 					(0.5f-pl.getPos().getAbsolutePosition().getY())*2);
 
 		}
-
-		gl.glRotatef(rotationx, 1, 0,0);
-		gl.glRotatef(rotationy, 0, 1,0);
-		gl.glRotatef(rotationz, 0, 0,1);
+		if(!rotationMode){
+			gl.glRotatef(rotationx, 1, 0,0);
+			gl.glRotatef(rotationy, 0, 1,0);
+			gl.glRotatef(rotationz, 0, 0,1);			
+		}
+		
 		gl.glTranslatef(0.0f, -1f, -0f);
 	}
 	

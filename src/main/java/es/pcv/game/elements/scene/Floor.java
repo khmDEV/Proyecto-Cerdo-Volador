@@ -41,27 +41,27 @@ public class Floor extends PolygonCollision implements Element{
 		Helper3D.drawRectangle(gl, getCenterPos(), getSize(), -0.2f, 0.2f, null,TEXTURE);
 	}
 
-	@Override
+//	@Override
 	public void collisionObstacle(Collisionable c) {
 		
 	}
 
-	@Override
+//	@Override
 	public void update(long diff) {
 		
 	}
 
-	@Override
+//	@Override
 	public boolean isCollision(Collisionable c) {
 		return false;
 	}
 
-	@Override
+//	@Override
 	public Rectangle2D getCollisionBox() {
 		return null;
 	}
 
-	@Override
+//	@Override
 	public void collision(Collisionable c) {
 		
 	}

@@ -65,7 +65,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 	public int rotationz=0;
 	public float zoom=0;
 	public boolean player_center = false;
-	
+	private boolean rotationMode=false;
 	
 	public Render3D(int width, int height, Render gui) {
 		//System.out.println("creando render");
@@ -258,7 +258,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 			gl.glOrtho(-1+1*zoom, 1f-1*zoom, -1f+1*zoom, 1f-1*zoom, -3f, 20.0f);
 		}
 
-		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom);
+		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom, rotationMode);
 		updateLight(gl);
 		Helper3D.drawBase(gl);
 		gl.glTranslatef(0f, 1.0f, 0f);
@@ -378,6 +378,9 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		if (e.getKeyCode()==KeyEvent.VK_M) {
 			perspective=!perspective;
 		}
+		if (e.getKeyCode()==KeyEvent.VK_L) {
+			rotationMode=!rotationMode;
+		}
 		if(e.getKeyCode()==KeyEvent.VK_PLUS){
 			zoom+=0.1;
 		}
@@ -414,37 +417,37 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		return true;
 	}
 
-	@Override
+	//@Override
 	public void mouseClicked(MouseEvent e) {
 		last_x=e.getX();
 		last_y=e.getY();
 	}
 
-	@Override
+	//@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	//@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 	private int last_x=0,last_y=0;
-	@Override
+	//@Override
 	public void mousePressed(MouseEvent e) {
 		last_x=e.getX();
 		last_y=e.getY();
 	}
 
-	@Override
+	//@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	//@Override
 	public void mouseDragged(MouseEvent e) {
 		rotationy=rotationy	+(last_x-e.getX());
 		rotationx=rotationx+(last_y-e.getY());
@@ -452,12 +455,12 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		last_y=e.getY();
 	}
 
-	@Override
+	//@Override
 	public void mouseMoved(MouseEvent e) {
 		
 	}
 
-	@Override
+//	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		zoom+=e.getWheelRotation()*0.1;
 	}
