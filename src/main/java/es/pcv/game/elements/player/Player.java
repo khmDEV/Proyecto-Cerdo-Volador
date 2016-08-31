@@ -39,13 +39,14 @@ public class Player extends Walker{
 	private boolean jump = false;
 	private boolean up = true;
 
-	public final Set<Integer> pressed = new HashSet<Integer>();
+	public static Set<Integer> pressed;
 	public Point shoot;
 
 	protected long CD_HIT = 1000;
 
-	private MouseListener ml;
-	
+	private static boolean listeners = true;
+	private static MouseListener ml;
+	private static KeyListener kl;
 	//private KeyListener kl;
 	
 	
@@ -66,63 +67,13 @@ public class Player extends Walker{
 		
 		this.render=render;
 		
-		KeyListener kl = new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
-
-			public synchronized void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_SPACE  && !jump) {
-					if(dim3d){
-						jump = true;
-					}
-					
-				}
-				pressed.remove(e.getKeyCode());
-			}
-
-			public synchronized void keyPressed(KeyEvent e) {
-				pressed.add(e.getKeyCode());
-				Render render =Game.getGame().render;
-				if(render.is3D()){
-					((Render3D) render).keyPressed(e);
-				}
-				
-			}
-		};
-		// 1 boton inquierdo, 2 central y 3 derecho
-		ml = new MouseListener() {
-
-			public void mouseReleased(MouseEvent e) {
-				if (e.getButton() == 1) {
-					finishFire();
-				}
-			}
-
-			public void mousePressed(MouseEvent e) {
-				if (e.getButton() == 1) {
-					//startFire();
-				}
-
-			}
-
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		};
 		
-		render.addKeyListener(kl);
-		render.addMouseListener(ml);
+		
+		if(listeners){
+			createListeners();
+		}
+		
+		 
 	}
 	
 	/**
@@ -348,6 +299,69 @@ public class Player extends Walker{
 
 	public void setWeapons(Weapon[] aLL_WEAPONS) {
 		weapons=aLL_WEAPONS;
+	}
+	
+	private void createListeners(){
+		listeners=false;
+		pressed = new HashSet<Integer>();
+		kl= new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+			}
+
+			public synchronized void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE  && !jump) {
+					if(dim3d){
+						jump = true;
+					}
+					
+				}
+				pressed.remove(e.getKeyCode());
+			}
+
+			public synchronized void keyPressed(KeyEvent e) {
+				System.out.println("tecla");
+				pressed.add(e.getKeyCode());
+				Render render =Game.getGame().render;
+				if(render.is3D()){
+					((Render3D) render).keyPressed(e);
+				}
+				
+			}
+		};
+		// 1 boton inquierdo, 2 central y 3 derecho
+		ml = new MouseListener() {
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.getButton() == 1) {
+					finishFire();
+				}
+			}
+
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == 1) {
+					//startFire();
+				}
+
+			}
+
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		
+		render.addKeyListener(kl);
+		render.addMouseListener(ml);
 	}
 	/**
 	
