@@ -21,11 +21,11 @@ public class BulletLaser extends Bullet {
 	Color c = new Color(255, 0, 255);
 
 	public BulletLaser(Walker whoAttack, Point2D position, Point2D vel) {
-		super(whoAttack, position.addX(0.01f), vel, size, 1, 50);
+		super(whoAttack, position, vel, size, 1, 50);
 	}
 
 	public BulletLaser(Walker whoAttack, Point2D position, Point2D vel, int hits, int damage) {
-		super(whoAttack, position.addX(0.01f), vel, size, hits, damage);
+		super(whoAttack, position, vel, size, hits, damage);
 	}
 
 	public void draw(Graphics g) {

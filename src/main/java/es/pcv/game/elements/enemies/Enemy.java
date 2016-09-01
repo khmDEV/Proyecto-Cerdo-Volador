@@ -35,6 +35,9 @@ public abstract class Enemy extends Walker{
 		return r;
 	}
 	
+	public void move(long ms){
+		super.update(ms);
+	}
 
 	public void draw3d(GL2 gl, GLU glu, GLUquadric quadric) {
 		Helper3D.drawCilinder(gl, glu, quadric, getPos(), 0.06f, 0.06f, 0, .11f, null,TEXTURE);

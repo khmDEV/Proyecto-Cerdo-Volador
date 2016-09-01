@@ -11,7 +11,7 @@ public class LaserGun extends Weapon {
 	private final static float V_DEFAULT = 0.0005f;
 	private int DAMAGE_DEFAULT = 5;
 	private final static int AMMO_DEFAULT = 100;
-	private final static int CD_DEFAULT = 130;
+	private final static int CD_DEFAULT = 200;
 	private final static int ID = 11;
 	private static final String sound="fx/laser-domson-8694_hifi.mp3";
 

@@ -88,11 +88,10 @@ public class EnemyMelee extends Enemy {
 			velocity.setY(-velocity.getY());
 			colPlayer=false;
 		}
-
-		super.update(ms);
+		move(ms);
 		}
 	}
-
+	
 	public void collision(Collisionable col) {
 		super.collision(col);
 		if (col instanceof Player) {

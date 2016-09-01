@@ -13,24 +13,22 @@ import es.pcv.game.elements.weapons.LaserGun;
 import es.pcv.game.elements.weapons.Weapon;
 import es.pcv.game.elements.weapons.WeaponEntity;
 
-public class EnemyWall extends Enemy {
+public class EnemyWall extends EnemyShoter {
 
 	// Polygon ply;
 	// Color c = new Color(0, 255, 0);
 	private float maxModVelocity=0.1f;
-	int atack = 0;
-	private long CD = 400;
-	private Weapon weapon = new LaserGun(this,5000);
 	private Wall wall;
 	private Point2D size=new Point2D(0.05f, 0.05f).multiply(Config.scale);
 	private int DIFF=10;
 	public EnemyWall(Wall w, Player pl, Point2D maxVelocity, Weapon wp) {
-		super(w.getCenterPos(), new Point2D(0, 0), new Point2D(0.05f, 0.05f), 1, 1, pl);
+		super(w.getCenterPos(), pl, maxVelocity, wp);
 		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/silverbat.png", 4, 4);
 		rect=PolygonHelper.getRectangle(w.getCenterPos(), size).getBounds2D();
 		wall = w;
 		weapon = wp;
 		weapon.equip(this);
+		CD = 400;
 		float x = maxVelocity.getX();
 		float y = maxVelocity.getY();
 		maxModVelocity = (float) Math.sqrt((x * x) + (y * y));
@@ -38,21 +36,13 @@ public class EnemyWall extends Enemy {
 	}
 
 	public EnemyWall(Wall w, Player pl) {
-		super(w.getCenterPos(), new Point2D(0, 0), new Point2D(0.05f, 0.05f), 10, 1, pl);
+		super(w.getCenterPos(),pl, new Point2D(0.05f, 0.05f));
 		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/silverbat.png", 4, 4);
 
 		rect=PolygonHelper.getRectangle(w.getCenterPos(), size).getBounds2D();
 		wall = w;
-		weapon.equip(this);
 		this.addLive(500);
-	}
-
-	public void attack(Point2D point) {
-		// Calculate offset
-		float ox = (float) (getSizeX()/2);
-		float oy = (float) (getSizeY()/2);
-
-		weapon.attack(this, new Point2D(ox, oy).multiply(point).add(getPos()), point);
+		CD = 400;
 	}
 
 	public void update(long ms) {
@@ -68,21 +58,15 @@ public class EnemyWall extends Enemy {
 		float xv=x*maxModVelocity;
 		float yv=y*maxModVelocity;
 		Point2D di = new Point2D(xv,yv);
-		if(atack+ms>CD){
-			Point2D s=di.clone();
-			if (wall.getSizeX()>wall.getSizeY()) {
-				s.setX(0);
-				s.setY(y);
-			}else{
-				s.setY(0);
-				s.setX(x);
-			}
-			attack(s);
-			atack=0;
+		Point2D s=di.clone();
+		if (wall.getSizeX()>wall.getSizeY()) {
+			s.setX(0);
+			s.setY(y);
+		}else{
+			s.setY(0);
+			s.setX(x);
 		}
-		else{
-			atack+=ms;
-		}
+		attack(s);
 
 		velocity.multiply(0);
 		if (wall.getCollisionBox().getMinX() < getX() 
@@ -105,18 +89,18 @@ public class EnemyWall extends Enemy {
 			setY((int) wall.getCollisionBox().getMaxY());
 		}
 
-		super.update(ms);
-		}
-	}
-
-	public void collision(Collisionable col) {
-		super.collision(col);
-		if (col instanceof Player) {
-			Player pl = (Player) col;
-			pl.doDamage(getDamage());
+		move(ms);
 		}
 	}
 	
+	public void attack(Point2D point) {
+		// Calculate offset
+		float ox = (float) (getSizeX()/2);
+		float oy = (float) (getSizeY()/2);
+
+		weapon.attack(this, new Point2D(ox, oy).multiply(point).add(getPos()), point);
+	}
+
 	public boolean isCollision(Collisionable c) {
 		if (!(c instanceof WeaponEntity)&&!(c instanceof Player)) {
 			return false;

@@ -8,17 +8,17 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.LaserGun;
 import es.pcv.game.elements.weapons.Weapon;
 
-public class EnemyShoter extends Enemy{
+public class EnemyShoter extends EnemyMelee{
 
 	//Polygon ply;
 	//Color c = new Color(0, 255, 0);
-	private Point2D maxVelocity=(new Point2D(0.0005f, 0.0005f)).multiply(Config.scale);
-	int atack=0;
-	private long CD=400;
-	private Weapon weapon = new LaserGun(this,5000);
+	protected Point2D maxVelocity=(new Point2D(0.0005f, 0.0005f)).multiply(Config.scale);
+	protected int atack=0;
+	protected long CD=400;
+	protected Weapon weapon = new LaserGun(this,0);
 	
 	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity, Weapon wp) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		super(position, pl, maxVelocity);
 		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/wintersoldier.png", 4, 4);
 		this.maxVelocity=maxVelocity.clone();
 		weapon=wp;
@@ -26,7 +26,7 @@ public class EnemyShoter extends Enemy{
 		//this.addLive(500);
 	}
 	public EnemyShoter(Point2D position,Player pl,Point2D maxVelocity) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		super(position, pl, maxVelocity);
 		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/wintersoldier.png", 4, 4);
 		this.maxVelocity=maxVelocity.clone();
 		weapon.equip(this);
@@ -36,7 +36,7 @@ public class EnemyShoter extends Enemy{
 	
 	
 	public EnemyShoter(Point2D position,Player pl) {		
-		super(position, new Point2D(0, 0), new Point2D(0.05f, 0.05f), 20, 1,pl);
+		super(position,pl);
 		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/wintersoldier.png", 4, 4);
 		weapon.equip(this);
 		//this.addLive(500);
@@ -60,53 +60,35 @@ public class EnemyShoter extends Enemy{
 		Point2D vel=new Point2D(x,y);
 		return vel;
 	}
+	
+	public void attack(long ms,Point2D point) {
+		if(atack+ms>CD){
+			// Calculate offset
+			float ox = (float) (getSizeX()/2);
+			float oy = (float) (getSizeY()/2);
+
+			weapon.attack(this, new Point2D(ox, oy).multiply(point).add(getPos()), point);
+			atack=0;
+		}
+		else{
+			atack+=ms;
+		}
+		
+	}
+	
 	public void update(long ms) {
 		if(ms>100){
 			
 		}
 		else{
 			Point2D di=calcularVel();
-			if(atack+ms>CD){
-				attack(di.clone());
-				atack=0;
-			}
-			else{
-				atack+=ms;
-			}
-			velocity=di.clone().multiply(maxVelocity);
-			if (obstacle_collision_dx && obstacle_collision_ux) {
-				velocity.setX(0);
-				obstacle_collision_dx = false;
-				obstacle_collision_ux = false;
-			}else if (obstacle_collision_dx) {
-				velocity.setX(-Math.abs(maxVelocity.getX()));
-				obstacle_collision_dx = false;
-			}else if (obstacle_collision_ux) {
-				velocity.setX(Math.abs(maxVelocity.getX()));
-				obstacle_collision_ux = false;
-			}
-			if (obstacle_collision_dy && obstacle_collision_uy) {
-				velocity.setY(0);
-				obstacle_collision_dy = false;
-				obstacle_collision_uy = false;
-			}else if (obstacle_collision_dy) {
-				velocity.setY(-Math.abs(maxVelocity.getY()));
-				obstacle_collision_dy = false;
-			}else if (obstacle_collision_uy) {
-				velocity.setY(Math.abs(maxVelocity.getY()));
-				obstacle_collision_uy = false;
-			}
+			attack(di.clone());
 			super.update(ms);
 		}
-
 	}
 	
-	public void collision(Collisionable col) {
-		super.collision(col);
-		if (col instanceof Player) {
-			Player pl = (Player) col;
-			pl.doDamage(getDamage());
-		}
+	public void move(){
+		
 	}
 
 }

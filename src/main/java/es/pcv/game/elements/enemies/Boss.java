@@ -12,19 +12,16 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.LaserGun;
 import es.pcv.game.elements.weapons.Weapon;
 
-public class Boss extends Enemy{
+public class Boss extends EnemyShoter{
 
 	Polygon ply;
 	Color c = new Color(0, 255, 0);
 	private long lastTeleport=0;
 	private Point2D[] positions;
-	private long CD=200;
-	private Weapon weapon;
-	int atack=0;
 	
 	public Boss(Point2D position,Player pl,Point2D maxVelocity) {
-		super(position, new Point2D(0.025f, 0.025f), new Point2D(0.1f, 0.1f), 10, 1,pl);
-		weapon = new LaserGun(this,5000,15,200);
+		super(position, pl,new Point2D(0.025f, 0.025f));
+		weapon = new LaserGun(this,0,15,200);
 		icon= new ObjectIcon(Config.RESOURCES_PATH + "/icons/ryuk.png", 4, 4);
 		
 		positions = new Point2D[4];
@@ -108,12 +105,4 @@ public class Boss extends Enemy{
 	}
 
 
-	public void collision(Collisionable col) {
-		super.collision(col);
-		if (col instanceof Player) {
-			Player pl = (Player) col;
-			pl.doDamage(getDamage());
-		}
-	}
-	
 }

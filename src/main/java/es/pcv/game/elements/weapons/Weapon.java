@@ -36,7 +36,7 @@ public abstract class Weapon {
 	
 	public abstract void doAttack(Walker shooter,Point2D origin,Point2D direction);;
 	
-	public void attack(Walker shooter,Point2D origin,Point2D direction){
+	public synchronized void attack(Walker shooter,Point2D origin,Point2D direction){
 		if (canAttack()) {
 			doAttack(shooter, origin, direction);
 			resetCD();
