@@ -131,9 +131,9 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 
 	}
 
-	private float[] lightPosition = { 0f, 2f, 2f, 1.0f };
-	private float[] lightAmbient = { 1.2f, 1.2f, 1.2f, 1.0f };
-	private float[] lightDiffuse = { 1.2f, 1.2f, 1.2f, 1.0f }; // Which Filter
+	private float[] lightPosition = { 0f, 1.5f, 0f, 1.0f };
+	private float[] lightAmbient = { 1.2f, 1.2f, 1.2f, 2.0f };
+	private float[] lightDiffuse = { 1.2f, 1.2f, 1.2f, 2.0f }; // Which Filter
 																// To Use
 	private GLU glu = new GLU();
 
