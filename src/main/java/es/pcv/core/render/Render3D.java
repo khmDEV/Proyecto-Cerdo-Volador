@@ -64,6 +64,8 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 	public int rotationy=0;
 	public int rotationz=0;
 	public float zoom=0;
+	public float zoom2=0;
+	public float zoom3=0;
 	public boolean player_center = false;
 	private boolean rotationMode=false;
 	
@@ -258,7 +260,7 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 			gl.glOrtho(-1+1*zoom, 1f-1*zoom, -1f+1*zoom, 1f-1*zoom, -3f, 20.0f);
 		}
 
-		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom, rotationMode);
+		Helper3D.startRenderFrame(gl, player_center, rotationx, rotationy,rotationz, zoom, rotationMode,zoom2,zoom3);
 		updateLight(gl);
 		Helper3D.drawBase(gl);
 		gl.glTranslatef(0f, 1.0f, 0f);
@@ -363,20 +365,14 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 
 */
 	public void keyPressed(KeyEvent e) {
-		/*if(e.getKeyCode()==KeyEvent.VK_UP){
-			rotationx+=1;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_DOWN){
-			rotationx-=1;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_LEFT){
-			rotationy-=1;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-			rotationy+=1;
-		}*/
 		if (e.getKeyCode()==KeyEvent.VK_M) {
 			perspective=!perspective;
+			rotationx=0;
+			rotationy=0;
+			rotationz=0;
+			zoom=0;
+			zoom2=0;
+			zoom3=0;
 		}
 		if (e.getKeyCode()==KeyEvent.VK_L) {
 			rotationMode=!rotationMode;
@@ -387,11 +383,27 @@ public class Render3D extends Render implements GLEventListener,MouseMotionListe
 		if(e.getKeyCode()==KeyEvent.VK_MINUS){
 			zoom-=0.1;
 		}
+		if(e.getKeyCode()==KeyEvent.VK_G){
+			zoom2-=0.1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_T){
+
+			zoom2+=0.1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_F){
+			zoom3-=0.1;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_H){
+			zoom3+=0.1;
+			
+		}
 		if(e.getKeyCode()==KeyEvent.VK_R){
 			rotationx=0;
 			rotationy=0;
 			rotationz=0;
 			zoom=0;
+			zoom2=0;
+			zoom3=0;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_Q){
 			rotationz-=1;
