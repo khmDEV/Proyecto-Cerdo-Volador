@@ -16,7 +16,7 @@ import es.pcv.game.elements.player.Player;
 import es.pcv.game.elements.weapons.AllDirectionsWeapon;
 import es.pcv.game.elements.weapons.Weapon;
 
-public class EnemyAnnoying extends EnemyShoter {
+public class EnemyAnnoying extends EnemyShoterInmovil {
 
 	// Polygon ply;
 	// Color c = new Color(0, 255, 0);
@@ -28,7 +28,7 @@ public class EnemyAnnoying extends EnemyShoter {
 			icon_show = new ObjectIcon(Config.RESOURCES_PATH + "/icons/Jelly_eye.png", 1, 1);;
 
 	public EnemyAnnoying(Point2D position, Player pl, Weapon wp) {
-		super(position, pl, new Point2D(0, 0),wp);
+		super(position, pl,wp);
 		icon = icon_hide;
 		weapon = wp;
 		weapon.equip(this);
@@ -36,7 +36,7 @@ public class EnemyAnnoying extends EnemyShoter {
 	}
 
 	public EnemyAnnoying(Point2D position, Player pl) {
-		super(position, pl, new Point2D(0.05f, 0.05f));
+		super(position, pl);
 		icon = icon_hide;
 		weapon=new AllDirectionsWeapon(this);
 		weapon.equip(this);
@@ -44,7 +44,7 @@ public class EnemyAnnoying extends EnemyShoter {
 	}
 
 	public EnemyAnnoying(Point2D position, Player pl, int damage) {
-		super(position, pl, new Point2D(0.05f, 0.05f));
+		super(position, pl);
 		this.damage=damage;
 		icon = icon_hide;
 		weapon = new AllDirectionsWeapon(this, damage);
