@@ -36,7 +36,7 @@ public class Player extends Walker{
 	private boolean dim3d;
 	private boolean click = false;
 	private double z = 0;
-	private boolean jump = false;
+	private static boolean jump = false;
 	private boolean up = true;
 
 	public static Set<Integer> pressed;
@@ -319,7 +319,6 @@ public class Player extends Walker{
 			}
 
 			public synchronized void keyPressed(KeyEvent e) {
-				System.out.println("tecla");
 				pressed.add(e.getKeyCode());
 				Render render =Game.getGame().render;
 				if(render.is3D()){
